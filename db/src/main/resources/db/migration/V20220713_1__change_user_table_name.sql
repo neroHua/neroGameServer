@@ -1,0 +1,1 @@
+ ALTER TABLE user CHANGE name user_id VARCHAR(12) NOT NULL UNIQUE COMMENT '账号id';
