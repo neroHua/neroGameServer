@@ -4,6 +4,6 @@ import com.nero.hua.bean.UserDO;
 
 public interface UserDAO {
 
-    UserDO selectById(Long id);
+    UserDO selectByUserId(String userId);
 
 }
