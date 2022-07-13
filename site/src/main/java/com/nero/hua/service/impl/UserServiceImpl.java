@@ -43,9 +43,8 @@ public class UserServiceImpl implements UserService {
         if (!userDO.getPassword().equals(loginRequest.getPassword())) {
             throw new LoginException(LoginEnumeration.PASSWORD_NOT_RIGHT);
         }
-        else {
-            return Boolean.TRUE;
-        }
+
+        return Boolean.TRUE;
     }
 
 }
