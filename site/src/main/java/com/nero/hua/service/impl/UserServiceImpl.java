@@ -1,10 +1,14 @@
 package com.nero.hua.service.impl;
 
 import com.nero.hua.bean.UserDO;
+import com.nero.hua.convert.UserConvert;
 import com.nero.hua.dao.UserDAO;
-import com.nero.hua.exception.LoginException;
 import com.nero.hua.enumeration.LoginEnumeration;
-import com.nero.hua.model.LoginRequest;
+import com.nero.hua.enumeration.RegisterEnumeration;
+import com.nero.hua.exception.LoginException;
+import com.nero.hua.exception.RegisterException;
+import com.nero.hua.model.user.LoginRequest;
+import com.nero.hua.model.user.RegisterRequest;
 import com.nero.hua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,19 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Override
+    public Boolean register(RegisterRequest registerRequest) {
+        UserDO userDOExist = userDAO.selectByUserId(registerRequest.getUserId());
+        if (null != userDOExist) {
+            throw new RegisterException(RegisterEnumeration.DUPLICATED_USER_ID);
+        }
+
+        UserDO userDO = UserConvert.convertRequestToDO(registerRequest);
+        userDAO.insertUser(userDO);
+
+        return Boolean.TRUE;
+    }
 
     @Override
     public Boolean login(LoginRequest loginRequest) {
