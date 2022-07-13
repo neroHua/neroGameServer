@@ -18,8 +18,10 @@ public class UserDO {
 
     private Long updateUserId;
 
-    private String name;
+    private String userId;
 
     private String password;
+
+    private String nickName;
 
 }
