@@ -4,7 +4,7 @@ CREATE TABLE `user` (
   `update_time` DATETIME NOT NULL COMMENT '修改时间',
   `create_user_id` bigint(20) unsigned NOT NULL COMMENT '创建用户id',
   `update_user_id` bigint(20) unsigned NOT NULL COMMENT '更新用户id',
-  `name` varchar(64) NOT NULL COMMENT '用户名称',
+  `user_id` varchar(12) NOT NULL UNIQUE COMMENT '账户id',
   `password` varchar(12) NOT NULL COMMENT '登录密码',
   `nick_name` varchar(50) NOT NULL COMMENT '昵称',
   PRIMARY KEY (`id`)
