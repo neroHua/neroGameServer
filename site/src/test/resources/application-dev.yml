@@ -11,5 +11,7 @@ filter:
   login-filter:
     excludeURIList:
       - "login"
+      - "image"
+      - "register"
 server:
-  port: 8080
+  port: 8082
