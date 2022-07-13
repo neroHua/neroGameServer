@@ -9,6 +9,7 @@ filter:
     excludeURIList:
       - "login"
       - "image"
+      - "register"
 server:
   port: 8082
 
@@ -18,4 +19,3 @@ image:
       "D:/image/"
     virtual-prefix-path:
       "http://localhost:8082/image/"
-
