@@ -2,6 +2,7 @@ package com.nero.hua.convert;
 
 import com.nero.hua.bean.UserDO;
 import com.nero.hua.model.user.RegisterRequest;
+import com.nero.hua.model.user.UserInformationResponse;
 
 import java.util.Date;
 
@@ -22,4 +23,12 @@ public class UserConvert {
         return userDO;
     }
 
+    public static UserInformationResponse convertDOToResponse(UserDO userDO) {
+        UserInformationResponse userInformationResponse = new UserInformationResponse();
+
+        userInformationResponse.setUserId(userDO.getUserId());
+        userInformationResponse.setNickName(userDO.getNickName());
+
+        return userInformationResponse;
+    }
 }
