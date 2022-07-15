@@ -1,16 +1,14 @@
 package com.nero.hua.controller;
 
 import com.nero.hua.constant.LoginConstant;
-import com.nero.hua.model.user.LoginRequest;
 import com.nero.hua.model.base.BaseResponse;
+import com.nero.hua.model.user.LoginRequest;
 import com.nero.hua.model.user.RegisterRequest;
+import com.nero.hua.model.user.UserInformationResponse;
 import com.nero.hua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,6 +48,14 @@ public class UserController {
         }
 
        return new BaseResponse<>(Boolean.TRUE);
+    }
+
+    @GetMapping(value = "information")
+    public BaseResponse<UserInformationResponse> userInformation(HttpSession httpSession) {
+        String userId = (String) httpSession.getAttribute(LoginConstant.USER_ID);
+        UserInformationResponse userInformationResponse = userService.getUserInformation(userId);
+
+        return new BaseResponse<>(userInformationResponse);
     }
 
 }
