@@ -2,6 +2,7 @@ package com.nero.hua.service;
 
 import com.nero.hua.model.user.LoginRequest;
 import com.nero.hua.model.user.RegisterRequest;
+import com.nero.hua.model.user.UserInformationResponse;
 
 public interface UserService {
 
@@ -9,4 +10,5 @@ public interface UserService {
 
     Boolean login(LoginRequest loginRequest);
 
+    UserInformationResponse getUserInformation(String userId);
 }
