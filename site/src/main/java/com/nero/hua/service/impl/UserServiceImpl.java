@@ -9,6 +9,7 @@ import com.nero.hua.exception.LoginException;
 import com.nero.hua.exception.RegisterException;
 import com.nero.hua.model.user.LoginRequest;
 import com.nero.hua.model.user.RegisterRequest;
+import com.nero.hua.model.user.UserInformationResponse;
 import com.nero.hua.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,16 @@ public class UserServiceImpl implements UserService {
         }
 
         return Boolean.TRUE;
+    }
+
+    @Override
+    public UserInformationResponse getUserInformation(String userId) {
+        UserDO userDO = userDAO.selectByUserId(userId);
+        if (null == userDO) {
+            throw new LoginException(LoginEnumeration.USER_NOT_FOUND);
+        }
+
+        return UserConvert.convertDOToResponse(userDO);
     }
 
 }
