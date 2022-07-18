@@ -1,6 +1,7 @@
 package com.nero.hua.service.impl;
 
 import com.nero.hua.bean.UserDO;
+import com.nero.hua.config.LoginConfig;
 import com.nero.hua.convert.UserConvert;
 import com.nero.hua.dao.UserDAO;
 import com.nero.hua.enumeration.LoginEnumeration;
@@ -11,6 +12,7 @@ import com.nero.hua.model.user.LoginRequest;
 import com.nero.hua.model.user.RegisterRequest;
 import com.nero.hua.model.user.UserInformationResponse;
 import com.nero.hua.service.UserService;
+import com.nero.hua.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    LoginConfig loginConfig;
 
     @Override
     public Boolean register(RegisterRequest registerRequest) {
@@ -34,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean login(LoginRequest loginRequest) {
+    public String login(LoginRequest loginRequest) {
         UserDO userDO = userDAO.selectByUserId(loginRequest.getUserId());
 
         if (null == userDO) {
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
             throw new LoginException(LoginEnumeration.PASSWORD_NOT_RIGHT);
         }
 
-        return Boolean.TRUE;
+        return LoginUtil.createToken(UserConvert.convertDOToResponse(userDO));
     }
 
     @Override
