@@ -8,7 +8,7 @@ public interface UserService {
 
     Boolean register(RegisterRequest registerRequest);
 
-    Boolean login(LoginRequest loginRequest);
+    String login(LoginRequest loginRequest);
 
     UserInformationResponse getUserInformation(String userId);
 }
