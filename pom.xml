@@ -30,6 +30,7 @@
 		<fastJSON.version>1.2.47</fastJSON.version>
 		<h2.version>1.4.200</h2.version>
 		<junit.version>4.13.2</junit.version>
+		<java-jwt.version>3.8.3</java-jwt.version>
 	</properties>
 
 	<dependencyManagement>
@@ -113,6 +114,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-aop</artifactId>
 				<version>${spring.boot.starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>${java-jwt.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
