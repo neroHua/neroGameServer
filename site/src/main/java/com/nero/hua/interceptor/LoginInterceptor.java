@@ -26,10 +26,17 @@ public class LoginInterceptor implements HandlerInterceptor {
             return Boolean.TRUE;
         }
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Method method = handlerMethod.getMethod();
-        if (method.isAnnotationPresent(LoginSkip.class)) {
-            return Boolean.TRUE;
+//        String httpMethod = request.getMethod();
+//        if (HttpMethod.OPTIONS.name().equals(httpMethod)) {
+//            return true;
+//        }
+
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            if (method.isAnnotationPresent(LoginSkip.class)) {
+                return Boolean.TRUE;
+            }
         }
 
         String token = request.getHeader(loginConfig.getHeadTokenKey());
