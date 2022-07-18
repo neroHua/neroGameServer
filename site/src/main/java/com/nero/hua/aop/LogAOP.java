@@ -10,9 +10,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.*;
+import java.util.LinkedList;
+import java.util.List;
 
 @Aspect
 @Component
@@ -55,7 +60,16 @@ public class LogAOP {
 
     private Object logParamsAndReturn(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object[] args = proceedingJoinPoint.getArgs();
-        log.info("{}.{}-{}-args:{}", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName(), "in", JSON.toJSONString(args[0]));
+        List<Object> argList = new LinkedList<>();
+        if (null != args && args.length > 0) {
+            for (Object object : args) {
+                if (!(object instanceof ServletRequest) && !(object instanceof ServletResponse) && !(object instanceof MultipartFile)) {
+                    argList.add(object);
+                }
+            }
+        }
+
+        log.info("{}.{}-{}-args:{}", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName(), "in", JSON.toJSONString(argList));
 
         Object proceed = proceedingJoinPoint.proceed();
         log.info("{}.{}-{}-result:{}", proceedingJoinPoint.getSignature().getDeclaringTypeName(), proceedingJoinPoint.getSignature().getName(), "out", (JSON.toJSONString(proceed)));
