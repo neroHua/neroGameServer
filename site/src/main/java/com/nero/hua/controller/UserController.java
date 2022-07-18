@@ -6,10 +6,12 @@ import com.nero.hua.model.user.LoginRequest;
 import com.nero.hua.model.user.RegisterRequest;
 import com.nero.hua.model.user.UserInformationResponse;
 import com.nero.hua.service.UserService;
+import com.nero.hua.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -27,16 +29,10 @@ public class UserController {
     }
 
     @PostMapping(value = "login")
-    public BaseResponse<Boolean> login(@RequestBody @Validated LoginRequest loginRequest, HttpSession httpSession) {
-        if (null != httpSession.getAttribute(LoginConstant.LOGIN)) {
-            return new BaseResponse<>(Boolean.TRUE);
-        }
+    public BaseResponse<String> login(@RequestBody @Validated LoginRequest loginRequest, HttpSession httpSession) {
+        String token = userService.login(loginRequest);
 
-        Boolean successLogin = userService.login(loginRequest);
-        httpSession.setAttribute(LoginConstant.LOGIN, Boolean.TRUE);
-        httpSession.setAttribute(LoginConstant.USER_ID, loginRequest.getUserId());
-
-        return new BaseResponse<>(successLogin);
+        return new BaseResponse<>(token);
     }
 
     @PostMapping(value = "logout")
@@ -51,8 +47,8 @@ public class UserController {
     }
 
     @GetMapping(value = "information")
-    public BaseResponse<UserInformationResponse> userInformation(HttpSession httpSession) {
-        String userId = (String) httpSession.getAttribute(LoginConstant.USER_ID);
+    public BaseResponse<UserInformationResponse> userInformation(HttpServletRequest httpServletRequest) {
+        String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
         UserInformationResponse userInformationResponse = userService.getUserInformation(userId);
 
         return new BaseResponse<>(userInformationResponse);
