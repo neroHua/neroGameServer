@@ -8,13 +8,19 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
-@ConfigurationProperties("filter.login-filter")
+@ConfigurationProperties("interceptor.login-interceptor")
 @Getter
 @Setter
 @Component
-public class LoginFilterConfig {
+public class LoginConfig {
 
     private List<String> excludeURIList;
+
+    private Long expireMinutes;
+
+    private String secret;
+
+    private String headTokenKey;
 
     public Boolean exclude(String URI) {
         if (CollectionUtils.isEmpty(excludeURIList)) {
@@ -29,4 +35,9 @@ public class LoginFilterConfig {
 
         return Boolean.FALSE;
     }
+
+    public Long getExpireMillSeconds() {
+        return this.expireMinutes * 60000;
+    }
+
 }
