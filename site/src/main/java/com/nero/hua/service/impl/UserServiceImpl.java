@@ -1,7 +1,6 @@
 package com.nero.hua.service.impl;
 
 import com.nero.hua.bean.UserDO;
-import com.nero.hua.config.LoginConfig;
 import com.nero.hua.convert.UserConvert;
 import com.nero.hua.dao.UserDAO;
 import com.nero.hua.enumeration.LoginEnumeration;
@@ -21,9 +20,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDAO userDAO;
-
-    @Autowired
-    LoginConfig loginConfig;
 
     @Override
     public Boolean register(RegisterRequest registerRequest) {
