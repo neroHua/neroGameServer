@@ -3,6 +3,7 @@ package com.nero.hua.interceptor;
 import com.nero.hua.config.LoginConfig;
 import com.nero.hua.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,10 +27,10 @@ public class LoginInterceptor implements HandlerInterceptor {
             return Boolean.TRUE;
         }
 
-//        String httpMethod = request.getMethod();
-//        if (HttpMethod.OPTIONS.name().equals(httpMethod)) {
-//            return true;
-//        }
+        String httpMethod = request.getMethod();
+        if (HttpMethod.OPTIONS.name().equals(httpMethod)) {
+            return true;
+        }
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
