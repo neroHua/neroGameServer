@@ -6,17 +6,27 @@ import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.room.LeaveRoomRequest;
 import com.nero.hua.model.room.RoomMO;
+import com.nero.hua.model.user.ChangeUserPrepareStatusMessage;
+import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
+import com.nero.hua.model.user.DealCardMessage;
+import com.nero.hua.model.user.GameUserMO;
 import com.nero.hua.service.RoomService;
+import com.nero.hua.websocket.WebSocketServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class RoomServiceImpl implements RoomService {
 
-    Map<Long, RoomMO> roomMOMap = new ConcurrentHashMap<>();
-    Map<String, Long> userIdRoomIdMap= new ConcurrentHashMap<>();
+    @Autowired
+    private WebSocketServer webSocketServer;
+
+    private Map<Long, RoomMO> roomMOMap = new ConcurrentHashMap<>();
+    private Map<String, Long> userIdRoomIdMap= new ConcurrentHashMap<>();
 
     @Override
     public Long createRoom(String userId) {
@@ -56,6 +66,45 @@ public class RoomServiceImpl implements RoomService {
         }
 
         userIdRoomIdMap.remove(userId, roomMO.getRoomId());
+
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean changeUserPrepareStatus(String userId, ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest) {
+        Long roomId = userIdRoomIdMap.get(userId);
+        if (null == roomId) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        RoomMO roomMO = roomMOMap.get(roomId);
+        if (null == roomMO) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+        roomMO.changeUserPrepareStatus(userId, changeUserPrepareStatusRequest.getPrepared());
+
+        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        if (gameUserMOList.size() > 1) {
+            ChangeUserPrepareStatusMessage changeUserPrepareStatusMessage = new ChangeUserPrepareStatusMessage(userId, changeUserPrepareStatusRequest.getPrepared());
+            for (GameUserMO gameUserMO : gameUserMOList) {
+                if (!gameUserMO.getUserId().equals(userId)) {
+                    webSocketServer.sendMessage(gameUserMO.getUserId(), changeUserPrepareStatusMessage);
+                }
+            }
+        }
+
+        if (roomMO.shouldNotStartGame()) {
+            return Boolean.TRUE;
+        }
+
+        roomMO.startGame();
+        gameUserMOList = roomMO.getGameUserMOList();
+        if (gameUserMOList.size() > 1) {
+            for (GameUserMO gameUserMO : gameUserMOList) {
+                DealCardMessage dealCardMessage = new DealCardMessage(gameUserMO.getCardList());
+                webSocketServer.sendMessage(gameUserMO.getUserId(), dealCardMessage);
+            }
+        }
 
         return Boolean.TRUE;
     }
