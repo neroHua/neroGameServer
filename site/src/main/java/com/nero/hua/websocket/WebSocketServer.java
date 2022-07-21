@@ -1,11 +1,14 @@
 package com.nero.hua.websocket;
 
+import com.alibaba.fastjson.JSON;
+import com.nero.hua.model.base.BaseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -60,4 +63,13 @@ public class WebSocketServer {
         log.info("user: {} message: {}", userId, message);
     }
 
+    public void sendMessage(String userId, BaseMessage baseMessage) {
+        Session session = userSessionMap.get(userId);
+
+        try {
+            session.getBasicRemote().sendText(JSON.toJSONString(baseMessage));
+        } catch (IOException e) {
+            log.error(JSON.toJSONString(baseMessage), e);
+        }
+    }
 }
