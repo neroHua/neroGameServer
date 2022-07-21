@@ -3,6 +3,7 @@ package com.nero.hua.controller;
 import com.nero.hua.model.base.BaseResponse;
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.room.LeaveRoomRequest;
+import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
 import com.nero.hua.service.RoomService;
 import com.nero.hua.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,15 @@ public class RoomController {
         String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
 
         Boolean joinSuccess = roomService.leaveRoom(userId, leaveRoomRequest);
+
+        return new BaseResponse<>(joinSuccess);
+    }
+
+    @PostMapping("changeUserPrepareStatus")
+    public BaseResponse<Boolean> changeUserPrepareStatus(@RequestBody @Validated ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest, HttpServletRequest httpServletRequest) {
+        String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
+
+        Boolean joinSuccess = roomService.changeUserPrepareStatus(userId, changeUserPrepareStatusRequest);
 
         return new BaseResponse<>(joinSuccess);
     }
