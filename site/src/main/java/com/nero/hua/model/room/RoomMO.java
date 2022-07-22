@@ -34,6 +34,7 @@ public class RoomMO {
 
         GameUserMO gameUserMO = new GameUserMO();
         gameUserMO.setUserId(userId);
+        gameUserMO.setPrepared(Boolean.TRUE);
         gameUserMOList.add(gameUserMO);
     }
 
