@@ -1,15 +1,13 @@
 package com.nero.hua.service.impl;
 
+import com.nero.hua.convert.UserConvert;
 import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.room.LeaveRoomRequest;
 import com.nero.hua.model.room.RoomMO;
-import com.nero.hua.model.user.ChangeUserPrepareStatusMessage;
-import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
-import com.nero.hua.model.user.DealCardMessage;
-import com.nero.hua.model.user.GameUserMO;
+import com.nero.hua.model.user.*;
 import com.nero.hua.service.RoomService;
 import com.nero.hua.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +105,21 @@ public class RoomServiceImpl implements RoomService {
         }
 
         return Boolean.TRUE;
+    }
+
+    @Override
+    public List<RoomUserInformationResponse> getRoomUserList(String userId) {
+        Long roomId = userIdRoomIdMap.get(userId);
+        if (null == roomId) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        RoomMO roomMO = roomMOMap.get(roomId);
+        if (null == roomMO) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        return UserConvert.convertMoToResponse(roomMO.getGameUserMOList());
     }
 
 }
