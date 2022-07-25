@@ -9,10 +9,7 @@ import com.nero.hua.service.RoomService;
 import com.nero.hua.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -60,7 +57,7 @@ public class RoomController {
         return new BaseResponse<>(joinSuccess);
     }
 
-    @PostMapping("userList")
+    @GetMapping("userList")
     public BaseResponse<List<RoomUserInformationResponse>> getRoomUserList(HttpServletRequest httpServletRequest) {
         String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
 
