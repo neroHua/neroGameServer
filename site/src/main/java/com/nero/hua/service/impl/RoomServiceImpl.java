@@ -47,6 +47,16 @@ public class RoomServiceImpl implements RoomService {
 
         userIdRoomIdMap.put(userId, roomMO.getRoomId());
 
+        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        if (gameUserMOList.size() > 1) {
+            UserJoinRoomMessage userJoinRoomMessage = new UserJoinRoomMessage(userId);
+            for (GameUserMO gameUserMO : gameUserMOList) {
+                if (!gameUserMO.getUserId().equals(userId)) {
+                    webSocketServer.sendMessage(gameUserMO.getUserId(), userJoinRoomMessage);
+                }
+            }
+        }
+
         return Boolean.TRUE;
     }
 
@@ -64,6 +74,16 @@ public class RoomServiceImpl implements RoomService {
         }
 
         userIdRoomIdMap.remove(userId, roomMO.getRoomId());
+
+        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        if (gameUserMOList.size() > 1) {
+            UserLeaveRoomMessage userLeaveRoomMessage = new UserLeaveRoomMessage(userId);
+            for (GameUserMO gameUserMO : gameUserMOList) {
+                if (!gameUserMO.getUserId().equals(userId)) {
+                    webSocketServer.sendMessage(gameUserMO.getUserId(), userLeaveRoomMessage);
+                }
+            }
+        }
 
         return Boolean.TRUE;
     }
