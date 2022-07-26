@@ -23,6 +23,7 @@ public class GameManagerTest {
         Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(1));
     }
 
+    @Test
     public void testSortCardCase02() {
         List<CardEnumeration> cardList = new LinkedList<>();
         cardList.add(CardEnumeration.CARD_103);
@@ -36,7 +37,7 @@ public class GameManagerTest {
 
         Assert.assertEquals(CardEnumeration.CARD_106, cardList.get(0));
         Assert.assertEquals(CardEnumeration.CARD_105, cardList.get(1));
-        Assert.assertEquals(CardEnumeration.CARD_104, cardList.get(3));
-        Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(4));
+        Assert.assertEquals(CardEnumeration.CARD_104, cardList.get(2));
+        Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(3));
     }
 }
