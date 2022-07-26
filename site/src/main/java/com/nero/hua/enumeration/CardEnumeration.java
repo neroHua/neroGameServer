@@ -1,5 +1,8 @@
 package com.nero.hua.enumeration;
 
+import lombok.Getter;
+
+@Getter
 public enum CardEnumeration {
 
     CARD_103("card_103", 3, "方块3"),
