@@ -5,6 +5,7 @@ import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.user.GameUserMO;
+import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
@@ -12,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -86,7 +88,8 @@ public class RoomMO {
         List<CardEnumeration> shuffledCardList = gameManager.shuffleCard();
         List<List<CardEnumeration>> dealCardList =  gameManager.dealCard(shuffledCardList);
         for (int i = 0; i < gameUserMOList.size(); i++) {
-            gameUserMOList.get(i).setCardList(dealCardList.remove(0));
+            Map<CardEnumeration, Integer> cardMap = CardUtil.convertCardListToCardMap(dealCardList.remove(0));
+            gameUserMOList.get(i).setCardMap(cardMap);
         }
     }
 
