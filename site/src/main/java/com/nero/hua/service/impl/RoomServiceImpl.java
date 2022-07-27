@@ -1,6 +1,7 @@
 package com.nero.hua.service.impl;
 
 import com.nero.hua.convert.UserConvert;
+import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
@@ -118,11 +119,15 @@ public class RoomServiceImpl implements RoomService {
 
         roomMO.startGame();
         gameUserMOList = roomMO.getGameUserMOList();
-        if (gameUserMOList.size() > 1) {
-            for (GameUserMO gameUserMO : gameUserMOList) {
-                DealCardMessage dealCardMessage = new DealCardMessage(CardUtil.convertCardMapToCardList(gameUserMO.getCardMap()));
-                webSocketServer.sendMessage(gameUserMO.getUserId(), dealCardMessage);
-            }
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            DealCardMessage dealCardMessage = new DealCardMessage(CardUtil.convertCardMapToCardList(gameUserMO.getCardMap()));
+            webSocketServer.sendMessage(gameUserMO.getUserId(), dealCardMessage);
+        }
+
+        String randomUserId = roomMO.chooseOneUserToRobLandlord();
+        UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(randomUserId);
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            webSocketServer.sendMessage(gameUserMO.getUserId(), userStartRobLandlordMessage);
         }
 
         return Boolean.TRUE;
@@ -141,6 +146,82 @@ public class RoomServiceImpl implements RoomService {
         }
 
         return UserConvert.convertMoToResponse(roomMO.getGameUserMOList());
+    }
+
+    @Override
+    public Boolean doRobLandlord(String userId) {
+        Long roomId = userIdRoomIdMap.get(userId);
+        if (null == roomId) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        RoomMO roomMO = roomMOMap.get(roomId);
+        if (null == roomMO) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        roomMO.thisGuyTurnToRob(userId);
+
+        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        UserDoRobLandlordMessage userDoRobLandlordMessage = new UserDoRobLandlordMessage(userId);
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            if (!gameUserMO.getUserId().equals(userId)) {
+                webSocketServer.sendMessage(gameUserMO.getUserId(), userDoRobLandlordMessage);
+            }
+        }
+
+        List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
+        DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(userId, landlordCardList);
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            webSocketServer.sendMessage(gameUserMO.getUserId(), dealLandlordCardMessage);
+        }
+
+        roomMO.giveLandlordCardToThisGuy(userId);
+
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean doNotRobLandlord(String userId) {
+        Long roomId = userIdRoomIdMap.get(userId);
+        if (null == roomId) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        RoomMO roomMO = roomMOMap.get(roomId);
+        if (null == roomMO) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        roomMO.thisGuyTurnToNotRob(userId);
+
+        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        UserDoNotRobLandlordMessage userDoNotRobLandlordMessage = new UserDoNotRobLandlordMessage(userId);
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            if (!gameUserMO.getUserId().equals(userId)) {
+                webSocketServer.sendMessage(gameUserMO.getUserId(), userDoNotRobLandlordMessage);
+            }
+        }
+
+        if (roomMO.hasNextOneToStartRob()) {
+            String nextUserIdToStartRob = roomMO.getNextOneToStartRob();
+            UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(nextUserIdToStartRob);
+            for (GameUserMO gameUserMO : gameUserMOList) {
+                webSocketServer.sendMessage(gameUserMO.getUserId(), userStartRobLandlordMessage);
+            }
+        }
+        else {
+            String lastUserId = roomMO.getLastUser();
+            List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
+            DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(lastUserId, landlordCardList);
+            for (GameUserMO gameUserMO : gameUserMOList) {
+                webSocketServer.sendMessage(gameUserMO.getUserId(), dealLandlordCardMessage);
+            }
+
+            roomMO.giveLandlordCardToThisGuy(userId);
+        }
+
+        return Boolean.TRUE;
     }
 
 }
