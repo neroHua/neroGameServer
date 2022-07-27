@@ -49,7 +49,7 @@ public class GameManager {
 
         dealCardList.add(shuffledCardList);
 
-        sortEachCardList(dealCardList);
+//        sortEachCardList(dealCardList);
 
         return dealCardList;
     }
