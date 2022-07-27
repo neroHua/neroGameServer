@@ -1,6 +1,11 @@
 package com.nero.hua.game.manager;
 
 import com.nero.hua.enumeration.CardEnumeration;
+import com.nero.hua.enumeration.RobLandlordEnumeration;
+import com.nero.hua.exception.RobLandlordException;
+import com.nero.hua.model.user.RobLandlordMO;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +17,10 @@ public class GameManager {
     private static final int NORMAL_USER_CARD_COUNT = 17;
 
     private static final int USER_COUNT = 3;
+
+    @Setter
+    @Getter
+    private RobLandlordMO robLandlordMO;
 
     public List<CardEnumeration> shuffleCard() {
         List<CardEnumeration> aDeckCardList = getADeckCardList();
@@ -90,4 +99,19 @@ public class GameManager {
         sortOneCardList(middle + 1, end, cardList);
     }
 
+    public void thisGuyTurnToRob(String userId) {
+        if (!this.robLandlordMO.getUserId().equals(userId)) {
+            throw new RobLandlordException(RobLandlordEnumeration.NOT_YOUR_TURN_TO_ROB);
+        }
+    }
+
+    public void thisGuyTurnToNotRob(String userId) {
+        if (!this.robLandlordMO.getUserId().equals(userId)) {
+            throw new RobLandlordException(RobLandlordEnumeration.NOT_YOUR_TURN_TO_NOT_ROB);
+        }
+    }
+
+    public boolean hasNextOneToStartRob() {
+        return this.robLandlordMO.getCount() >= USER_COUNT - 1;
+    }
 }
