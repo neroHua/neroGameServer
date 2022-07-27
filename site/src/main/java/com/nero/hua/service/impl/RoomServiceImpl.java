@@ -9,6 +9,7 @@ import com.nero.hua.model.room.LeaveRoomRequest;
 import com.nero.hua.model.room.RoomMO;
 import com.nero.hua.model.user.*;
 import com.nero.hua.service.RoomService;
+import com.nero.hua.util.CardUtil;
 import com.nero.hua.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,7 +120,7 @@ public class RoomServiceImpl implements RoomService {
         gameUserMOList = roomMO.getGameUserMOList();
         if (gameUserMOList.size() > 1) {
             for (GameUserMO gameUserMO : gameUserMOList) {
-                DealCardMessage dealCardMessage = new DealCardMessage(gameUserMO.getCardList());
+                DealCardMessage dealCardMessage = new DealCardMessage(CardUtil.convertCardMapToCardList(gameUserMO.getCardMap()));
                 webSocketServer.sendMessage(gameUserMO.getUserId(), dealCardMessage);
             }
         }
