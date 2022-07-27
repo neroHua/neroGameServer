@@ -5,6 +5,7 @@ import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.user.GameUserMO;
+import com.nero.hua.model.user.RobLandlordMO;
 import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class RoomMO {
 
     private List<GameUserMO> gameUserMOList = new ArrayList<>();
 
-    private List<CardEnumeration> landLordCardList;
+    private List<CardEnumeration> landlordCardList;
 
     public void joinUser(String userId) {
         if (gameUserMOList.size() > MAX_USER_COUNT) {
@@ -91,6 +92,73 @@ public class RoomMO {
             Map<CardEnumeration, Integer> cardMap = CardUtil.convertCardListToCardMap(dealCardList.remove(0));
             gameUserMOList.get(i).setCardMap(cardMap);
         }
+
+        this.landlordCardList = dealCardList.get(dealCardList.size() - 1);
+    }
+
+    public String chooseOneUserToRobLandlord() {
+        int random  = (int) (Math.random() * this.gameUserMOList.size());
+        String userId = this.getGameUserMOList().get(random).getUserId();
+        this.gameManager.setRobLandlordMO(new RobLandlordMO(random, userId, 1));
+        return userId;
+    }
+
+    public void thisGuyTurnToRob(String userId) {
+        this.getGameManager().thisGuyTurnToRob(userId);
+    }
+
+    public void thisGuyTurnToNotRob(String userId) {
+        this.getGameManager().thisGuyTurnToNotRob(userId);
+    }
+
+    public void giveLandlordCardToThisGuy(String userId) {
+        GameUserMO gameUserMO = null;
+        for (int i = 0; i < this.gameUserMOList.size(); i++) {
+            if (userId.equals(this.gameUserMOList.get(i).getUserId())) {
+                gameUserMO = this.gameUserMOList.get(i);
+            }
+        }
+
+        Map<CardEnumeration, Integer> cardMap = gameUserMO.getCardMap();
+        for (CardEnumeration cardEnumeration : this.landlordCardList) {
+            if (cardMap.containsKey(cardEnumeration)) {
+                Integer count = cardMap.get(cardEnumeration);
+                cardMap.put(cardEnumeration, count + 1);
+            }
+            else {
+                cardMap.put(cardEnumeration, 1);
+            }
+        }
+
+        this.landlordCardList = null;
+    }
+
+    public boolean hasNextOneToStartRob() {
+        return this.gameManager.hasNextOneToStartRob();
+    }
+
+    public String getNextOneToStartRob() {
+        RobLandlordMO robLandlordMO = this.getGameManager().getRobLandlordMO();
+
+        int index = robLandlordMO.getIndex();
+        index = (index + 1) % MAX_USER_COUNT;
+
+        int count = robLandlordMO.getCount();
+        count += 1;
+
+        String userId = this.gameUserMOList.get(index).getUserId();
+
+        this.gameManager.setRobLandlordMO(new RobLandlordMO(index, userId, count));
+        return userId;
+    }
+
+    public String getLastUser() {
+        RobLandlordMO robLandlordMO = this.getGameManager().getRobLandlordMO();
+
+        int index = robLandlordMO.getIndex();
+        index = (index + 1) % MAX_USER_COUNT;
+
+        return this.gameUserMOList.get(index).getUserId();
     }
 
 }
