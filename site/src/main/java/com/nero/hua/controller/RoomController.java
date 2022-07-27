@@ -66,4 +66,22 @@ public class RoomController {
         return new BaseResponse<>(roomUserInformationResponseList);
     }
 
+    @PostMapping("doRobLandlord")
+    public BaseResponse<Boolean> postDoRobLandlord(HttpServletRequest httpServletRequest) {
+        String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
+
+        Boolean robSuccess = roomService.doRobLandlord(userId);
+
+        return new BaseResponse<>(robSuccess);
+    }
+
+    @PostMapping("doNotRobLandlord")
+    public BaseResponse<Boolean> postDoNotRobLandlord(HttpServletRequest httpServletRequest) {
+        String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
+
+        Boolean notRobSuccess = roomService.doNotRobLandlord(userId);
+
+        return new BaseResponse<>(notRobSuccess);
+    }
+
 }
