@@ -18,4 +18,8 @@ public interface RoomService {
     Boolean changeUserPrepareStatus(String userId, ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest);
 
     List<RoomUserInformationResponse> getRoomUserList(String userId);
+
+    Boolean doRobLandlord(String userId);
+
+    Boolean doNotRobLandlord(String userId);
 }
