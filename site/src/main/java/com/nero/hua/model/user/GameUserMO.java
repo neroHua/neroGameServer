@@ -4,7 +4,7 @@ import com.nero.hua.enumeration.CardEnumeration;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -14,7 +14,7 @@ public class GameUserMO {
 
     private boolean prepared;
 
-    private List<CardEnumeration> cardList;
+    private Map<CardEnumeration, Integer> cardMap;
 
     private Long score;
 
