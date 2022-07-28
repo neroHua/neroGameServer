@@ -2,7 +2,6 @@ package com.nero.hua.controller;
 
 import com.nero.hua.model.base.BaseResponse;
 import com.nero.hua.model.room.JoinRoomRequest;
-import com.nero.hua.model.room.LeaveRoomRequest;
 import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
 import com.nero.hua.model.user.RoomUserInformationResponse;
 import com.nero.hua.service.RoomService;
@@ -40,10 +39,10 @@ public class RoomController {
     }
 
     @PostMapping("leave")
-    public BaseResponse<Boolean> leaveRoom(@RequestBody @Validated LeaveRoomRequest leaveRoomRequest, HttpServletRequest httpServletRequest) {
+    public BaseResponse<Boolean> leaveRoom(HttpServletRequest httpServletRequest) {
         String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
 
-        Boolean joinSuccess = roomService.leaveRoom(userId, leaveRoomRequest);
+        Boolean joinSuccess = roomService.leaveRoom(userId);
 
         return new BaseResponse<>(joinSuccess);
     }
