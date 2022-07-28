@@ -1,7 +1,6 @@
 package com.nero.hua.service;
 
 import com.nero.hua.model.room.JoinRoomRequest;
-import com.nero.hua.model.room.LeaveRoomRequest;
 import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
 import com.nero.hua.model.user.RoomUserInformationResponse;
 
@@ -13,7 +12,7 @@ public interface RoomService {
 
     Boolean joinRoom(String userId, JoinRoomRequest joinRoomRequest);
 
-    Boolean leaveRoom(String userId, LeaveRoomRequest leaveRoomRequest);
+    Boolean leaveRoom(String userId);
 
     Boolean changeUserPrepareStatus(String userId, ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest);
 
