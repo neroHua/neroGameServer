@@ -112,6 +112,6 @@ public class GameManager {
     }
 
     public boolean hasNextOneToStartRob() {
-        return this.robLandlordMO.getCount() >= USER_COUNT - 1;
+        return this.robLandlordMO.getCount() < USER_COUNT - 1;
     }
 }
