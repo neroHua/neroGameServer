@@ -6,7 +6,6 @@ import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.room.JoinRoomRequest;
-import com.nero.hua.model.room.LeaveRoomRequest;
 import com.nero.hua.model.room.RoomMO;
 import com.nero.hua.model.user.*;
 import com.nero.hua.service.RoomService;
@@ -63,8 +62,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Boolean leaveRoom(String userId, LeaveRoomRequest leaveRoomRequest) {
-        RoomMO roomMO = roomMOMap.get(leaveRoomRequest.getRoomId());
+    public Boolean leaveRoom(String userId) {
+        Long roomId = userIdRoomIdMap.get(userId);
+        if (null == roomId) {
+            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
+        }
+
+        RoomMO roomMO = roomMOMap.get(roomId);
         if (null == roomMO) {
             throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
         }
