@@ -49,12 +49,10 @@ public class RoomServiceImpl implements RoomService {
         userIdRoomIdMap.put(userId, roomMO.getRoomId());
 
         List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
-        if (gameUserMOList.size() > 1) {
-            UserJoinRoomMessage userJoinRoomMessage = new UserJoinRoomMessage(userId);
-            for (GameUserMO gameUserMO : gameUserMOList) {
-                if (!gameUserMO.getUserId().equals(userId)) {
-                    webSocketServer.sendMessage(gameUserMO.getUserId(), userJoinRoomMessage);
-                }
+        UserJoinRoomMessage userJoinRoomMessage = new UserJoinRoomMessage(userId);
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            if (!gameUserMO.getUserId().equals(userId)) {
+                webSocketServer.sendMessage(gameUserMO.getUserId(), userJoinRoomMessage);
             }
         }
 
@@ -81,15 +79,9 @@ public class RoomServiceImpl implements RoomService {
 
         userIdRoomIdMap.remove(userId, roomMO.getRoomId());
 
-        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
-        if (gameUserMOList.size() > 1) {
-            UserLeaveRoomMessage userLeaveRoomMessage = new UserLeaveRoomMessage(userId);
-            for (GameUserMO gameUserMO : gameUserMOList) {
-                if (!gameUserMO.getUserId().equals(userId)) {
-                    webSocketServer.sendMessage(gameUserMO.getUserId(), userLeaveRoomMessage);
-                }
-            }
-        }
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
+        UserLeaveRoomMessage userLeaveRoomMessage = new UserLeaveRoomMessage(userId);
+        webSocketServer.sendMessage(allOtherUserList, userLeaveRoomMessage);
 
         return Boolean.TRUE;
     }
@@ -107,32 +99,26 @@ public class RoomServiceImpl implements RoomService {
         }
         roomMO.changeUserPrepareStatus(userId, changeUserPrepareStatusRequest.getPrepared());
 
-        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
-        if (gameUserMOList.size() > 1) {
-            ChangeUserPrepareStatusMessage changeUserPrepareStatusMessage = new ChangeUserPrepareStatusMessage(userId, changeUserPrepareStatusRequest.getPrepared());
-            for (GameUserMO gameUserMO : gameUserMOList) {
-                if (!gameUserMO.getUserId().equals(userId)) {
-                    webSocketServer.sendMessage(gameUserMO.getUserId(), changeUserPrepareStatusMessage);
-                }
-            }
-        }
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
+        ChangeUserPrepareStatusMessage changeUserPrepareStatusMessage = new ChangeUserPrepareStatusMessage(userId, changeUserPrepareStatusRequest.getPrepared());
+        webSocketServer.sendMessage(allOtherUserList, changeUserPrepareStatusMessage);
 
         if (roomMO.shouldNotStartGame()) {
             return Boolean.TRUE;
         }
 
         roomMO.startGame();
-        gameUserMOList = roomMO.getGameUserMOList();
+
+        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
         for (GameUserMO gameUserMO : gameUserMOList) {
             DealCardMessage dealCardMessage = new DealCardMessage(CardUtil.convertCardMapToCardList(gameUserMO.getCardMap()));
             webSocketServer.sendMessage(gameUserMO.getUserId(), dealCardMessage);
         }
 
+        List<String> allUserList = roomMO.getAllUserList();
         String randomUserId = roomMO.chooseOneUserToRobLandlord();
         UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(randomUserId);
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            webSocketServer.sendMessage(gameUserMO.getUserId(), userStartRobLandlordMessage);
-        }
+        webSocketServer.sendMessage(allUserList, userStartRobLandlordMessage);
 
         return Boolean.TRUE;
     }
@@ -166,26 +152,19 @@ public class RoomServiceImpl implements RoomService {
 
         roomMO.thisGuyTurnToRob(userId);
 
-        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
         UserDoRobLandlordMessage userDoRobLandlordMessage = new UserDoRobLandlordMessage(userId);
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            if (!gameUserMO.getUserId().equals(userId)) {
-                webSocketServer.sendMessage(gameUserMO.getUserId(), userDoRobLandlordMessage);
-            }
-        }
+        webSocketServer.sendMessage(allOtherUserList, userDoRobLandlordMessage);
 
+        List<String> allUserList = roomMO.getAllUserList();
         List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
         DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(userId, landlordCardList);
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            webSocketServer.sendMessage(gameUserMO.getUserId(), dealLandlordCardMessage);
-        }
+        webSocketServer.sendMessage(allUserList, dealLandlordCardMessage);
 
         roomMO.giveLandlordCardToThisGuy(userId);
 
         UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(userId);
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            webSocketServer.sendMessage(gameUserMO.getUserId(), userStartToPlayCardMessage);
-        }
+        webSocketServer.sendMessage(allUserList, userStartToPlayCardMessage);
 
         return Boolean.TRUE;
     }
@@ -204,28 +183,21 @@ public class RoomServiceImpl implements RoomService {
 
         roomMO.thisGuyTurnToNotRob(userId);
 
-        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
         UserDoNotRobLandlordMessage userDoNotRobLandlordMessage = new UserDoNotRobLandlordMessage(userId);
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            if (!gameUserMO.getUserId().equals(userId)) {
-                webSocketServer.sendMessage(gameUserMO.getUserId(), userDoNotRobLandlordMessage);
-            }
-        }
+        webSocketServer.sendMessage(allOtherUserList, userDoNotRobLandlordMessage);
 
+        List<String> allUserList = roomMO.getAllUserList();
         if (roomMO.hasNextOneToStartRob()) {
             String nextUserIdToStartRob = roomMO.getNextOneToStartRob();
             UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(nextUserIdToStartRob);
-            for (GameUserMO gameUserMO : gameUserMOList) {
-                webSocketServer.sendMessage(gameUserMO.getUserId(), userStartRobLandlordMessage);
-            }
+            webSocketServer.sendMessage(allUserList, userStartRobLandlordMessage);
         }
         else {
             String lastUserId = roomMO.getLastUser();
             List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
             DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(lastUserId, landlordCardList);
-            for (GameUserMO gameUserMO : gameUserMOList) {
-                webSocketServer.sendMessage(gameUserMO.getUserId(), dealLandlordCardMessage);
-            }
+            webSocketServer.sendMessage(allUserList, dealLandlordCardMessage);
 
             roomMO.giveLandlordCardToThisGuy(userId);
         }
