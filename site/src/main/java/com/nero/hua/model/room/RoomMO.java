@@ -11,10 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Setter
 @Getter
@@ -50,6 +47,24 @@ public class RoomMO {
                 break;
             }
         }
+    }
+
+    public List<String> getAllUserList() {
+        List<String> userIdList = new LinkedList<>();
+        for (GameUserMO gameUserMO : this.getGameUserMOList()) {
+            userIdList.add(gameUserMO.getUserId());
+        }
+        return userIdList;
+    }
+
+    public List<String> getAllOtherUserList(String userId) {
+        List<String> userIdList = new LinkedList<>();
+        for (GameUserMO gameUserMO : this.getGameUserMOList()) {
+            if (!userId.equals(gameUserMO.getUserId())) {
+                userIdList.add(gameUserMO.getUserId());
+            }
+        }
+        return userIdList;
     }
 
     public void changeUserPrepareStatus(String userId, boolean prepared) {
