@@ -8,13 +8,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RoundMO {
+public class PlayCardRoundMO {
 
     private int currentTurnUserIndex;
 
     List<UserPlayCardTurnMO> turnMOList = new LinkedList<>();
 
-    public RoundMO(int currentTurnUserIndex) {
+    public PlayCardRoundMO(int currentTurnUserIndex) {
         this.currentTurnUserIndex = currentTurnUserIndex;
     }
 
