@@ -3,29 +3,65 @@ package com.nero.hua.game.manager;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.RobLandlordEnumeration;
 import com.nero.hua.exception.RobLandlordException;
-import com.nero.hua.model.user.RobLandlordMO;
+import com.nero.hua.model.user.GameUserMO;
 import com.nero.hua.model.user.PlayCardRoundMO;
+import com.nero.hua.model.user.RobLandlordMO;
+import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+@Getter
+@Setter
 public class GameManager {
 
     private static final int COLOR_CARD_COUNT = 52;
 
     private static final int NORMAL_USER_CARD_COUNT = 17;
 
-    private static final int USER_COUNT = 3;
+    private static final int MAX_USER_COUNT = 3;
 
-    @Setter
-    @Getter
+    private List<CardEnumeration> landlordCardList;
+
     private RobLandlordMO robLandlordMO;
 
-    @Setter
-    @Getter
     private PlayCardRoundMO roundMO;
+
+    public int getMaxUserCount() {
+        return MAX_USER_COUNT;
+    }
+
+    public boolean shouldStartGame(List<GameUserMO> gameUserMOList) {
+        if (gameUserMOList.size() < MAX_USER_COUNT) {
+            return Boolean.FALSE;
+        }
+
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            if (!gameUserMO.isPrepared()) {
+                return Boolean.FALSE;
+            }
+        }
+
+        return Boolean.TRUE;
+    }
+
+    public boolean shouldNotStartGame(List<GameUserMO> gameUserMOList) {
+        return !this.shouldStartGame(gameUserMOList);
+    }
+
+    public void startGame(List<GameUserMO> gameUserMOList) {
+        List<CardEnumeration> shuffledCardList = this.shuffleCard();
+        List<List<CardEnumeration>> dealCardList = this.dealCard(shuffledCardList);
+        for (int i = 0; i < gameUserMOList.size(); i++) {
+            Map<CardEnumeration, Integer> cardMap = CardUtil.convertCardListToCardMap(dealCardList.remove(0));
+            gameUserMOList.get(i).setCardMap(cardMap);
+        }
+
+        this.landlordCardList = dealCardList.get(dealCardList.size() - 1);
+    }
 
     public List<CardEnumeration> shuffleCard() {
         List<CardEnumeration> aDeckCardList = getADeckCardList();
@@ -53,7 +89,7 @@ public class GameManager {
     public List<List<CardEnumeration>> dealCard(List<CardEnumeration> shuffledCardList) {
         List<List<CardEnumeration>> dealCardList = new LinkedList<>();
 
-        for (int i = 0; i < USER_COUNT; i++) {
+        for (int i = 0; i < MAX_USER_COUNT; i++) {
             List<CardEnumeration> userCardList = new LinkedList<>();
             for (int j = 0; j < NORMAL_USER_CARD_COUNT; j++) {
                 userCardList.add(shuffledCardList.remove(0));
@@ -117,6 +153,35 @@ public class GameManager {
     }
 
     public boolean hasNextOneToStartRob() {
-        return this.robLandlordMO.getCount() < USER_COUNT - 1;
+        return this.robLandlordMO.getCount() < MAX_USER_COUNT - 1;
     }
+
+    private int getUserIndexInUserListByUserId(String userId, List<GameUserMO> gameUserMOList) {
+        for (int i = 0; i < gameUserMOList.size(); i++) {
+            if (userId.equals(gameUserMOList.get(i).getUserId())) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void giveLandlordCardToThisGuy(String userId, List<GameUserMO> gameUserMOList) {
+        int userIndex = this.getUserIndexInUserListByUserId(userId, gameUserMOList);
+
+        GameUserMO gameUserMO = gameUserMOList.get(userIndex);
+
+        Map<CardEnumeration, Integer> cardMap = gameUserMO.getCardMap();
+        for (CardEnumeration cardEnumeration : this.landlordCardList) {
+            if (cardMap.containsKey(cardEnumeration)) {
+                Integer count = cardMap.get(cardEnumeration);
+                cardMap.put(cardEnumeration, count + 1);
+            }
+            else {
+                cardMap.put(cardEnumeration, 1);
+            }
+        }
+
+        this.landlordCardList = null;
+    }
+
 }
