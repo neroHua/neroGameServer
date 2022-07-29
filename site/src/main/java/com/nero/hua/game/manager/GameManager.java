@@ -4,6 +4,7 @@ import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.RobLandlordEnumeration;
 import com.nero.hua.exception.RobLandlordException;
 import com.nero.hua.model.user.RobLandlordMO;
+import com.nero.hua.model.user.RoundMO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,10 @@ public class GameManager {
     @Setter
     @Getter
     private RobLandlordMO robLandlordMO;
+
+    @Setter
+    @Getter
+    private RoundMO roundMO;
 
     public List<CardEnumeration> shuffleCard() {
         List<CardEnumeration> aDeckCardList = getADeckCardList();
