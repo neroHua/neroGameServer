@@ -9,6 +9,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -72,4 +73,16 @@ public class WebSocketServer {
             log.error(JSON.toJSONString(baseMessage), e);
         }
     }
+
+    public void sendMessage(List<String> userIdList, BaseMessage baseMessage) {
+        try {
+            for (String userId : userIdList) {
+                Session session = userSessionMap.get(userId);
+                session.getBasicRemote().sendText(JSON.toJSONString(baseMessage));
+            }
+        } catch (IOException e) {
+            log.error(JSON.toJSONString(baseMessage), e);
+        }
+    }
+
 }
