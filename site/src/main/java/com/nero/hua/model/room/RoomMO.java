@@ -89,10 +89,7 @@ public class RoomMO {
     }
 
     public String chooseOneUserToRobLandlord() {
-        int random  = (int) (Math.random() * this.gameUserMOList.size());
-        String userId = this.getGameUserMOList().get(random).getUserId();
-        this.gameManager.setRobLandlordMO(new RobLandlordMO(random, userId, 1));
-        return userId;
+        return this.gameManager.chooseOneUserToRobLandlord(this.gameUserMOList);
     }
 
     public void thisGuyTurnToRob(String userId) {
