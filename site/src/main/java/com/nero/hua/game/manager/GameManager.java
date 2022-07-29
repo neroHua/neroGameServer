@@ -6,6 +6,7 @@ import com.nero.hua.exception.RobLandlordException;
 import com.nero.hua.model.user.GameUserMO;
 import com.nero.hua.model.user.PlayCardRoundMO;
 import com.nero.hua.model.user.RobLandlordMO;
+import com.nero.hua.model.user.RobLandlordRoundMO;
 import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ public class GameManager {
 
     private List<CardEnumeration> landlordCardList;
 
-    private RobLandlordMO robLandlordMO;
+    private RobLandlordRoundMO robLandlordRoundMO;
 
     private PlayCardRoundMO roundMO;
 
@@ -138,6 +139,13 @@ public class GameManager {
         }
         sortOneCardList(start, middle - 1, cardList);
         sortOneCardList(middle + 1, end, cardList);
+    }
+
+    public String chooseOneUserToRobLandlord(List<GameUserMO> gameUserMOList) {
+        int random  = (int) (Math.random() * MAX_USER_COUNT);
+        String userId = gameUserMOList.get(random).getUserId();
+        this.robLandlordRoundMO = new RobLandlordRoundMO(random);
+        return userId;
     }
 
     public void thisGuyTurnToRob(String userId) {
