@@ -48,13 +48,9 @@ public class RoomServiceImpl implements RoomService {
 
         userIdRoomIdMap.put(userId, roomMO.getRoomId());
 
-        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
         UserJoinRoomMessage userJoinRoomMessage = new UserJoinRoomMessage(userId);
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            if (!gameUserMO.getUserId().equals(userId)) {
-                webSocketServer.sendMessage(gameUserMO.getUserId(), userJoinRoomMessage);
-            }
-        }
+        webSocketServer.sendMessage(allOtherUserList, userJoinRoomMessage);
 
         return Boolean.TRUE;
     }
