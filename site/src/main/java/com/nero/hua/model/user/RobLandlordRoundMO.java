@@ -16,6 +16,7 @@ public class RobLandlordRoundMO {
 
     public RobLandlordRoundMO(int currentTurnUserIndex) {
         this.currentTurnUserIndex = currentTurnUserIndex;
+        this.userRobLandlordTurnMOList.add(new UserRobLandlordTurnMO(currentTurnUserIndex));
     }
 
 }
