@@ -182,6 +182,11 @@ public class RoomServiceImpl implements RoomService {
 
         roomMO.giveLandlordCardToThisGuy(userId);
 
+        UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(userId);
+        for (GameUserMO gameUserMO : gameUserMOList) {
+            webSocketServer.sendMessage(gameUserMO.getUserId(), userStartToPlayCardMessage);
+        }
+
         return Boolean.TRUE;
     }
 
