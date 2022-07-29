@@ -12,18 +12,18 @@ public class PlayCardRoundMO {
 
     private int currentTurnUserIndex;
 
-    List<UserPlayCardTurnMO> turnMOList = new LinkedList<>();
+    List<UserPlayCardTurnMO> userPlayCardTurnMOList = new LinkedList<>();
 
     public PlayCardRoundMO(int currentTurnUserIndex) {
         this.currentTurnUserIndex = currentTurnUserIndex;
     }
 
     public boolean thisRoundFinish(int maxUserCount) {
-        if (this.turnMOList.size() < maxUserCount) {
+        if (this.userPlayCardTurnMOList.size() < maxUserCount) {
             return Boolean.FALSE;
         }
 
-        int size = this.turnMOList.size();
-        return turnMOList.get(size - 1).userDoNotPlayCard() && turnMOList.get(size - 1).userDoNotPlayCard();
+        int size = this.userPlayCardTurnMOList.size();
+        return userPlayCardTurnMOList.get(size - 1).userDoNotPlayCard() && userPlayCardTurnMOList.get(size - 1).userDoNotPlayCard();
     }
 }
