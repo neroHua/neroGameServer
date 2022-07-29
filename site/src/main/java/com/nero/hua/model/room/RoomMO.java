@@ -95,7 +95,6 @@ public class RoomMO {
         return userId;
     }
 
-
     public void thisGuyTurnToRob(String userId) {
         this.gameManager.thisGuyTurnToRob(userId);
     }
