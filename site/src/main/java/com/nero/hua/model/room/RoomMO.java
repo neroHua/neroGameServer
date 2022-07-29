@@ -6,18 +6,18 @@ import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.user.GameUserMO;
 import com.nero.hua.model.user.RobLandlordMO;
-import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 @Setter
 @Getter
 public class RoomMO {
-
-    private static int MAX_USER_COUNT = 3;
 
     private Long roomId;
 
@@ -25,10 +25,8 @@ public class RoomMO {
 
     private List<GameUserMO> gameUserMOList = new ArrayList<>();
 
-    private List<CardEnumeration> landlordCardList;
-
     public void joinUser(String userId) {
-        if (gameUserMOList.size() > MAX_USER_COUNT) {
+        if (gameUserMOList.size() > this.gameManager.getMaxUserCount()) {
             throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
         }
 
@@ -78,37 +76,16 @@ public class RoomMO {
         }
     }
 
-    public boolean shouldStartGame() {
-        if (gameUserMOList.size() < MAX_USER_COUNT) {
-            return Boolean.FALSE;
-        }
-
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            if (!gameUserMO.isPrepared()) {
-                return Boolean.FALSE;
-            }
-        }
-
-        return Boolean.TRUE;
-    }
-
-    public boolean shouldNotStartGame() {
-        return !shouldStartGame();
-    }
-
     public boolean empty() {
         return null == gameUserMOList ? Boolean.TRUE : CollectionUtils.isEmpty(gameUserMOList);
     }
 
-    public void startGame() {
-        List<CardEnumeration> shuffledCardList = gameManager.shuffleCard();
-        List<List<CardEnumeration>> dealCardList =  gameManager.dealCard(shuffledCardList);
-        for (int i = 0; i < gameUserMOList.size(); i++) {
-            Map<CardEnumeration, Integer> cardMap = CardUtil.convertCardListToCardMap(dealCardList.remove(0));
-            gameUserMOList.get(i).setCardMap(cardMap);
-        }
+    public boolean shouldNotStartGame() {
+        return gameManager.shouldNotStartGame(this.gameUserMOList);
+    }
 
-        this.landlordCardList = dealCardList.get(dealCardList.size() - 1);
+    public void startGame() {
+        this.gameManager.startGame(this.gameUserMOList);
     }
 
     public String chooseOneUserToRobLandlord() {
@@ -118,34 +95,21 @@ public class RoomMO {
         return userId;
     }
 
+
     public void thisGuyTurnToRob(String userId) {
-        this.getGameManager().thisGuyTurnToRob(userId);
+        this.gameManager.thisGuyTurnToRob(userId);
     }
 
     public void thisGuyTurnToNotRob(String userId) {
-        this.getGameManager().thisGuyTurnToNotRob(userId);
+        this.gameManager.thisGuyTurnToNotRob(userId);
+    }
+
+    public List<CardEnumeration> getLandlordCardList() {
+        return this.gameManager.getLandlordCardList();
     }
 
     public void giveLandlordCardToThisGuy(String userId) {
-        GameUserMO gameUserMO = null;
-        for (int i = 0; i < this.gameUserMOList.size(); i++) {
-            if (userId.equals(this.gameUserMOList.get(i).getUserId())) {
-                gameUserMO = this.gameUserMOList.get(i);
-            }
-        }
-
-        Map<CardEnumeration, Integer> cardMap = gameUserMO.getCardMap();
-        for (CardEnumeration cardEnumeration : this.landlordCardList) {
-            if (cardMap.containsKey(cardEnumeration)) {
-                Integer count = cardMap.get(cardEnumeration);
-                cardMap.put(cardEnumeration, count + 1);
-            }
-            else {
-                cardMap.put(cardEnumeration, 1);
-            }
-        }
-
-        this.landlordCardList = null;
+        this.gameManager.giveLandlordCardToThisGuy(userId, this.gameUserMOList);
     }
 
     public boolean hasNextOneToStartRob() {
@@ -156,7 +120,7 @@ public class RoomMO {
         RobLandlordMO robLandlordMO = this.getGameManager().getRobLandlordMO();
 
         int index = robLandlordMO.getIndex();
-        index = (index + 1) % MAX_USER_COUNT;
+        index = (index + 1) % this.gameManager.getMaxUserCount();
 
         int count = robLandlordMO.getCount();
         count += 1;
@@ -171,7 +135,7 @@ public class RoomMO {
         RobLandlordMO robLandlordMO = this.getGameManager().getRobLandlordMO();
 
         int index = robLandlordMO.getIndex();
-        index = (index + 1) % MAX_USER_COUNT;
+        index = (index + 1) % this.gameManager.getMaxUserCount();
 
         return this.gameUserMOList.get(index).getUserId();
     }
