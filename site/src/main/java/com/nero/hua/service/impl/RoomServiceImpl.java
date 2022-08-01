@@ -146,7 +146,7 @@ public class RoomServiceImpl implements RoomService {
             throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
         }
 
-        roomMO.thisGuyTurnToRob(userId);
+        roomMO.doRob(userId);
 
         List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
         UserDoRobLandlordMessage userDoRobLandlordMessage = new UserDoRobLandlordMessage(userId);
@@ -177,7 +177,7 @@ public class RoomServiceImpl implements RoomService {
             throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
         }
 
-        roomMO.thisGuyTurnToNotRob(userId);
+        roomMO.doNotRob(userId);
 
         List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
         UserDoNotRobLandlordMessage userDoNotRobLandlordMessage = new UserDoNotRobLandlordMessage(userId);
@@ -185,12 +185,12 @@ public class RoomServiceImpl implements RoomService {
 
         List<String> allUserList = roomMO.getAllUserList();
         if (roomMO.hasNextOneToStartRob()) {
-            String nextUserIdToStartRob = roomMO.getNextOneToStartRob();
+            String nextUserIdToStartRob = roomMO.makeNextUserToStartRob();
             UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(nextUserIdToStartRob);
             webSocketServer.sendMessage(allUserList, userStartRobLandlordMessage);
         }
         else {
-            String lastUserId = roomMO.getLastUser();
+            String lastUserId = roomMO.makeLastUserRobLandlordCard();
             List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
             DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(lastUserId, landlordCardList);
             webSocketServer.sendMessage(allUserList, dealLandlordCardMessage);
