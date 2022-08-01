@@ -24,5 +24,8 @@ public class UserPlayCardTurnMO {
     public boolean userDoNotPlayCard() {
         return null == cardList ? Boolean.TRUE : Boolean.FALSE;
     }
+    public boolean userDoPlayCard() {
+        return null == cardList ? Boolean.FALSE : Boolean.TRUE;
+    }
 
 }
