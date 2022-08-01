@@ -20,7 +20,9 @@ public enum MessageTypeEnumeration {
 
     USER_START_TO_PLAY_CARD("userStartToPlayCard", "用户开始出牌"),
     USER_DO_PLAY_CARD("useDoPlayCard", "用户出牌"),
-    USER_DO_NOT_PLAY_CARD("userDoNotPlayCard", "用户不出牌");
+    USER_DO_NOT_PLAY_CARD("userDoNotPlayCard", "用户不出牌"),
+
+    USER_WIN("userWin", "用户赢得一局");
 
     private String code;
     private String message;
