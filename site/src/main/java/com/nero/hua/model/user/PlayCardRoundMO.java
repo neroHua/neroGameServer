@@ -14,8 +14,9 @@ public class PlayCardRoundMO {
 
     List<UserPlayCardTurnMO> userPlayCardTurnMOList = new LinkedList<>();
 
-    public PlayCardRoundMO(int currentTurnUserIndex) {
-        this.currentTurnUserIndex = currentTurnUserIndex;
+    public void addNewUserToStartPlayCard(int userIndex, String userId) {
+        this.currentTurnUserIndex = userIndex;
+        userPlayCardTurnMOList.add(new UserPlayCardTurnMO(userIndex, userId));
     }
 
     public boolean thisRoundFinish(int maxUserCount) {
@@ -26,4 +27,5 @@ public class PlayCardRoundMO {
         int size = this.userPlayCardTurnMOList.size();
         return userPlayCardTurnMOList.get(size - 1).userDoNotPlayCard() && userPlayCardTurnMOList.get(size - 1).userDoNotPlayCard();
     }
+
 }
