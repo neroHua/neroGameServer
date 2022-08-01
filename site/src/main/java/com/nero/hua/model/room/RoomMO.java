@@ -118,4 +118,28 @@ public class RoomMO {
     public String makeLastUserRobLandlordCard() {
         return this.gameManager.makeLastUserRobLandlordCard(this.gameUserMOList);
     }
+
+    public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList) {
+        this.gameManager.doPlayCard(userId, cardEnumerationList, this.gameUserMOList);
+    }
+
+    public boolean thisGuyWin(String userId) {
+        return this.gameManager.thisGuyWin(userId, this.gameUserMOList);
+    }
+
+    public String makeNextUserToStartPlayCard() {
+        return this.gameManager.makeNextUserToStartPlayCard(this.gameUserMOList);
+    }
+
+    public void doNotPlayCard(String userId) {
+        this.gameManager.doNotPlayCard(userId);
+    }
+
+    public boolean hasNextOneToStartPlayCard() {
+        return this.gameManager.hasNextOneToStartPlayCard();
+    }
+
+    public String makeLastPlayCardUserToStartPlayCard() {
+        return this.gameManager.makeLastPlayCardUserToStartPlayCard();
+    }
 }
