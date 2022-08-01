@@ -14,9 +14,18 @@ public class RobLandlordRoundMO {
 
     List<UserRobLandlordTurnMO> userRobLandlordTurnMOList = new LinkedList<>();
 
-    public RobLandlordRoundMO(int currentTurnUserIndex) {
+    public RobLandlordRoundMO(int currentTurnUserIndex, String userId) {
         this.currentTurnUserIndex = currentTurnUserIndex;
-        this.userRobLandlordTurnMOList.add(new UserRobLandlordTurnMO(currentTurnUserIndex));
+        this.userRobLandlordTurnMOList.add(new UserRobLandlordTurnMO(currentTurnUserIndex, userId));
     }
 
+    public void addNewUserToStartRob(int currentTurnUserIndex, String userId) {
+        this.currentTurnUserIndex = currentTurnUserIndex;
+        this.userRobLandlordTurnMOList.add(new UserRobLandlordTurnMO(currentTurnUserIndex, userId));
+    }
+
+    public void addNewUserToDoRob(int currentTurnUserIndex, String userId) {
+        this.currentTurnUserIndex = currentTurnUserIndex;
+        this.userRobLandlordTurnMOList.add(new UserRobLandlordTurnMO(currentTurnUserIndex, userId, Boolean.TRUE));
+    }
 }
