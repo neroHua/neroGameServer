@@ -1,15 +1,15 @@
 package com.nero.hua.game.manager;
 
 import com.nero.hua.enumeration.CardEnumeration;
+import com.nero.hua.enumeration.PlayCardEnumeration;
 import com.nero.hua.enumeration.RobLandlordEnumeration;
+import com.nero.hua.exception.PlayCardException;
 import com.nero.hua.exception.RobLandlordException;
-import com.nero.hua.model.user.GameUserMO;
-import com.nero.hua.model.user.PlayCardRoundMO;
-import com.nero.hua.model.user.RobLandlordRoundMO;
-import com.nero.hua.model.user.UserRobLandlordTurnMO;
+import com.nero.hua.model.user.*;
 import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -160,16 +160,16 @@ public class GameManager {
     }
 
     public void doRob(String userId) {
-        UserRobLandlordTurnMO userRobLandlordTurnMO = this.thisGuyTurn(userId);
+        UserRobLandlordTurnMO userRobLandlordTurnMO = this.thisGuyTurnForRobRound(userId);
         userRobLandlordTurnMO.setDoRob(Boolean.TRUE);
     }
 
     public void doNotRob(String userId) {
-        UserRobLandlordTurnMO userRobLandlordTurnMO = this.thisGuyTurn(userId);
+        UserRobLandlordTurnMO userRobLandlordTurnMO = this.thisGuyTurnForRobRound(userId);
         userRobLandlordTurnMO.setDoRob(Boolean.FALSE);
     }
 
-    private UserRobLandlordTurnMO thisGuyTurn(String userId) {
+    private UserRobLandlordTurnMO thisGuyTurnForRobRound(String userId) {
         if (null == this.robLandlordRoundMO) {
             throw new RobLandlordException(RobLandlordEnumeration.NOT_TIME_TO_ROB);
         }
@@ -177,12 +177,11 @@ public class GameManager {
         List<UserRobLandlordTurnMO> userRobLandlordTurnMOList = this.robLandlordRoundMO.getUserRobLandlordTurnMOList();
         UserRobLandlordTurnMO userRobLandlordTurnMO = userRobLandlordTurnMOList.get(userRobLandlordTurnMOList.size() - 1);
         if (!userId.equals(userRobLandlordTurnMO.getUserId())) {
-            throw new RobLandlordException(RobLandlordEnumeration.NOT_YOUR_TURN_TO_ROB);
+            throw new RobLandlordException(RobLandlordEnumeration.NOT_YOUR_TURN);
         }
 
         return userRobLandlordTurnMO;
     }
-
 
     private int getUserIndexInUserListByUserId(String userId, List<GameUserMO> gameUserMOList) {
         for (int i = 0; i < gameUserMOList.size(); i++) {
@@ -191,6 +190,15 @@ public class GameManager {
             }
         }
         return 0;
+    }
+
+    private GameUserMO getUserInUserListByUserId(String userId, List<GameUserMO> gameUserMOList) {
+        for (int i = 0; i < gameUserMOList.size(); i++) {
+            if (userId.equals(gameUserMOList.get(i).getUserId())) {
+                return gameUserMOList.get(i);
+            }
+        }
+        return null;
     }
 
     public void giveLandlordCardToThisGuy(String userId, List<GameUserMO> gameUserMOList) {
@@ -209,6 +217,7 @@ public class GameManager {
             }
         }
 
+        this.playCardRoundMO = new PlayCardRoundMO();
         this.playCardRoundMO.addNewUserToStartPlayCard(userIndex, userId);
     }
 
@@ -240,5 +249,83 @@ public class GameManager {
         this.robLandlordRoundMO.addNewUserToDoRob(nextIndex, nextUserId);
 
         return nextUserId;
+    }
+
+    public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList, List<GameUserMO> gameUserMOList) {
+        UserPlayCardTurnMO userPlayCardTurnMO = this.thisGuyTurnForPlayCardRound(userId);
+
+        GameUserMO gameUserMO = gameUserMOList.get(userPlayCardTurnMO.getUserIndex());
+
+        this.removeUserCardList(gameUserMO, cardEnumerationList);
+
+        userPlayCardTurnMO.setCardList(cardEnumerationList);
+    }
+
+    private UserPlayCardTurnMO thisGuyTurnForPlayCardRound(String userId) {
+        if (null == this.playCardRoundMO) {
+            throw new PlayCardException(PlayCardEnumeration.NOT_TIME_TO_PLAY_CARD);
+        }
+
+        List<UserPlayCardTurnMO> userPlayCardTurnMOList = this.playCardRoundMO.getUserPlayCardTurnMOList();
+        UserPlayCardTurnMO userPlayCardTurnMO = userPlayCardTurnMOList.get(userPlayCardTurnMOList.size() - 1);
+        if (!userId.equals(userPlayCardTurnMO.getUserId())) {
+            throw new PlayCardException(PlayCardEnumeration.NOT_YOUR_TURN);
+        }
+
+        return userPlayCardTurnMO;
+    }
+
+    private void removeUserCardList(GameUserMO gameUserMO, List<CardEnumeration> cardEnumerationList) {
+        Map<CardEnumeration, Integer> cardMap = gameUserMO.getCardMap();
+        for (CardEnumeration cardEnumeration : cardEnumerationList) {
+            if (!cardMap.containsKey(cardEnumeration)) {
+                throw new PlayCardException(PlayCardEnumeration.CARD_MISS);
+            }
+            Integer cardCount = cardMap.get(cardEnumeration);
+            if (1 == cardCount) {
+                cardMap.remove(cardEnumeration);
+            }
+            else {
+                cardMap.put(cardEnumeration, cardCount - 1);
+            }
+        }
+    }
+
+    public boolean thisGuyWin(String userId, List<GameUserMO> gameUserMOList) {
+        GameUserMO gameUserMO = this.getUserInUserListByUserId(userId, gameUserMOList);
+
+        return CollectionUtils.isEmpty(gameUserMO.getCardMap());
+    }
+
+    public String makeNextUserToStartPlayCard(List<GameUserMO> gameUserMOList) {
+        int index = playCardRoundMO.getCurrentTurnUserIndex();
+
+        int nextIndex = (index + 1) % this.getMaxUserCount();
+        String nextUserId = gameUserMOList.get(nextIndex).getUserId();
+
+        this.playCardRoundMO.addNewUserToStartPlayCard(nextIndex, nextUserId);
+
+        return nextUserId;
+    }
+
+    public void doNotPlayCard(String userId) {
+        this.thisGuyTurnForPlayCardRound(userId);
+    }
+
+    public boolean hasNextOneToStartPlayCard() {
+        return !this.playCardRoundMO.thisRoundFinish(this.getMaxUserCount());
+    }
+
+    public String makeLastPlayCardUserToStartPlayCard() {
+        int index = playCardRoundMO.getCurrentTurnUserIndex();
+
+        List<UserPlayCardTurnMO> userPlayCardTurnMOList = playCardRoundMO.getUserPlayCardTurnMOList();
+
+        String userId = userPlayCardTurnMOList.get(userPlayCardTurnMOList.size() - 1 - (MAX_USER_COUNT - 1)).getUserId();
+
+        this.playCardRoundMO = new PlayCardRoundMO();
+        this.playCardRoundMO.addNewUserToStartPlayCard(index, userId);
+
+        return userId;
     }
 }
