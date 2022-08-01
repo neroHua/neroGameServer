@@ -24,8 +24,12 @@ public class PlayCardRoundMO {
             return Boolean.FALSE;
         }
 
-        int size = this.userPlayCardTurnMOList.size();
-        return userPlayCardTurnMOList.get(size - 1).userDoNotPlayCard() && userPlayCardTurnMOList.get(size - 1).userDoNotPlayCard();
+        for (int i = 0; i < maxUserCount - 1; i++) {
+            if (this.userPlayCardTurnMOList.get(this.userPlayCardTurnMOList.size() - 1 - i).userDoPlayCard()) {
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
     }
 
 }
