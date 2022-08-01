@@ -23,6 +23,8 @@ public class GameManager {
 
     private static final int NORMAL_USER_CARD_COUNT = 17;
 
+    private static final int LANDLORD_CARD_COUNT = 3;
+
     private static final int MAX_USER_COUNT = 3;
 
     private List<CardEnumeration> landlordCardList;
@@ -33,6 +35,14 @@ public class GameManager {
 
     public int getMaxUserCount() {
         return MAX_USER_COUNT;
+    }
+
+    public int getNormalUserCardCount() {
+        return NORMAL_USER_CARD_COUNT;
+    }
+
+    public int getLandlordCardCount() {
+        return LANDLORD_CARD_COUNT;
     }
 
     public boolean shouldStartGame(List<GameUserMO> gameUserMOList) {
@@ -64,7 +74,7 @@ public class GameManager {
         this.landlordCardList = dealCardList.get(dealCardList.size() - 1);
     }
 
-    public List<CardEnumeration> shuffleCard() {
+    private List<CardEnumeration> shuffleCard() {
         List<CardEnumeration> aDeckCardList = getADeckCardList();
         List<CardEnumeration> aShuffledCardList = new LinkedList<>();
         while (!aDeckCardList.isEmpty()) {
@@ -75,7 +85,7 @@ public class GameManager {
         return aShuffledCardList;
     }
 
-    public List<CardEnumeration> getADeckCardList() {
+    private List<CardEnumeration> getADeckCardList() {
         List<CardEnumeration> cardEnumerationList = new LinkedList<>();
         CardEnumeration[] cardEnumerationArray = CardEnumeration.values();
         for (int i = 0; i < COLOR_CARD_COUNT; i++) {
@@ -87,7 +97,7 @@ public class GameManager {
         return cardEnumerationList;
     }
 
-    public List<List<CardEnumeration>> dealCard(List<CardEnumeration> shuffledCardList) {
+    private List<List<CardEnumeration>> dealCard(List<CardEnumeration> shuffledCardList) {
         List<List<CardEnumeration>> dealCardList = new LinkedList<>();
 
         for (int i = 0; i < MAX_USER_COUNT; i++) {
@@ -137,6 +147,7 @@ public class GameManager {
             cardList.set(middle, cardList.get(start));
             cardList.set(start, temp);
         }
+
         sortOneCardList(start, middle - 1, cardList);
         sortOneCardList(middle + 1, end, cardList);
     }
