@@ -178,4 +178,53 @@ public class RoomServiceImpl implements RoomService {
         return Boolean.TRUE;
     }
 
+    @Override
+    public Boolean doPlayCard(String userId, UserDoPlayCardRequest userDoPlayCardRequest) {
+        RoomMO roomMO = findRoomByUserId(userId);
+
+        roomMO.doPlayCard(userId, userDoPlayCardRequest.getCardEnumerationList());
+
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
+        UserDoPlayCardMessage userDoPlayCardMessage = new UserDoPlayCardMessage(userId, userDoPlayCardRequest.getCardEnumerationList());
+        webSocketServer.sendMessage(allOtherUserList, userDoPlayCardMessage);
+
+        List<String> allUserList = roomMO.getAllOtherUserList(userId);
+        if (roomMO.thisGuyWin(userId)) {
+            UserWinMessage userWinMessage = new UserWinMessage(userId);
+            webSocketServer.sendMessage(allUserList, userWinMessage);
+        }
+        else {
+            String nextUserId = roomMO.makeNextUserToStartPlayCard();
+            UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(nextUserId);
+            webSocketServer.sendMessage(allUserList, userStartToPlayCardMessage);
+        }
+
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public Boolean doNotPlayCard(String userId) {
+        RoomMO roomMO = findRoomByUserId(userId);
+
+        roomMO.doNotPlayCard(userId);
+
+        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
+        UserDoNotPlayCardMessage userDoNotPlayCardMessage = new UserDoNotPlayCardMessage(userId);
+        webSocketServer.sendMessage(allOtherUserList, userDoNotPlayCardMessage);
+
+        List<String> allUserList = roomMO.getAllUserList();
+        if (roomMO.hasNextOneToStartPlayCard()) {
+            String nextUserId = roomMO.makeNextUserToStartPlayCard();
+            UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(nextUserId);
+            webSocketServer.sendMessage(allUserList, userStartToPlayCardMessage);
+        }
+        else {
+            String lastPlayCardUserId = roomMO.makeLastPlayCardUserToStartPlayCard();
+            UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(lastPlayCardUserId);
+            webSocketServer.sendMessage(allUserList, userStartToPlayCardMessage);
+        }
+
+        return Boolean.TRUE;
+    }
+
 }
