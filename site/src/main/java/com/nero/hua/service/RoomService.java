@@ -2,6 +2,7 @@ package com.nero.hua.service;
 
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
+import com.nero.hua.model.user.UserDoPlayCardRequest;
 import com.nero.hua.model.user.RoomUserInformationResponse;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface RoomService {
     Boolean doRobLandlord(String userId);
 
     Boolean doNotRobLandlord(String userId);
+
+    Boolean doPlayCard(String userId, UserDoPlayCardRequest userDoPlayCardRequest);
+
+    Boolean doNotPlayCard(String userId);
 }
