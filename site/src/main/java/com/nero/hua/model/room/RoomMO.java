@@ -5,7 +5,6 @@ import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
 import com.nero.hua.model.user.GameUserMO;
-import com.nero.hua.model.user.RobLandlordMO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
@@ -92,12 +91,12 @@ public class RoomMO {
         return this.gameManager.chooseOneUserToRobLandlord(this.gameUserMOList);
     }
 
-    public void thisGuyTurnToRob(String userId) {
-        this.gameManager.thisGuyTurnToRob(userId);
+    public void doRob(String userId) {
+        this.gameManager.doRob(userId);
     }
 
-    public void thisGuyTurnToNotRob(String userId) {
-        this.gameManager.thisGuyTurnToNotRob(userId);
+    public void doNotRob(String userId) {
+        this.gameManager.doNotRob(userId);
     }
 
     public List<CardEnumeration> getLandlordCardList() {
@@ -112,28 +111,11 @@ public class RoomMO {
         return this.gameManager.hasNextOneToStartRob();
     }
 
-    public String getNextOneToStartRob() {
-        RobLandlordMO robLandlordMO = this.getGameManager().getRobLandlordMO();
-
-        int index = robLandlordMO.getIndex();
-        index = (index + 1) % this.gameManager.getMaxUserCount();
-
-        int count = robLandlordMO.getCount();
-        count += 1;
-
-        String userId = this.gameUserMOList.get(index).getUserId();
-
-        this.gameManager.setRobLandlordMO(new RobLandlordMO(index, userId, count));
-        return userId;
+    public String makeNextUserToStartRob() {
+        return this.gameManager.makeNextUserToStartRob(this.gameUserMOList);
     }
 
-    public String getLastUser() {
-        RobLandlordMO robLandlordMO = this.getGameManager().getRobLandlordMO();
-
-        int index = robLandlordMO.getIndex();
-        index = (index + 1) % this.gameManager.getMaxUserCount();
-
-        return this.gameUserMOList.get(index).getUserId();
+    public String makeLastUserRobLandlordCard() {
+        return this.gameManager.makeLastUserRobLandlordCard(this.gameUserMOList);
     }
-
 }
