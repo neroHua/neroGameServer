@@ -57,15 +57,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Boolean leaveRoom(String userId) {
-        Long roomId = userIdRoomIdMap.get(userId);
-        if (null == roomId) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
-
-        RoomMO roomMO = roomMOMap.get(roomId);
-        if (null == roomMO) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
+        RoomMO roomMO = findRoomByUserId(userId);
 
         roomMO.leaveUser(userId);
 
@@ -82,8 +74,7 @@ public class RoomServiceImpl implements RoomService {
         return Boolean.TRUE;
     }
 
-    @Override
-    public Boolean changeUserPrepareStatus(String userId, ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest) {
+    private RoomMO findRoomByUserId(String userId) {
         Long roomId = userIdRoomIdMap.get(userId);
         if (null == roomId) {
             throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
@@ -93,6 +84,13 @@ public class RoomServiceImpl implements RoomService {
         if (null == roomMO) {
             throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
         }
+        return roomMO;
+    }
+
+    @Override
+    public Boolean changeUserPrepareStatus(String userId, ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest) {
+        RoomMO roomMO = findRoomByUserId(userId);
+
         roomMO.changeUserPrepareStatus(userId, changeUserPrepareStatusRequest.getPrepared());
 
         List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
@@ -121,30 +119,14 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public List<RoomUserInformationResponse> getRoomUserList(String userId) {
-        Long roomId = userIdRoomIdMap.get(userId);
-        if (null == roomId) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
-
-        RoomMO roomMO = roomMOMap.get(roomId);
-        if (null == roomMO) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
+        RoomMO roomMO = findRoomByUserId(userId);
 
         return UserConvert.convertMoToResponse(roomMO.getGameUserMOList());
     }
 
     @Override
     public Boolean doRobLandlord(String userId) {
-        Long roomId = userIdRoomIdMap.get(userId);
-        if (null == roomId) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
-
-        RoomMO roomMO = roomMOMap.get(roomId);
-        if (null == roomMO) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
+        RoomMO roomMO = findRoomByUserId(userId);
 
         roomMO.doRob(userId);
 
@@ -167,15 +149,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Boolean doNotRobLandlord(String userId) {
-        Long roomId = userIdRoomIdMap.get(userId);
-        if (null == roomId) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
-
-        RoomMO roomMO = roomMOMap.get(roomId);
-        if (null == roomMO) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
+        RoomMO roomMO = findRoomByUserId(userId);
 
         roomMO.doNotRob(userId);
 
