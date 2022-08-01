@@ -5,8 +5,8 @@ import com.nero.hua.enumeration.RobLandlordEnumeration;
 import com.nero.hua.exception.RobLandlordException;
 import com.nero.hua.model.user.GameUserMO;
 import com.nero.hua.model.user.PlayCardRoundMO;
-import com.nero.hua.model.user.RobLandlordMO;
 import com.nero.hua.model.user.RobLandlordRoundMO;
+import com.nero.hua.model.user.UserRobLandlordTurnMO;
 import com.nero.hua.util.CardUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -144,25 +144,34 @@ public class GameManager {
     public String chooseOneUserToRobLandlord(List<GameUserMO> gameUserMOList) {
         int random  = (int) (Math.random() * MAX_USER_COUNT);
         String userId = gameUserMOList.get(random).getUserId();
-        this.robLandlordRoundMO = new RobLandlordRoundMO(random);
+        this.robLandlordRoundMO = new RobLandlordRoundMO(random, userId);
         return userId;
     }
 
-    public void thisGuyTurnToRob(String userId) {
-        if (!this.robLandlordMO.getUserId().equals(userId)) {
+    public void doRob(String userId) {
+        UserRobLandlordTurnMO userRobLandlordTurnMO = this.thisGuyTurn(userId);
+        userRobLandlordTurnMO.setDoRob(Boolean.TRUE);
+    }
+
+    public void doNotRob(String userId) {
+        UserRobLandlordTurnMO userRobLandlordTurnMO = this.thisGuyTurn(userId);
+        userRobLandlordTurnMO.setDoRob(Boolean.FALSE);
+    }
+
+    private UserRobLandlordTurnMO thisGuyTurn(String userId) {
+        if (null == this.robLandlordRoundMO) {
+            throw new RobLandlordException(RobLandlordEnumeration.NOT_TIME_TO_ROB);
+        }
+
+        List<UserRobLandlordTurnMO> userRobLandlordTurnMOList = this.robLandlordRoundMO.getUserRobLandlordTurnMOList();
+        UserRobLandlordTurnMO userRobLandlordTurnMO = userRobLandlordTurnMOList.get(userRobLandlordTurnMOList.size() - 1);
+        if (!userId.equals(userRobLandlordTurnMO.getUserId())) {
             throw new RobLandlordException(RobLandlordEnumeration.NOT_YOUR_TURN_TO_ROB);
         }
+
+        return userRobLandlordTurnMO;
     }
 
-    public void thisGuyTurnToNotRob(String userId) {
-        if (!this.robLandlordMO.getUserId().equals(userId)) {
-            throw new RobLandlordException(RobLandlordEnumeration.NOT_YOUR_TURN_TO_NOT_ROB);
-        }
-    }
-
-    public boolean hasNextOneToStartRob() {
-        return this.robLandlordMO.getCount() < MAX_USER_COUNT - 1;
-    }
 
     private int getUserIndexInUserListByUserId(String userId, List<GameUserMO> gameUserMOList) {
         for (int i = 0; i < gameUserMOList.size(); i++) {
@@ -188,8 +197,35 @@ public class GameManager {
                 cardMap.put(cardEnumeration, 1);
             }
         }
-
-        this.landlordCardList = null;
     }
 
+    public boolean hasNextOneToStartRob() {
+        if (null == this.robLandlordRoundMO) {
+            throw new RobLandlordException(RobLandlordEnumeration.NOT_TIME_TO_ROB);
+        }
+
+        return this.robLandlordRoundMO.getUserRobLandlordTurnMOList().size() < MAX_USER_COUNT - 1;
+    }
+
+    public String makeNextUserToStartRob(List<GameUserMO> gameUserMOList) {
+        int index = robLandlordRoundMO.getCurrentTurnUserIndex();
+
+        int nextIndex = (index + 1) % this.getMaxUserCount();
+        String nextUserId = gameUserMOList.get(nextIndex).getUserId();
+
+        this.robLandlordRoundMO.addNewUserToStartRob(nextIndex, nextUserId);
+
+        return nextUserId;
+    }
+
+    public String makeLastUserRobLandlordCard(List<GameUserMO> gameUserMOList) {
+        int index = robLandlordRoundMO.getCurrentTurnUserIndex();
+
+        int nextIndex = (index + 1) % this.getMaxUserCount();
+        String nextUserId = gameUserMOList.get(nextIndex).getUserId();
+
+        this.robLandlordRoundMO.makeNewUserRob(nextIndex, nextUserId);
+
+        return nextUserId;
+    }
 }
