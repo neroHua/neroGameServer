@@ -31,7 +31,7 @@ public class GameManager {
 
     private RobLandlordRoundMO robLandlordRoundMO;
 
-    private PlayCardRoundMO roundMO;
+    private PlayCardRoundMO playCardRoundMO;
 
     public int getMaxUserCount() {
         return MAX_USER_COUNT;
@@ -208,6 +208,8 @@ public class GameManager {
                 cardMap.put(cardEnumeration, 1);
             }
         }
+
+        this.playCardRoundMO.addNewUserToStartPlayCard(userIndex, userId);
     }
 
     public boolean hasNextOneToStartRob() {
