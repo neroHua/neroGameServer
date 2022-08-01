@@ -169,7 +169,10 @@ public class RoomServiceImpl implements RoomService {
             DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(lastUserId, landlordCardList);
             webSocketServer.sendMessage(allUserList, dealLandlordCardMessage);
 
-            roomMO.giveLandlordCardToThisGuy(userId);
+            roomMO.giveLandlordCardToThisGuy(lastUserId);
+
+            UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(lastUserId);
+            webSocketServer.sendMessage(allUserList, userStartToPlayCardMessage);
         }
 
         return Boolean.TRUE;
