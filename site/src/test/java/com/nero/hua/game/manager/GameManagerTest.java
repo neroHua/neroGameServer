@@ -1,178 +1,161 @@
-package com.nero.hua.service.impl;
+package com.nero.hua.game.manager;
 
-import com.nero.hua.convert.UserConvert;
 import com.nero.hua.enumeration.CardEnumeration;
-import com.nero.hua.enumeration.RoomEnumeration;
-import com.nero.hua.exception.RoomException;
-import com.nero.hua.game.manager.GameManager;
-import com.nero.hua.model.room.JoinRoomRequest;
-import com.nero.hua.model.room.RoomMO;
-import com.nero.hua.model.user.*;
-import com.nero.hua.service.RoomService;
-import com.nero.hua.util.CardUtil;
-import com.nero.hua.websocket.WebSocketServer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.nero.hua.model.user.GameUserMO;
+import org.junit.Assert;
+import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-@Service
-public class RoomServiceImpl implements RoomService {
+public class GameManagerTest {
 
-    @Autowired
-    private WebSocketServer webSocketServer;
+    @Test
+    public void testShouldStartGame() {
+        GameManager gameManager = new GameManager();
 
-    private Map<Long, RoomMO> roomMOMap = new ConcurrentHashMap<>();
-    private Map<String, Long> userIdRoomIdMap= new ConcurrentHashMap<>();
+        List<GameUserMO> gameUserMOList = new LinkedList<>();
+        GameUserMO gameUserMO01 = new GameUserMO();
+        GameUserMO gameUserMO02 = new GameUserMO();
+        GameUserMO gameUserMO03 = new GameUserMO();
 
-    @Override
-    public Long createRoom(String userId) {
-        RoomMO roomMO = new RoomMO();
-        roomMO.setGameManager(new GameManager());
-        roomMO.setRoomId((long) (roomMO.hashCode() % 1000));
-        roomMOMap.put(roomMO.getRoomId(), roomMO);
+        gameUserMO01.setUserId("testUserId01");
+        gameUserMO02.setUserId("testUserId02");
+        gameUserMO03.setUserId("testUserId03");
 
-        return roomMO.getRoomId();
+        gameUserMOList.add(gameUserMO01);
+        Assert.assertFalse(gameManager.shouldStartGame(gameUserMOList));
+
+        gameUserMOList.add(gameUserMO02);
+        gameUserMOList.add(gameUserMO03);
+        Assert.assertFalse(gameManager.shouldStartGame(gameUserMOList));
+
+        gameUserMO01.setPrepared(Boolean.FALSE);
+        gameUserMO02.setPrepared(Boolean.TRUE);
+        gameUserMO03.setPrepared(Boolean.TRUE);
+        Assert.assertFalse(gameManager.shouldStartGame(gameUserMOList));
+
+        gameUserMO01.setPrepared(Boolean.TRUE);
+        Assert.assertTrue(gameManager.shouldStartGame(gameUserMOList));
     }
 
-    @Override
-    public Boolean joinRoom(String userId, JoinRoomRequest joinRoomRequest) {
-        RoomMO roomMO = roomMOMap.get(joinRoomRequest.getRoomId());
-        if (null == roomMO) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
+    @Test
+    public void testStartGameAndDealLandlordCardList() {
+        GameManager gameManager = new GameManager();
 
-        roomMO.joinUser(userId);
+        List<GameUserMO> gameUserMOList = new LinkedList<>();
+        GameUserMO gameUserMO01 = new GameUserMO();
+        GameUserMO gameUserMO02 = new GameUserMO();
+        GameUserMO gameUserMO03 = new GameUserMO();
 
-        userIdRoomIdMap.put(userId, roomMO.getRoomId());
+        gameUserMO01.setUserId("testUserId01");
+        gameUserMO02.setUserId("testUserId02");
+        gameUserMO03.setUserId("testUserId03");
 
-        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
-        UserJoinRoomMessage userJoinRoomMessage = new UserJoinRoomMessage(userId);
-        webSocketServer.sendMessage(allOtherUserList, userJoinRoomMessage);
+        gameUserMOList.add(gameUserMO01);
+        gameUserMOList.add(gameUserMO02);
+        gameUserMOList.add(gameUserMO03);
 
-        return Boolean.TRUE;
+        gameManager.startGame(gameUserMOList);
+
+        Assert.assertEquals(gameManager.getNormalUserCardCount(), gameUserMO01.getCardMap().size());
+        Assert.assertEquals(gameManager.getNormalUserCardCount(), gameUserMO02.getCardMap().size());
+        Assert.assertEquals(gameManager.getNormalUserCardCount(), gameUserMO03.getCardMap().size());
+        Assert.assertEquals(gameManager.getLandlordCardCount(), gameManager.getLandlordCardList().size());
+
+        gameManager.giveLandlordCardToThisGuy("testUserId01", gameUserMOList);
+
+        Assert.assertEquals(gameManager.getNormalUserCardCount() + gameManager.getLandlordCardCount(), gameUserMO01.getCardMap().size());
+        Assert.assertEquals(gameManager.getLandlordCardCount(), gameManager.getLandlordCardList().size());
     }
 
-    @Override
-    public Boolean leaveRoom(String userId) {
-        RoomMO roomMO = findRoomByUserId(userId);
+    @Test
+    public void testSortCardCase01() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_103);
+        cardList.add(CardEnumeration.CARD_104);
 
-        roomMO.leaveUser(userId);
+        GameManager gameManager = new GameManager();
 
-        if (roomMO.empty()) {
-            roomMOMap.remove(roomMO.getRoomId());
-        }
+        gameManager.sortOneCardList(0, cardList.size() - 1, cardList);
 
-        userIdRoomIdMap.remove(userId, roomMO.getRoomId());
-
-        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
-        UserLeaveRoomMessage userLeaveRoomMessage = new UserLeaveRoomMessage(userId);
-        webSocketServer.sendMessage(allOtherUserList, userLeaveRoomMessage);
-
-        return Boolean.TRUE;
+        Assert.assertEquals(CardEnumeration.CARD_104, cardList.get(0));
+        Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(1));
     }
 
-    private RoomMO findRoomByUserId(String userId) {
-        Long roomId = userIdRoomIdMap.get(userId);
-        if (null == roomId) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
+    @Test
+    public void testSortCardCase02() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_103);
+        cardList.add(CardEnumeration.CARD_104);
+        cardList.add(CardEnumeration.CARD_105);
+        cardList.add(CardEnumeration.CARD_106);
 
-        RoomMO roomMO = roomMOMap.get(roomId);
-        if (null == roomMO) {
-            throw new RoomException(RoomEnumeration.ROOM_NOT_FOUND);
-        }
-        return roomMO;
+        GameManager gameManager = new GameManager();
+
+        gameManager.sortOneCardList(0, cardList.size() - 1, cardList);
+
+        Assert.assertEquals(CardEnumeration.CARD_106, cardList.get(0));
+        Assert.assertEquals(CardEnumeration.CARD_105, cardList.get(1));
+        Assert.assertEquals(CardEnumeration.CARD_104, cardList.get(2));
+        Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(3));
     }
 
-    @Override
-    public Boolean changeUserPrepareStatus(String userId, ChangeUserPrepareStatusRequest changeUserPrepareStatusRequest) {
-        RoomMO roomMO = findRoomByUserId(userId);
+    @Test
+    public void testChooseOneUserToRobLandlord() {
+        GameManager gameManager = new GameManager();
 
-        roomMO.changeUserPrepareStatus(userId, changeUserPrepareStatusRequest.getPrepared());
+        List<GameUserMO> gameUserMOList = new LinkedList<>();
+        GameUserMO gameUserMO01 = new GameUserMO();
+        GameUserMO gameUserMO02 = new GameUserMO();
+        GameUserMO gameUserMO03 = new GameUserMO();
 
-        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
-        ChangeUserPrepareStatusMessage changeUserPrepareStatusMessage = new ChangeUserPrepareStatusMessage(userId, changeUserPrepareStatusRequest.getPrepared());
-        webSocketServer.sendMessage(allOtherUserList, changeUserPrepareStatusMessage);
+        gameUserMO01.setUserId("testUserId01");
+        gameUserMO02.setUserId("testUserId02");
+        gameUserMO03.setUserId("testUserId03");
 
-        if (roomMO.shouldNotStartGame()) {
-            return Boolean.TRUE;
-        }
+        gameUserMOList.add(gameUserMO01);
+        gameUserMOList.add(gameUserMO02);
+        gameUserMOList.add(gameUserMO03);
 
-        roomMO.startGame();
-
-        List<GameUserMO> gameUserMOList = roomMO.getGameUserMOList();
-        for (GameUserMO gameUserMO : gameUserMOList) {
-            DealCardMessage dealCardMessage = new DealCardMessage(CardUtil.convertCardMapToCardList(gameUserMO.getCardMap()));
-            webSocketServer.sendMessage(gameUserMO.getUserId(), dealCardMessage);
-        }
-
-        List<String> allUserList = roomMO.getAllUserList();
-        String randomUserId = roomMO.chooseOneUserToRobLandlord();
-        UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(randomUserId);
-        webSocketServer.sendMessage(allUserList, userStartRobLandlordMessage);
-
-        return Boolean.TRUE;
+        String chooseUserId = gameManager.chooseOneUserToRobLandlord(gameUserMOList);
+        Assert.assertEquals(chooseUserId, gameManager.getRobLandlordRoundMO().getUserRobLandlordTurnMOList().get(0).getUserId());
     }
 
-    @Override
-    public List<RoomUserInformationResponse> getRoomUserList(String userId) {
-        RoomMO roomMO = findRoomByUserId(userId);
+    @Test
+    public void testDoRobAndDoNotRob() {
+        GameManager gameManager = new GameManager();
 
-        return UserConvert.convertMoToResponse(roomMO.getGameUserMOList());
-    }
+        List<GameUserMO> gameUserMOList = new LinkedList<>();
+        GameUserMO gameUserMO01 = new GameUserMO();
+        GameUserMO gameUserMO02 = new GameUserMO();
+        GameUserMO gameUserMO03 = new GameUserMO();
 
-    @Override
-    public Boolean doRobLandlord(String userId) {
-        RoomMO roomMO = findRoomByUserId(userId);
+        gameUserMO01.setUserId("testUserId01");
+        gameUserMO02.setUserId("testUserId02");
+        gameUserMO03.setUserId("testUserId03");
 
-        roomMO.doRob(userId);
+        gameUserMOList.add(gameUserMO01);
+        gameUserMOList.add(gameUserMO02);
+        gameUserMOList.add(gameUserMO03);
 
-        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
-        UserDoRobLandlordMessage userDoRobLandlordMessage = new UserDoRobLandlordMessage(userId);
-        webSocketServer.sendMessage(allOtherUserList, userDoRobLandlordMessage);
+        String userId1 = gameManager.chooseOneUserToRobLandlord(gameUserMOList);
+        Assert.assertTrue(gameManager.hasNextOneToStartRob());
 
-        List<String> allUserList = roomMO.getAllUserList();
-        List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
-        DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(userId, landlordCardList);
-        webSocketServer.sendMessage(allUserList, dealLandlordCardMessage);
+        gameManager.doNotRob(userId1);
+        Assert.assertFalse(gameManager.getRobLandlordRoundMO().getUserRobLandlordTurnMOList().get(0).isDoRob());
+        Assert.assertTrue(gameManager.hasNextOneToStartRob());
 
-        roomMO.giveLandlordCardToThisGuy(userId);
+        String userId2 = gameManager.makeNextUserToStartRob(gameUserMOList);
+        Assert.assertFalse(gameManager.hasNextOneToStartRob());
 
-        UserStartToPlayCardMessage userStartToPlayCardMessage = new UserStartToPlayCardMessage(userId);
-        webSocketServer.sendMessage(allUserList, userStartToPlayCardMessage);
+        gameManager.doNotRob(userId2);
+        Assert.assertFalse(gameManager.getRobLandlordRoundMO().getUserRobLandlordTurnMOList().get(1).isDoRob());
+        Assert.assertFalse(gameManager.hasNextOneToStartRob());
 
-        return Boolean.TRUE;
-    }
+        gameManager.makeLastUserRobLandlordCard(gameUserMOList);
+        Assert.assertTrue(gameManager.getRobLandlordRoundMO().getUserRobLandlordTurnMOList().get(2).isDoRob());
 
-    @Override
-    public Boolean doNotRobLandlord(String userId) {
-        RoomMO roomMO = findRoomByUserId(userId);
-
-        roomMO.doNotRob(userId);
-
-        List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
-        UserDoNotRobLandlordMessage userDoNotRobLandlordMessage = new UserDoNotRobLandlordMessage(userId);
-        webSocketServer.sendMessage(allOtherUserList, userDoNotRobLandlordMessage);
-
-        List<String> allUserList = roomMO.getAllUserList();
-        if (roomMO.hasNextOneToStartRob()) {
-            String nextUserIdToStartRob = roomMO.makeNextUserToStartRob();
-            UserStartRobLandlordMessage userStartRobLandlordMessage = new UserStartRobLandlordMessage(nextUserIdToStartRob);
-            webSocketServer.sendMessage(allUserList, userStartRobLandlordMessage);
-        }
-        else {
-            String lastUserId = roomMO.makeLastUserRobLandlordCard();
-            List<CardEnumeration> landlordCardList = roomMO.getLandlordCardList();
-            DealLandlordCardMessage dealLandlordCardMessage = new DealLandlordCardMessage(lastUserId, landlordCardList);
-            webSocketServer.sendMessage(allUserList, dealLandlordCardMessage);
-
-            roomMO.giveLandlordCardToThisGuy(userId);
-        }
-
-        return Boolean.TRUE;
     }
 
 }
