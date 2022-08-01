@@ -224,7 +224,7 @@ public class GameManager {
         int nextIndex = (index + 1) % this.getMaxUserCount();
         String nextUserId = gameUserMOList.get(nextIndex).getUserId();
 
-        this.robLandlordRoundMO.makeNewUserRob(nextIndex, nextUserId);
+        this.robLandlordRoundMO.addNewUserToDoRob(nextIndex, nextUserId);
 
         return nextUserId;
     }
