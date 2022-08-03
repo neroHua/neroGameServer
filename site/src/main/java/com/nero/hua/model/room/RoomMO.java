@@ -1,6 +1,7 @@
 package com.nero.hua.model.room;
 
 import com.nero.hua.enumeration.CardEnumeration;
+import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
 import com.nero.hua.game.manager.GameManager;
@@ -119,8 +120,8 @@ public class RoomMO {
         return this.gameManager.makeLastUserRobLandlordCard(this.gameUserMOList);
     }
 
-    public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList) {
-        this.gameManager.doPlayCard(userId, cardEnumerationList, this.gameUserMOList);
+    public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        this.gameManager.doPlayCard(userId, cardEnumerationList, playCardTypeEnumeration, this.gameUserMOList);
     }
 
     public boolean thisGuyWin(String userId) {
