@@ -101,7 +101,7 @@ public class CardUtil {
 
         List<CardEnumeration> lastPlayCardList = lastUserPlayCardTurnMO.getCardList();
         return lastPlayCardList.size() == playCardList.size()
-                && lastPlayCardList.get(0).getValue() >= playCardList.get(0).getValue();
+                && lastPlayCardList.get(0).getValue() < playCardList.get(0).getValue();
     }
 
     public static boolean currentPlayCardListNotBetterThanLastPlayCardList(UserPlayCardTurnMO lastUserPlayCardTurnMO, List<CardEnumeration> playCardList, PlayCardTypeEnumeration playCardTypeEnumeration) {
