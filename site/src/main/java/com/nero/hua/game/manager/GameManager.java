@@ -2,6 +2,7 @@ package com.nero.hua.game.manager;
 
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardEnumeration;
+import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import com.nero.hua.enumeration.RobLandlordEnumeration;
 import com.nero.hua.exception.PlayCardException;
 import com.nero.hua.exception.RobLandlordException;
@@ -251,14 +252,28 @@ public class GameManager {
         return nextUserId;
     }
 
-    public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList, List<GameUserMO> gameUserMOList) {
+    public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration, List<GameUserMO> gameUserMOList) {
+        if (CardUtil.playCardNotMatchPlayCardType(cardEnumerationList, playCardTypeEnumeration)) {
+            throw new PlayCardException(PlayCardEnumeration.PLAY_CARD_DO_NOT_MATCH_ITS_TYPE);
+        }
+
         UserPlayCardTurnMO userPlayCardTurnMO = this.thisGuyTurnForPlayCardRound(userId);
 
         GameUserMO gameUserMO = gameUserMOList.get(userPlayCardTurnMO.getUserIndex());
+        Map<CardEnumeration, Integer> cardEnumerationMap = CardUtil.convertCardListToCardMap(cardEnumerationList);
+        if (CardUtil.handCardMapNotContainsPlayCardMap(gameUserMO.getCardMap(), cardEnumerationMap)) {
+            throw new PlayCardException(PlayCardEnumeration.HAND_CARD_DO_NOT_CONTAINS_PLAY_CARD);
+        }
+
+        UserPlayCardTurnMO lastUserPlayCardTurnMO = this.playCardRoundMO.getLastUserPlayCardTurnMO();
+        if (CardUtil.currentPlayCardListNotBetterThanLastPlayCardList(lastUserPlayCardTurnMO, cardEnumerationList, playCardTypeEnumeration)) {
+           throw new PlayCardException(PlayCardEnumeration.PLAY_CARD_DO_NOT_BETTER_THAN_LAST_PLAY_CARD);
+        }
 
         this.removeUserCardList(gameUserMO, cardEnumerationList);
 
         userPlayCardTurnMO.setCardList(cardEnumerationList);
+        userPlayCardTurnMO.setPlayCardTypeEnumeration(playCardTypeEnumeration);
     }
 
     private UserPlayCardTurnMO thisGuyTurnForPlayCardRound(String userId) {
@@ -278,9 +293,6 @@ public class GameManager {
     private void removeUserCardList(GameUserMO gameUserMO, List<CardEnumeration> cardEnumerationList) {
         Map<CardEnumeration, Integer> cardMap = gameUserMO.getCardMap();
         for (CardEnumeration cardEnumeration : cardEnumerationList) {
-            if (!cardMap.containsKey(cardEnumeration)) {
-                throw new PlayCardException(PlayCardEnumeration.CARD_MISS);
-            }
             Integer cardCount = cardMap.get(cardEnumeration);
             if (1 == cardCount) {
                 cardMap.remove(cardEnumeration);
