@@ -185,7 +185,7 @@ public class RoomServiceImpl implements RoomService {
         roomMO.doPlayCard(userId, userDoPlayCardRequest.getCardEnumerationList(), userDoPlayCardRequest.getPlayCardTypeEnumeration());
 
         List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
-        UserDoPlayCardMessage userDoPlayCardMessage = new UserDoPlayCardMessage(userId, userDoPlayCardRequest.getCardEnumerationList());
+        UserDoPlayCardMessage userDoPlayCardMessage = new UserDoPlayCardMessage(userId, userDoPlayCardRequest.getCardEnumerationList(), userDoPlayCardRequest.getPlayCardTypeEnumeration());
         webSocketServer.sendMessage(allOtherUserList, userDoPlayCardMessage);
 
         List<String> allUserList = roomMO.getAllOtherUserList(userId);
