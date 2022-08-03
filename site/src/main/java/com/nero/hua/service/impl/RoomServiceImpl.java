@@ -182,7 +182,7 @@ public class RoomServiceImpl implements RoomService {
     public Boolean doPlayCard(String userId, UserDoPlayCardRequest userDoPlayCardRequest) {
         RoomMO roomMO = findRoomByUserId(userId);
 
-        roomMO.doPlayCard(userId, userDoPlayCardRequest.getCardEnumerationList());
+        roomMO.doPlayCard(userId, userDoPlayCardRequest.getCardEnumerationList(), userDoPlayCardRequest.getPlayCardTypeEnumeration());
 
         List<String> allOtherUserList = roomMO.getAllOtherUserList(userId);
         UserDoPlayCardMessage userDoPlayCardMessage = new UserDoPlayCardMessage(userId, userDoPlayCardRequest.getCardEnumerationList());
