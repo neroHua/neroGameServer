@@ -10,7 +10,10 @@ public enum PlayCardEnumeration {
     NOT_YOUR_TURN_TO_PLAY_CARD("notYourTurnToRob", "不是您出牌的轮次"),
     NOT_YOUR_TURN_TO_NOT_PLAY_CARD("notYourTurnToNotRob", "不是您不出牌的轮次"),
 
-    CARD_MISS("cardMiss", "缺少牌");
+    PLAY_CARD_DO_NOT_MATCH_ITS_TYPE("playCardDoNotMatchItsType", "打出的牌跟牌型不匹配"),
+    HAND_CARD_DO_NOT_CONTAINS_PLAY_CARD("handCardDoNotContainsPlayCard", "打出的牌不包含再手牌中"),
+
+    PLAY_CARD_DO_NOT_BETTER_THAN_LAST_PLAY_CARD("playCardDoNotBetterThanLastPlayCard", "当前牌过小");
 
     private String code;
     private String message;
