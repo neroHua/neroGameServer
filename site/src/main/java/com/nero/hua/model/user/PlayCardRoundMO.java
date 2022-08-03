@@ -2,6 +2,7 @@ package com.nero.hua.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.CollectionUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +31,20 @@ public class PlayCardRoundMO {
             }
         }
         return Boolean.TRUE;
+    }
+
+    public UserPlayCardTurnMO getLastUserPlayCardTurnMO() {
+        if (CollectionUtils.isEmpty(userPlayCardTurnMOList)) {
+            return null;
+        }
+
+        for (int i = this.userPlayCardTurnMOList.size() - 1; i >= 0; i--) {
+            if (!CollectionUtils.isEmpty(this.userPlayCardTurnMOList.get(i).getCardList())) {
+                return this.userPlayCardTurnMOList.get(i);
+            }
+        }
+
+        return null;
     }
 
 }
