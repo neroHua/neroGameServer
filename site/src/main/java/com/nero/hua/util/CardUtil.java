@@ -75,7 +75,18 @@ public class CardUtil {
     }
 
     public static boolean handCardMapContainsPlayCardMap(Map<CardEnumeration, Integer> handCardMap, Map<CardEnumeration, Integer> playCardMap) {
-        return false;
+        for (CardEnumeration cardEnumeration : playCardMap.keySet()) {
+            Integer handCardCount = handCardMap.get(cardEnumeration);
+            if (null == handCardCount) {
+                return Boolean.FALSE;
+            }
+            
+            Integer playCardCount = playCardMap.get(cardEnumeration);
+            if (handCardCount < playCardCount) {
+                return Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
     }
 
     public static boolean handCardMapNotContainsPlayCardMap(Map<CardEnumeration, Integer> handCardMap, Map<CardEnumeration, Integer> playCardMap) {
