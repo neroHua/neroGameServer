@@ -124,10 +124,41 @@ public class CardUtil {
         return !currentPlayCardListBetterThanLastPlayCardList(lastUserPlayCardTurnMO, playCardList, playCardTypeEnumeration);
     }
 
-    public static void fastCalculatePlayCardType(List<CardEnumeration> playCardList) {
-        for (int i = 0; i < playCardList.size(); i++ ) {
-
+    public static Map<PlayCardTypeEnumeration, List<CardEnumeration>> fastCalculatePlayCardType(List<CardEnumeration> playCardList) {
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeMap = new HashMap<>();
+        if (1 == playCardList.size()) {
+            playCardTypeMap.put(PlayCardTypeEnumeration.SINGLE, playCardList);
         }
+        else if (2 == playCardList.size()){
+            if (playCardList.get(0).getValue() == playCardList.get(1).getValue()) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.PAIR, playCardList);
+            }
+
+            if (playCardList.get(1).getValue() < playCardList.get(0).getValue()) {
+                playCardList.add(playCardList.remove(0));
+            }
+            if (playCardList.get(0) == CardEnumeration.CARD_516 && playCardList.get(1) == CardEnumeration.CARD_517) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.BOMB_KING, playCardList);
+            }
+        }
+        else if (3 == playCardList.size()){
+            if (playCardList.get(0).getValue() == playCardList.get(1).getValue()
+                    && playCardList.get(1).getValue() == playCardList.get(2).getValue()) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE, playCardList);
+            }
+        }
+        else if (4 == playCardList.size()){
+            if (playCardList.get(0).getValue() == playCardList.get(1).getValue()
+                    && playCardList.get(1).getValue() == playCardList.get(2).getValue()
+                    && playCardList.get(2).getValue() == playCardList.get(3).getValue()) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.BOMB, playCardList);
+                playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, playCardList);
+            }
+
+            formatCardList(playCardList);
+        }
+
+        return playCardTypeMap;
     }
 
     public static void sortEachCardList(List<List<CardEnumeration>> dealCardList) {
@@ -166,4 +197,41 @@ public class CardUtil {
         sortOneCardList(start, middle - 1, cardList);
         sortOneCardList(middle + 1, end, cardList);
     }
+
+    private static void formatCardList(List<CardEnumeration> playCardList) {
+        Map<Integer, Integer> playCardValueCountMap = getPlayCardValueCountMap(playCardList);
+
+        sortOneCardList(0, playCardList.size() - 1, playCardList);
+
+        Map<Integer, Integer> countStartIndexMap = new HashMap<>();
+        for (Integer i : playCardValueCountMap.keySet()) {
+            countStartIndexMap.put(playCardValueCountMap.get(i), 0);
+        }
+
+        for (int i = 0; i < playCardList.size(); i++) {
+            CardEnumeration cardEnumeration = playCardList.get(i);
+            Integer count = playCardValueCountMap.get(cardEnumeration.getValue());
+            Integer countStartIndex = countStartIndexMap.get(count);
+            playCardList.remove(i);
+            playCardList.add(countStartIndex, cardEnumeration);
+            countStartIndexMap.put(count, countStartIndex + 1);
+        }
+    }
+
+    private static Map<Integer, Integer> getPlayCardValueCountMap(List<CardEnumeration> playCardList) {
+        Map<Integer, Integer> playCardValueCountMap = new HashMap<>();
+
+        for (int i = 0; i < playCardList.size(); i++) {
+            Integer count = playCardValueCountMap.get(playCardList.get(i).getValue());
+            if (null == count) {
+                playCardValueCountMap.put(playCardList.get(i).getValue(), 1);
+            }
+            else {
+                playCardValueCountMap.put(playCardList.get(i).getValue(), count + 1);
+            }
+        }
+
+        return playCardValueCountMap;
+    }
+
 }
