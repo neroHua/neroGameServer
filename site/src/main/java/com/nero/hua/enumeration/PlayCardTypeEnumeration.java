@@ -19,6 +19,9 @@ public enum PlayCardTypeEnumeration {
     AIRPLANE_SINGLE("airplaneSingle", 0, "飞机带单"),
     AIRPLANE_PAIR("airplanePair", 0, "飞机带对"),
 
+    FOUR_SINGLE("fourSingle", 0, "4带2"),
+    FOUR_PAIR("fourPair", 0, "4带2对"),
+
     BOMB("bomb", 1, "炸弹"),
     BOMB_KING("bombKing", 2, "王炸");
 
