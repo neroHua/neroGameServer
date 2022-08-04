@@ -37,6 +37,11 @@ public class CardUtil {
         playCardTypeValidate = new AirplanePairValidate();
         playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
 
+        playCardTypeValidate = new FourSingleValidate();
+        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
+        playCardTypeValidate = new FourPairValidate();
+        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
+
         playCardTypeValidate = new BombValidate();
         playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
         playCardTypeValidate = new BombKingValidate();
@@ -80,7 +85,7 @@ public class CardUtil {
             if (null == handCardCount) {
                 return Boolean.FALSE;
             }
-            
+
             Integer playCardCount = playCardMap.get(cardEnumeration);
             if (handCardCount < playCardCount) {
                 return Boolean.FALSE;
@@ -117,6 +122,10 @@ public class CardUtil {
 
     public static boolean currentPlayCardListNotBetterThanLastPlayCardList(UserPlayCardTurnMO lastUserPlayCardTurnMO, List<CardEnumeration> playCardList, PlayCardTypeEnumeration playCardTypeEnumeration) {
         return !currentPlayCardListBetterThanLastPlayCardList(lastUserPlayCardTurnMO, playCardList, playCardTypeEnumeration);
+    }
+
+    public static void fastCalculatePlayCardType(List<CardEnumeration> playCardList) {
+        Map<CardEnumeration, Integer> playCardMap = convertCardListToCardMap(playCardList);
     }
 
 }
