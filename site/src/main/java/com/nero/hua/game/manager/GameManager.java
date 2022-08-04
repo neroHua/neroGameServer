@@ -111,46 +111,7 @@ public class GameManager {
 
         dealCardList.add(shuffledCardList);
 
-//        sortEachCardList(dealCardList);
-
         return dealCardList;
-    }
-
-    public void sortEachCardList(List<List<CardEnumeration>> dealCardList) {
-        for (int i = 0; i < dealCardList.size(); i++) {
-            sortOneCardList(0, dealCardList.get(i).size() - 1, dealCardList.get(i));
-        }
-    }
-
-    public void sortOneCardList(int start, int end, List<CardEnumeration> cardList) {
-        if (start >= end) {
-            return;
-        }
-
-        CardEnumeration keyCard = cardList.get(start);
-        int i = start;
-        int j = end;
-        while (i != j) {
-            if (cardList.get(i).getValue() < keyCard.getValue()) {
-                CardEnumeration temp = cardList.get(j);
-                cardList.set(j, cardList.get(i));
-                cardList.set(i, temp);
-                j--;
-            }
-            else {
-               i++;
-            }
-        }
-
-        int middle = cardList.get(i).getValue() >= keyCard.getValue() ? i : i - 1;
-        if (middle >= start && middle <= end) {
-            CardEnumeration temp = cardList.get(middle);
-            cardList.set(middle, cardList.get(start));
-            cardList.set(start, temp);
-        }
-
-        sortOneCardList(start, middle - 1, cardList);
-        sortOneCardList(middle + 1, end, cardList);
     }
 
     public String chooseOneUserToRobLandlord(List<GameUserMO> gameUserMOList) {
