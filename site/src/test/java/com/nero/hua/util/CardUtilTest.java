@@ -4,6 +4,7 @@ import com.nero.hua.enumeration.CardEnumeration;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,5 +37,42 @@ public class CardUtilTest {
         Assert.assertEquals(CardEnumeration.CARD_104, cardList.get(2));
         Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(3));
     }
+
+    @Test
+    public void testSortCase01() {
+        List<Integer> countList = new ArrayList();
+        countList.add(1);
+
+        CardUtil.selectionSort(countList);
+
+        Assert.assertEquals(1, (int) countList.get(0));
+    }
+
+    @Test
+    public void testSortCase02() {
+        List<Integer> countList = new ArrayList();
+        countList.add(1);
+        countList.add(2);
+
+        CardUtil.selectionSort(countList);
+
+        Assert.assertEquals(2, (int) countList.get(0));
+        Assert.assertEquals(1, (int) countList.get(1));
+    }
+
+    @Test
+    public void testSortCase03() {
+        List<Integer> countList = new ArrayList();
+        countList.add(1);
+        countList.add(2);
+        countList.add(3);
+
+        CardUtil.selectionSort(countList);
+
+        Assert.assertEquals(3, (int) countList.get(0));
+        Assert.assertEquals(2, (int) countList.get(1));
+        Assert.assertEquals(1, (int) countList.get(2));
+    }
+
 
 }
