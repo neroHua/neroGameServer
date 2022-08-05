@@ -79,9 +79,10 @@ public class CardUtilTest {
         List<CardEnumeration> cardList = new LinkedList<>();
         cardList.add(CardEnumeration.CARD_103);
 
-        List<CardEnumeration> formattedCardList = CardUtil.formatCardList(cardList);
+        int count = CardUtil.formatCardList(cardList);
 
-        Assert.assertEquals(CardEnumeration.CARD_103, formattedCardList.get(0));
+        Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(0));
+        Assert.assertEquals(1, count);
     }
 
     @Test
@@ -90,10 +91,11 @@ public class CardUtilTest {
         cardList.add(CardEnumeration.CARD_103);
         cardList.add(CardEnumeration.CARD_203);
 
-        List<CardEnumeration> formattedCardList = CardUtil.formatCardList(cardList);
+        int count = CardUtil.formatCardList(cardList);
 
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(0).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(1).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(0).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(1).getValue());
+        Assert.assertEquals(2, count);
     }
 
     @Test
@@ -103,11 +105,13 @@ public class CardUtilTest {
         cardList.add(CardEnumeration.CARD_203);
         cardList.add(CardEnumeration.CARD_304);
 
-        List<CardEnumeration> formattedCardList = CardUtil.formatCardList(cardList);
+        int count = CardUtil.formatCardList(cardList);
 
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(0).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(1).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_304.getValue(), formattedCardList.get(2).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(0).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(1).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_304.getValue(), cardList.get(2).getValue());
+
+        Assert.assertEquals(2, count);
     }
 
     @Test
@@ -118,12 +122,13 @@ public class CardUtilTest {
         cardList.add(CardEnumeration.CARD_303);
         cardList.add(CardEnumeration.CARD_304);
 
-        List<CardEnumeration> formattedCardList = CardUtil.formatCardList(cardList);
+        int count = CardUtil.formatCardList(cardList);
 
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(0).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(1).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(2).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_304.getValue(), formattedCardList.get(3).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(0).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(1).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(2).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_304.getValue(), cardList.get(3).getValue());
+        Assert.assertEquals(3, count);
     }
 
     @Test
@@ -154,31 +159,32 @@ public class CardUtilTest {
         cardList.add(CardEnumeration.CARD_305);
         cardList.add(CardEnumeration.CARD_405);
 
-        List<CardEnumeration> formattedCardList = CardUtil.formatCardList(cardList);
+        int count = CardUtil.formatCardList(cardList);
 
-        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), formattedCardList.get(0).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), formattedCardList.get(1).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), formattedCardList.get(2).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), formattedCardList.get(3).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), formattedCardList.get(4).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), formattedCardList.get(5).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), formattedCardList.get(6).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), formattedCardList.get(7).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), cardList.get(0).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), cardList.get(1).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), cardList.get(2).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_105.getValue(), cardList.get(3).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), cardList.get(4).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), cardList.get(5).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), cardList.get(6).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_104.getValue(), cardList.get(7).getValue());
 
-        Assert.assertEquals(CardEnumeration.CARD_106.getValue(), formattedCardList.get(8).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_106.getValue(), formattedCardList.get(9).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_106.getValue(), formattedCardList.get(10).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(11).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(12).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), formattedCardList.get(13).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_106.getValue(), cardList.get(8).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_106.getValue(), cardList.get(9).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_106.getValue(), cardList.get(10).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(11).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(12).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_103.getValue(), cardList.get(13).getValue());
 
-        Assert.assertEquals(CardEnumeration.CARD_108.getValue(), formattedCardList.get(14).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_108.getValue(), formattedCardList.get(15).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_107.getValue(), formattedCardList.get(16).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_107.getValue(), formattedCardList.get(17).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_108.getValue(), cardList.get(14).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_108.getValue(), cardList.get(15).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_107.getValue(), cardList.get(16).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_107.getValue(), cardList.get(17).getValue());
 
-        Assert.assertEquals(CardEnumeration.CARD_517.getValue(), formattedCardList.get(18).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_516.getValue(), formattedCardList.get(19).getValue());
-        Assert.assertEquals(CardEnumeration.CARD_109.getValue(), formattedCardList.get(20).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_517.getValue(), cardList.get(18).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_516.getValue(), cardList.get(19).getValue());
+        Assert.assertEquals(CardEnumeration.CARD_109.getValue(), cardList.get(20).getValue());
+        Assert.assertEquals(4, count);
     }
 }
