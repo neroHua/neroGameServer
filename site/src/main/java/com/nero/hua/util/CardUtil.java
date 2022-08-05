@@ -124,9 +124,96 @@ public class CardUtil {
         return !currentPlayCardListBetterThanLastPlayCardList(lastUserPlayCardTurnMO, playCardList, playCardTypeEnumeration);
     }
 
-    public static Map<PlayCardTypeEnumeration, List<CardEnumeration>> fastCalculatePlayCardType(List<CardEnumeration> playCardList) {
+    public static Map<PlayCardTypeEnumeration, List<CardEnumeration>> generalCalculatePlayCardType(List<CardEnumeration> playCardList) {
         int maxSameValueCardCount = formatCardList(playCardList);
-        return null;
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeMap = new HashMap<>();
+
+        int size = playCardList.size();
+        if (1 == maxSameValueCardCount) {
+            if (1 == size) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.SINGLE, playCardList);
+            }
+            else if (2 == size) {
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.BOMB_KING);
+                if (playCardTypeValidate.match(playCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.SINGLE, playCardList);
+                }
+            }
+            else if (size >= 5) {
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.STRAIGHT);
+                if (playCardTypeValidate.match(playCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.STRAIGHT, playCardList);
+                }
+            }
+        }
+        else if (2 == maxSameValueCardCount) {
+           if (2 == size) {
+               PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.PAIR);
+               if (playCardTypeValidate.match(playCardList)) {
+                   playCardTypeMap.put(PlayCardTypeEnumeration.PAIR, playCardList);
+               }
+           }
+           else if (size >= 6) {
+               PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.PAIR_STRAIGHT);
+               if (playCardTypeValidate.match(playCardList)) {
+                   playCardTypeMap.put(PlayCardTypeEnumeration.PAIR_STRAIGHT, playCardList);
+               }
+           }
+        }
+        else if (3 == maxSameValueCardCount) {
+            if (3 == size) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE, playCardList);
+            }
+            else if (4 == size) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, playCardList);
+            }
+            else if (5 == size) {
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.TRIPLE_PAIR);
+                if (playCardTypeValidate.match(playCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE_PAIR, playCardList);
+                }
+            }
+            else if (size % 3 == 0) {
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.AIRPLANE);
+                if (playCardTypeValidate.match(playCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.AIRPLANE, playCardList);
+                }
+            }
+            else if (size % 5 == 0) {
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.AIRPLANE_PAIR);
+                if (playCardTypeValidate.match(playCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR, playCardList);
+                }
+            }
+        }
+        else if (4 == maxSameValueCardCount) {
+            if (4 == size) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.BOMB, playCardList);
+            }
+            else if (size == 6) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.FOUR_SINGLE, playCardList);
+            }
+            else if (size == 8) {
+                playCardTypeMap.put(PlayCardTypeEnumeration.FOUR_PAIR, playCardList);
+                List<CardEnumeration> anotherTypeCardList = anotherTypeForFourPair(playCardList);
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.TRIPLE_SINGLE);
+                if (playCardTypeValidate.match(anotherTypeCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, anotherTypeCardList);
+                }
+            }
+        }
+        return playCardTypeMap;
+    }
+
+    private static List<CardEnumeration> anotherTypeForFourPair(List<CardEnumeration> playCardList) {
+        List<CardEnumeration> anotherTypeCardList = new ArrayList<>();
+        for (int i = 0; i < playCardList.size(); i++) {
+            anotherTypeCardList.set(i, playCardList.get(i));
+        }
+        anotherTypeCardList.set(3, anotherTypeCardList.get(4));
+        anotherTypeCardList.set(6, anotherTypeCardList.get(0));
+        return anotherTypeCardList;
     }
 
     public static void quickSortEachCardList(List<List<CardEnumeration>> dealCardList) {
