@@ -129,7 +129,7 @@ public class CardUtil {
         if (1 == playCardList.size()) {
             playCardTypeMap.put(PlayCardTypeEnumeration.SINGLE, playCardList);
         }
-        else if (2 == playCardList.size()){
+        else if (2 == playCardList.size()) {
             if (playCardList.get(0).getValue() == playCardList.get(1).getValue()) {
                 playCardTypeMap.put(PlayCardTypeEnumeration.PAIR, playCardList);
             }
@@ -141,13 +141,13 @@ public class CardUtil {
                 playCardTypeMap.put(PlayCardTypeEnumeration.BOMB_KING, playCardList);
             }
         }
-        else if (3 == playCardList.size()){
+        else if (3 == playCardList.size()) {
             if (playCardList.get(0).getValue() == playCardList.get(1).getValue()
                     && playCardList.get(1).getValue() == playCardList.get(2).getValue()) {
                 playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE, playCardList);
             }
         }
-        else if (4 == playCardList.size()){
+        else if (4 == playCardList.size()) {
             if (playCardList.get(0).getValue() == playCardList.get(1).getValue()
                     && playCardList.get(1).getValue() == playCardList.get(2).getValue()
                     && playCardList.get(2).getValue() == playCardList.get(3).getValue()) {
@@ -155,19 +155,19 @@ public class CardUtil {
                 playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, playCardList);
             }
 
-            formatCardList(playCardList);
+            List<CardEnumeration> formattedPlayCardList= formatCardList(playCardList);
         }
 
         return playCardTypeMap;
     }
 
-    public static void sortEachCardList(List<List<CardEnumeration>> dealCardList) {
+    public static void quickSortEachCardList(List<List<CardEnumeration>> dealCardList) {
         for (int i = 0; i < dealCardList.size(); i++) {
-            sortOneCardList(0, dealCardList.get(i).size() - 1, dealCardList.get(i));
+            quickSortOneCardList(0, dealCardList.get(i).size() - 1, dealCardList.get(i));
         }
     }
 
-    public static void sortOneCardList(int start, int end, List<CardEnumeration> cardList) {
+    public static void quickSortOneCardList(int start, int end, List<CardEnumeration> cardList) {
         if (start >= end) {
             return;
         }
@@ -194,27 +194,70 @@ public class CardUtil {
             cardList.set(start, temp);
         }
 
-        sortOneCardList(start, middle - 1, cardList);
-        sortOneCardList(middle + 1, end, cardList);
+        quickSortOneCardList(start, middle - 1, cardList);
+        quickSortOneCardList(middle + 1, end, cardList);
     }
 
-    private static void formatCardList(List<CardEnumeration> playCardList) {
+    public static List<CardEnumeration> formatCardList(List<CardEnumeration> playCardList) {
         Map<Integer, Integer> playCardValueCountMap = getPlayCardValueCountMap(playCardList);
 
-        sortOneCardList(0, playCardList.size() - 1, playCardList);
+        quickSortOneCardList(0, playCardList.size() - 1, playCardList);
 
-        Map<Integer, Integer> countStartIndexMap = new HashMap<>();
-        for (Integer i : playCardValueCountMap.keySet()) {
-            countStartIndexMap.put(playCardValueCountMap.get(i), 0);
+        Map<Integer, List<CardEnumeration>> playCardCountListMap = getPlayCardCountListMap(playCardList, playCardValueCountMap);
+
+        List<Integer> countList = getSortedPlayCardCountList(playCardCountListMap);
+
+        List<CardEnumeration> formattedCardList = new LinkedList<>();
+        for (int i = 0; i < countList.size(); i++) {
+            List<CardEnumeration> cardEnumerationList = playCardCountListMap.get(countList.get(i));
+            for (int j = 0; j < cardEnumerationList.size(); j++) {
+                formattedCardList.add(cardEnumerationList.get(j));
+            }
         }
 
-        for (int i = 0; i < playCardList.size(); i++) {
-            CardEnumeration cardEnumeration = playCardList.get(i);
+        return formattedCardList;
+    }
+
+    private static List<Integer> getSortedPlayCardCountList(Map<Integer, List<CardEnumeration>> playCardCountListMap) {
+        List<Integer> countList = new ArrayList<>();
+        for (Integer i : playCardCountListMap.keySet()) {
+            countList.add(i);
+        }
+
+        selectionSort(countList);
+        return countList;
+    }
+
+    private static Map<Integer, List<CardEnumeration>> getPlayCardCountListMap(List<CardEnumeration> sortedPlayCardList, Map<Integer, Integer> playCardValueCountMap) {
+        Map<Integer, List<CardEnumeration>> playCardCountListMap = new HashMap<>();
+        for (Integer i : playCardValueCountMap.keySet()) {
+            playCardCountListMap.put(playCardValueCountMap.get(i), new LinkedList<>());
+        }
+
+        for (int i = 0; i < sortedPlayCardList.size(); i++) {
+            CardEnumeration cardEnumeration = sortedPlayCardList.get(i);
             Integer count = playCardValueCountMap.get(cardEnumeration.getValue());
-            Integer countStartIndex = countStartIndexMap.get(count);
-            playCardList.remove(i);
-            playCardList.add(countStartIndex, cardEnumeration);
-            countStartIndexMap.put(count, countStartIndex + 1);
+            List<CardEnumeration> cardEnumerationList = playCardCountListMap.get(count);
+            cardEnumerationList.add(cardEnumeration);
+        }
+        return playCardCountListMap;
+    }
+
+    public static void selectionSort(List<Integer> countList) {
+        if (1 == countList.size()) {
+            return;
+        }
+
+        for (int i = 0; i < countList.size() - 1; i++) {
+            Integer current = countList.get(i);
+            for (int j = i + 1; j < countList.size(); j++) {
+                Integer tobeCompared = countList.get(j);
+                if (tobeCompared > current) {
+                    countList.set(i, tobeCompared);
+                    countList.set(j, current);
+                    current = tobeCompared;
+                }
+            }
         }
     }
 
