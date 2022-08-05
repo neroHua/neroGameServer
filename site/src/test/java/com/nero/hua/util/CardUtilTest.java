@@ -15,7 +15,7 @@ public class CardUtilTest {
         cardList.add(CardEnumeration.CARD_103);
         cardList.add(CardEnumeration.CARD_104);
 
-        CardUtil.sortOneCardList(0, cardList.size() - 1, cardList);
+        CardUtil.quickSortOneCardList(0, cardList.size() - 1, cardList);
 
         Assert.assertEquals(CardEnumeration.CARD_104, cardList.get(0));
         Assert.assertEquals(CardEnumeration.CARD_103, cardList.get(1));
@@ -29,7 +29,7 @@ public class CardUtilTest {
         cardList.add(CardEnumeration.CARD_105);
         cardList.add(CardEnumeration.CARD_106);
 
-        CardUtil.sortOneCardList(0, cardList.size() - 1, cardList);
+        CardUtil.quickSortOneCardList(0, cardList.size() - 1, cardList);
 
         Assert.assertEquals(CardEnumeration.CARD_106, cardList.get(0));
         Assert.assertEquals(CardEnumeration.CARD_105, cardList.get(1));
