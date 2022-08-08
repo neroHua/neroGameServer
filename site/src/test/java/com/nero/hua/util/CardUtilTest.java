@@ -1,12 +1,14 @@
 package com.nero.hua.util;
 
 import com.nero.hua.enumeration.CardEnumeration;
+import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CardUtilTest {
 
@@ -187,4 +189,65 @@ public class CardUtilTest {
         Assert.assertEquals(CardEnumeration.CARD_109.getValue(), cardList.get(20).getValue());
         Assert.assertEquals(4, count);
     }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase01() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_109);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.SINGLE));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase02() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_109);
+        cardList.add(CardEnumeration.CARD_209);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.PAIR));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase03() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_109);
+        cardList.add(CardEnumeration.CARD_110);
+        cardList.add(CardEnumeration.CARD_111);
+        cardList.add(CardEnumeration.CARD_112);
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_114);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.STRAIGHT));
+
+        cardList.add(CardEnumeration.CARD_115);
+        playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase04() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_112);
+        cardList.add(CardEnumeration.CARD_212);
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_114);
+        cardList.add(CardEnumeration.CARD_214);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.PAIR_STRAIGHT));
+
+        cardList.add(CardEnumeration.CARD_115);
+        cardList.add(CardEnumeration.CARD_215);
+        playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
+    }
+
 }
