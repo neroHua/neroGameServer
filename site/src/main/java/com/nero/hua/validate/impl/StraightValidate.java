@@ -22,12 +22,12 @@ public class StraightValidate implements PlayCardTypeValidate {
         }
 
         for (int i = 1; i < cardEnumerationList.size(); i++) {
-           if (cardEnumerationList.get(i).getValue() - 1 != cardEnumerationList.get(i - 1).getValue()) {
+           if (cardEnumerationList.get(i).getValue() + 1 != cardEnumerationList.get(i - 1).getValue()) {
                return Boolean.FALSE;
            }
         }
 
-        if (cardEnumerationList.get(cardEnumerationList.size() - 1).getValue() >= CardEnumeration.CARD_415.getValue()) {
+        if (cardEnumerationList.get(0).getValue() >= CardEnumeration.CARD_415.getValue()) {
             return Boolean.FALSE;
         }
 
