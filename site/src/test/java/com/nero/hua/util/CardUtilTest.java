@@ -274,4 +274,139 @@ public class CardUtilTest {
         Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
     }
 
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase06() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_114);
+        cardList.add(CardEnumeration.CARD_214);
+        cardList.add(CardEnumeration.CARD_314);
+        cardList.add(CardEnumeration.CARD_103);
+        cardList.add(CardEnumeration.CARD_104);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.AIRPLANE_SINGLE));
+
+        cardList.add(CardEnumeration.CARD_115);
+        cardList.add(CardEnumeration.CARD_215);
+        cardList.add(CardEnumeration.CARD_215);
+        cardList.add(CardEnumeration.CARD_105);
+        playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase07() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_114);
+        cardList.add(CardEnumeration.CARD_214);
+        cardList.add(CardEnumeration.CARD_314);
+        cardList.add(CardEnumeration.CARD_103);
+        cardList.add(CardEnumeration.CARD_203);
+        cardList.add(CardEnumeration.CARD_104);
+        cardList.add(CardEnumeration.CARD_204);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.AIRPLANE_PAIR));
+
+        cardList.add(CardEnumeration.CARD_115);
+        cardList.add(CardEnumeration.CARD_215);
+        cardList.add(CardEnumeration.CARD_215);
+        cardList.add(CardEnumeration.CARD_105);
+        cardList.add(CardEnumeration.CARD_205);
+        playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase08() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.TRIPLE));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase09() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_103);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.TRIPLE_SINGLE));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase10() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_103);
+        cardList.add(CardEnumeration.CARD_203);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.TRIPLE_PAIR));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase11() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_413);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.BOMB));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase12() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_413);
+        cardList.add(CardEnumeration.CARD_103);
+        cardList.add(CardEnumeration.CARD_203);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.FOUR_SINGLE));
+    }
+
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase13() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_413);
+        cardList.add(CardEnumeration.CARD_114);
+        cardList.add(CardEnumeration.CARD_214);
+        cardList.add(CardEnumeration.CARD_314);
+        cardList.add(CardEnumeration.CARD_414);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(2, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.FOUR_PAIR));
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.AIRPLANE_SINGLE));
+    }
 }
