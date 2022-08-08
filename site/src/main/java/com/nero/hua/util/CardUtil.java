@@ -222,6 +222,19 @@ public class CardUtil {
         return anotherTypeCardList;
     }
 
+    public boolean compareTwoFormattedCardListWithItsType(List<CardEnumeration> playCardList1, PlayCardTypeEnumeration playCardTypeEnumeration1, List<CardEnumeration> playCardList2, PlayCardTypeEnumeration playCardTypeEnumeration2) {
+        if (playCardTypeEnumeration1.getValue() > playCardTypeEnumeration2.getValue()) {
+            return Boolean.TRUE;
+        }
+        else if (playCardTypeEnumeration1.getValue() < playCardTypeEnumeration2.getValue()) {
+            return Boolean.FALSE;
+        }
+        else if (playCardTypeEnumeration1.equals(playCardTypeEnumeration2)) {
+            return playCardList1.get(0).getValue() > playCardList2.get(0).getValue();
+        }
+        return Boolean.FALSE;
+    }
+
     public static void quickSortEachCardList(List<List<CardEnumeration>> dealCardList) {
         for (int i = 0; i < dealCardList.size(); i++) {
             quickSortOneCardList(0, dealCardList.get(i).size() - 1, dealCardList.get(i));
