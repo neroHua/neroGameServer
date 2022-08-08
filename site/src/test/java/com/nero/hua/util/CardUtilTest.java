@@ -250,4 +250,28 @@ public class CardUtilTest {
         Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
     }
 
+    @Test
+    public void testGeneralCalculatePlayCardTypeCase05() {
+        List<CardEnumeration> cardList = new LinkedList<>();
+        cardList.add(CardEnumeration.CARD_112);
+        cardList.add(CardEnumeration.CARD_212);
+        cardList.add(CardEnumeration.CARD_312);
+        cardList.add(CardEnumeration.CARD_113);
+        cardList.add(CardEnumeration.CARD_213);
+        cardList.add(CardEnumeration.CARD_313);
+        cardList.add(CardEnumeration.CARD_114);
+        cardList.add(CardEnumeration.CARD_214);
+        cardList.add(CardEnumeration.CARD_314);
+
+        Map<PlayCardTypeEnumeration, List<CardEnumeration>> playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(1, playCardTypeEnumerationListMap.size());
+        Assert.assertNotNull(playCardTypeEnumerationListMap.get(PlayCardTypeEnumeration.AIRPLANE));
+
+        cardList.add(CardEnumeration.CARD_115);
+        cardList.add(CardEnumeration.CARD_215);
+        cardList.add(CardEnumeration.CARD_215);
+        playCardTypeEnumerationListMap = CardUtil.generalCalculatePlayCardType(cardList);
+        Assert.assertEquals(0, playCardTypeEnumerationListMap.size());
+    }
+
 }
