@@ -180,6 +180,12 @@ public class CardUtil {
                     playCardTypeMap.put(PlayCardTypeEnumeration.AIRPLANE, playCardList);
                 }
             }
+            else if (size % 4 == 0) {
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.AIRPLANE_SINGLE);
+                if (playCardTypeValidate.match(playCardList)) {
+                    playCardTypeMap.put(PlayCardTypeEnumeration.AIRPLANE_SINGLE, playCardList);
+                }
+            }
             else if (size % 5 == 0) {
                 PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.AIRPLANE_PAIR);
                 if (playCardTypeValidate.match(playCardList)) {
@@ -197,9 +203,9 @@ public class CardUtil {
             else if (size == 8) {
                 playCardTypeMap.put(PlayCardTypeEnumeration.FOUR_PAIR, playCardList);
                 List<CardEnumeration> anotherTypeCardList = anotherTypeForFourPair(playCardList);
-                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.TRIPLE_SINGLE);
+                PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.AIRPLANE_SINGLE);
                 if (playCardTypeValidate.match(anotherTypeCardList)) {
-                    playCardTypeMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, anotherTypeCardList);
+                    playCardTypeMap.put(PlayCardTypeEnumeration.AIRPLANE_SINGLE, anotherTypeCardList);
                 }
             }
         }
@@ -209,7 +215,7 @@ public class CardUtil {
     private static List<CardEnumeration> anotherTypeForFourPair(List<CardEnumeration> playCardList) {
         List<CardEnumeration> anotherTypeCardList = new ArrayList<>();
         for (int i = 0; i < playCardList.size(); i++) {
-            anotherTypeCardList.set(i, playCardList.get(i));
+            anotherTypeCardList.add(i, playCardList.get(i));
         }
         anotherTypeCardList.set(3, anotherTypeCardList.get(4));
         anotherTypeCardList.set(6, anotherTypeCardList.get(0));
