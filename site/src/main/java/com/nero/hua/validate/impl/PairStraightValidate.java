@@ -32,12 +32,12 @@ public class PairStraightValidate implements PlayCardTypeValidate {
            }
         }
         for (int i = 0; i < cardEnumerationList.size() / GROUP_COUNT; i += 2) {
-            if (cardEnumerationList.get(i).getValue() + 1 != cardEnumerationList.get(i + 2).getValue()) {
+            if (cardEnumerationList.get(i).getValue() - 1 != cardEnumerationList.get(i + 2).getValue()) {
                 return Boolean.FALSE;
             }
         }
 
-        if (cardEnumerationList.get(cardEnumerationList.size() - 1).getValue() >= CardEnumeration.CARD_415.getValue()) {
+        if (cardEnumerationList.get(0).getValue() >= CardEnumeration.CARD_415.getValue()) {
             return Boolean.FALSE;
         }
 
