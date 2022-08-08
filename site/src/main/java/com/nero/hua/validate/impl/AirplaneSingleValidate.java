@@ -35,20 +35,16 @@ public class AirplaneSingleValidate implements PlayCardTypeValidate {
         }
 
         for (int i = 0; i < cardEnumerationList.size() / GROUP_COUNT; i += 3) {
-            if (cardEnumerationList.get(i).getValue() + 1 != cardEnumerationList.get(i + 3).getValue()) {
+            if (cardEnumerationList.get(i).getValue() - 1 != cardEnumerationList.get(i + 3).getValue()) {
                 return Boolean.FALSE;
             }
         }
 
-        if (cardEnumerationList.get(this.calculateLastTripleStartIndex(cardEnumerationList.size())).getValue() >= CardEnumeration.CARD_415.getValue()) {
+        if (cardEnumerationList.get(0).getValue() >= CardEnumeration.CARD_415.getValue()) {
             return Boolean.FALSE;
         }
 
         return Boolean.TRUE;
-    }
-
-    private int calculateLastTripleStartIndex(int size) {
-        return (size / GROUP_COUNT - 1) * TRIPLE_COUNT;
     }
 
 }
