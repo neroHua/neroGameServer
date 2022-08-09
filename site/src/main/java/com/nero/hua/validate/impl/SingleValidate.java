@@ -16,6 +16,6 @@ public class SingleValidate implements PlayCardTypeValidate {
 
     @Override
     public boolean match(List<CardEnumeration> cardEnumerationList) {
-        return COUNT == cardEnumerationList.size() ? Boolean.TRUE : Boolean.FALSE;
+        return COUNT == cardEnumerationList.size();
     }
 }
