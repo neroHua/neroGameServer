@@ -137,7 +137,7 @@ public class CardUtil {
             else if (2 == size) {
                 PlayCardTypeValidate playCardTypeValidate = playCardTypeValidateMap.get(PlayCardTypeEnumeration.BOMB_KING);
                 if (playCardTypeValidate.match(playCardList)) {
-                    playCardTypeMap.put(PlayCardTypeEnumeration.SINGLE, playCardList);
+                    playCardTypeMap.put(PlayCardTypeEnumeration.BOMB_KING, playCardList);
                 }
             }
             else if (size >= 5) {
