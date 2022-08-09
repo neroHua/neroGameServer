@@ -9,7 +9,7 @@ import java.util.List;
 public class SingleValidate implements PlayCardTypeValidate {
 
     private static final int COUNT = 1;
-    
+
     @Override
     public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
         return PlayCardTypeEnumeration.SINGLE;
