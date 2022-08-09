@@ -22,7 +22,7 @@ public class BombKingValidate implements PlayCardTypeValidate {
         }
 
         return cardEnumerationList.get(0).getValue() == CardEnumeration.CARD_516.getValue()
-            && cardEnumerationList.get(0).getValue() == CardEnumeration.CARD_517.getValue();
+            && cardEnumerationList.get(1).getValue() == CardEnumeration.CARD_517.getValue();
     }
 
 }
