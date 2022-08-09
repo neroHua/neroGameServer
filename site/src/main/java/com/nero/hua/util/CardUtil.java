@@ -75,8 +75,12 @@ public class CardUtil {
         return cardList;
     }
 
-    public static boolean playCardNotMatchPlayCardType(List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+    public static boolean playCardMatchPlayCardType(List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
         return playCardTypeValidateMap.get(playCardTypeEnumeration).match(cardEnumerationList);
+    }
+
+    public static boolean playCardNotMatchPlayCardType(List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        return ! playCardMatchPlayCardType(cardEnumerationList, playCardTypeEnumeration);
     }
 
     public static boolean handCardMapContainsPlayCardMap(Map<CardEnumeration, Integer> handCardMap, Map<CardEnumeration, Integer> playCardMap) {
