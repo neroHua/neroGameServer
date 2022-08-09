@@ -286,7 +286,7 @@ public class GameManager {
 
         UserPlayCardTurnMO lastUserPlayCardTurnMO = this.playCardRoundMO.getLastUserPlayCardTurnMO();
         if (null == lastUserPlayCardTurnMO) {
-            throw new PlayCardException(PlayCardEnumeration.NOT_YOUR_TURN);
+            throw new PlayCardException(PlayCardEnumeration.MUST_PLAY_CARD_WHEN_ROUND_START);
         }
     }
 
@@ -295,15 +295,12 @@ public class GameManager {
     }
 
     public String makeLastPlayCardUserToStartPlayCard() {
-        int index = playCardRoundMO.getCurrentTurnUserIndex();
-
         List<UserPlayCardTurnMO> userPlayCardTurnMOList = playCardRoundMO.getUserPlayCardTurnMOList();
-
-        String userId = userPlayCardTurnMOList.get(userPlayCardTurnMOList.size() - 1 - (MAX_USER_COUNT - 1)).getUserId();
+        UserPlayCardTurnMO lastUserPlayCardTurnMO = userPlayCardTurnMOList.get(userPlayCardTurnMOList.size() - 1 - (MAX_USER_COUNT - 1));
 
         this.playCardRoundMO = new PlayCardRoundMO();
-        this.playCardRoundMO.addNewUserToStartPlayCard(index, userId);
+        this.playCardRoundMO.addNewUserToStartPlayCard(lastUserPlayCardTurnMO.getUserIndex(), lastUserPlayCardTurnMO.getUserId());
 
-        return userId;
+        return lastUserPlayCardTurnMO.getUserId();
     }
 }
