@@ -13,7 +13,9 @@ public enum PlayCardEnumeration {
     PLAY_CARD_DO_NOT_MATCH_ITS_TYPE("playCardDoNotMatchItsType", "打出的牌跟牌型不匹配"),
     HAND_CARD_DO_NOT_CONTAINS_PLAY_CARD("handCardDoNotContainsPlayCard", "打出的牌不包含再手牌中"),
 
-    PLAY_CARD_DO_NOT_BETTER_THAN_LAST_PLAY_CARD("playCardDoNotBetterThanLastPlayCard", "当前牌过小");
+    PLAY_CARD_DO_NOT_BETTER_THAN_LAST_PLAY_CARD("playCardDoNotBetterThanLastPlayCard", "当前牌过小"),
+
+    MUST_PLAY_CARD_WHEN_ROUND_START("mustPlayCardWhenRoundStart", "当回合开始的时候必须要出牌");
 
     private String code;
     private String message;
