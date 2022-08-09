@@ -283,6 +283,11 @@ public class GameManager {
 
     public void doNotPlayCard(String userId) {
         this.thisGuyTurnForPlayCardRound(userId);
+
+        UserPlayCardTurnMO lastUserPlayCardTurnMO = this.playCardRoundMO.getLastUserPlayCardTurnMO();
+        if (null == lastUserPlayCardTurnMO) {
+            throw new PlayCardException(PlayCardEnumeration.NOT_YOUR_TURN);
+        }
     }
 
     public boolean hasNextOneToStartPlayCard() {
