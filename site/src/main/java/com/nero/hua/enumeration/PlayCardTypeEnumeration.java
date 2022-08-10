@@ -13,7 +13,7 @@ public enum PlayCardTypeEnumeration {
 
     TRIPLE("triple", 0, "三不带"),
     TRIPLE_SINGLE("tripleSingle", 0, "三带一"),
-    TRIPLE_PAIR("triplePAIR", 0, "三带一对"),
+    TRIPLE_PAIR("triplePair", 0, "三带一对"),
 
     AIRPLANE("airplane", 0, "飞机不带"),
     AIRPLANE_SINGLE("airplaneSingle", 0, "飞机带单"),
