@@ -1,6 +1,8 @@
 package com.nero.hua.service;
 
 import com.nero.hua.SiteApplication;
+import com.nero.hua.enumeration.GameTypeEnumeration;
+import com.nero.hua.model.room.CreateRoomRequest;
 import com.nero.hua.model.room.JoinRoomRequest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +22,10 @@ public class RoomServiceTest {
 
     @Test
     public void testCreateAndJoinRoom() {
-        long roomId = roomService.createRoom("testUserId");
+        CreateRoomRequest createRoomRequest = new CreateRoomRequest();
+        createRoomRequest.setGameTypeEnumeration(GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+
+        long roomId = roomService.createRoom(createRoomRequest, "testUserId");
         JoinRoomRequest joinRoomRequest = new JoinRoomRequest();
         joinRoomRequest.setRoomId(roomId);
         Boolean joinRoomSuccess = roomService.joinRoom("testUserId", joinRoomRequest);
