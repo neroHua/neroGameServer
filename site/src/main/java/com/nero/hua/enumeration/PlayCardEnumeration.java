@@ -10,6 +10,7 @@ public enum PlayCardEnumeration {
     NOT_YOUR_TURN_TO_PLAY_CARD("notYourTurnToRob", "不是您出牌的轮次"),
     NOT_YOUR_TURN_TO_NOT_PLAY_CARD("notYourTurnToNotRob", "不是您不出牌的轮次"),
 
+    PLAY_CARD_TYPE_NOT_AVAILABLE("playCardTypeNotAvailable", "打出的牌型不可用"),
     PLAY_CARD_DO_NOT_MATCH_ITS_TYPE("playCardDoNotMatchItsType", "打出的牌跟牌型不匹配"),
     HAND_CARD_DO_NOT_CONTAINS_PLAY_CARD("handCardDoNotContainsPlayCard", "打出的牌不包含再手牌中"),
 
