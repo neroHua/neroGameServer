@@ -4,7 +4,8 @@ import com.nero.hua.convert.UserConvert;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.RoomEnumeration;
 import com.nero.hua.exception.RoomException;
-import com.nero.hua.game.manager.GameManager;
+import com.nero.hua.game.manager.GameManagerForThree;
+import com.nero.hua.model.room.CreateRoomRequest;
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.room.RoomMO;
 import com.nero.hua.model.user.*;
@@ -28,9 +29,9 @@ public class RoomServiceImpl implements RoomService {
     private Map<String, Long> userIdRoomIdMap= new ConcurrentHashMap<>();
 
     @Override
-    public Long createRoom(String userId) {
+    public Long createRoom(CreateRoomRequest createRoomRequest, String userId) {
         RoomMO roomMO = new RoomMO();
-        roomMO.setGameManager(new GameManager());
+        roomMO.setGameManager(new GameManagerForThree());
         roomMO.setRoomId((long) (roomMO.hashCode() % 1000));
         roomMOMap.put(roomMO.getRoomId(), roomMO);
 
