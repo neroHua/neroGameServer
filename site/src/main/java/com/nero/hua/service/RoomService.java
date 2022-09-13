@@ -1,5 +1,6 @@
 package com.nero.hua.service;
 
+import com.nero.hua.model.room.CreateRoomRequest;
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
 import com.nero.hua.model.user.UserDoPlayCardRequest;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface RoomService {
 
-    Long createRoom(String userId);
+    Long createRoom(CreateRoomRequest createRoomRequest, String userId);
 
     Boolean joinRoom(String userId, JoinRoomRequest joinRoomRequest);
 
