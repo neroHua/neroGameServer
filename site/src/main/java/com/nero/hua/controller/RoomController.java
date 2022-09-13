@@ -1,6 +1,7 @@
 package com.nero.hua.controller;
 
 import com.nero.hua.model.base.BaseResponse;
+import com.nero.hua.model.room.CreateRoomRequest;
 import com.nero.hua.model.room.JoinRoomRequest;
 import com.nero.hua.model.user.ChangeUserPrepareStatusRequest;
 import com.nero.hua.model.user.UserDoPlayCardRequest;
@@ -22,10 +23,10 @@ public class RoomController {
     RoomService roomService;
 
     @PostMapping("create")
-    public BaseResponse<Long> createRoom(HttpServletRequest httpServletRequest) {
+    public BaseResponse<Long> createRoom(@RequestBody @Validated CreateRoomRequest createRoomRequest, HttpServletRequest httpServletRequest) {
         String userId = LoginUtil.parseUserIdFromHttpServletRequest(httpServletRequest);
 
-        Long roomId = roomService.createRoom(userId);
+        Long roomId = roomService.createRoom(createRoomRequest, userId);
 
         return new BaseResponse<>(roomId);
     }
