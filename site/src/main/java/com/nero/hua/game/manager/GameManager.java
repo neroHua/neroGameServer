@@ -71,4 +71,5 @@ public interface GameManager {
 
     String makeLastPlayCardUserToStartPlayCard();
 
+    List<CardEnumeration> getLandlordCardList();
 }
