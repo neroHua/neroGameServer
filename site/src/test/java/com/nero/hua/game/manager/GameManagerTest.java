@@ -11,7 +11,7 @@ public class GameManagerTest {
 
     @Test
     public void testShouldStartGame() {
-        GameManager gameManager = new GameManager();
+        GameManagerForThree gameManager = new GameManagerForThree();
 
         List<GameUserMO> gameUserMOList = new LinkedList<>();
         GameUserMO gameUserMO01 = new GameUserMO();
@@ -40,7 +40,7 @@ public class GameManagerTest {
 
     @Test
     public void testStartGameAndDealLandlordCardList() {
-        GameManager gameManager = new GameManager();
+        GameManagerForThree gameManager = new GameManagerForThree();
 
         List<GameUserMO> gameUserMOList = new LinkedList<>();
         GameUserMO gameUserMO01 = new GameUserMO();
@@ -70,7 +70,7 @@ public class GameManagerTest {
 
     @Test
     public void testChooseOneUserToRobLandlord() {
-        GameManager gameManager = new GameManager();
+        GameManagerForThree gameManager = new GameManagerForThree();
 
         List<GameUserMO> gameUserMOList = new LinkedList<>();
         GameUserMO gameUserMO01 = new GameUserMO();
@@ -91,7 +91,7 @@ public class GameManagerTest {
 
     @Test
     public void testDoRobAndDoNotRob() {
-        GameManager gameManager = new GameManager();
+        GameManagerForThree gameManager = new GameManagerForThree();
 
         List<GameUserMO> gameUserMOList = new LinkedList<>();
         GameUserMO gameUserMO01 = new GameUserMO();
