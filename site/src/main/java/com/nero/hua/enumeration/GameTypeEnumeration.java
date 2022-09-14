@@ -7,6 +7,8 @@ public enum GameTypeEnumeration {
 
     FIGHT_LANDLORD_FOR_THREE("fight_landlord_for_three", "三人斗地主"),
 
+    FIGHT_LANDLORD_FOR_FOUR("fight_landlord_for_four", "4人斗地主"),
+
     FIGHT_LANDLORD_FOR_FIVE("fight_landlord_for_five", "五人斗地主逮狗腿子");
 
     private String code;
