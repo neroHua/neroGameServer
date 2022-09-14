@@ -1,14 +1,10 @@
 package com.nero.hua.game.manager;
 
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
 public class GameManagerForThree extends AbstractGameManager {
 
     private static final int NORMAL_USER_CARD_COUNT = 17;
