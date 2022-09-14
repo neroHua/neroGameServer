@@ -1,12 +1,10 @@
 package com.nero.hua.game.manager;
 
-import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -18,6 +16,8 @@ public class GameManagerForThree extends AbstractGameManager {
     private static final int LANDLORD_CARD_COUNT = 3;
 
     private static final int MAX_USER_COUNT = 3;
+
+    private static final int DECK_CARD_COUNT = 1;
 
     private static final Set<PlayCardTypeEnumeration> playCardTypeSet = new HashSet<>();
 
@@ -59,12 +59,13 @@ public class GameManagerForThree extends AbstractGameManager {
     }
 
     @Override
+    public int getDeckCardCount() {
+        return DECK_CARD_COUNT;
+    }
+
+    @Override
     public Set<PlayCardTypeEnumeration> getAllAvailableCardType() {
         return playCardTypeSet;
     }
 
-    @Override
-    public List<CardEnumeration> getAllCard() {
-        return super.getADeckCardList();
-    }
 }
