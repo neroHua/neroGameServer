@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameManagerTest {
+public class GameManagerForThreeTest {
 
     @Test
     public void testShouldStartGame() {
