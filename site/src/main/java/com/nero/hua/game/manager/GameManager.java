@@ -19,6 +19,8 @@ public interface GameManager {
 
     int getLandlordCardCount();
 
+    int getDeckCardCount();
+
     Set<PlayCardTypeEnumeration> getAllAvailableCardType();
 
     boolean shouldStartGame(List<GameUserMO> gameUserMOList);
