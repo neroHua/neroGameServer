@@ -59,6 +59,17 @@ public abstract class AbstractGameManager implements GameManager {
     }
 
     @Override
+    public List<CardEnumeration> getAllCard() {
+        List<CardEnumeration> aDeckCardList = this.getADeckCardList();
+        for (int i = 2; i <= this.getDeckCardCount(); i++ ) {
+            for (int j = 0; j < aDeckCardList.size(); j++) {
+                aDeckCardList.add(aDeckCardList.get(j));
+            }
+        }
+        return aDeckCardList;
+    }
+
+    @Override
     public List<CardEnumeration> shuffleCard() {
         List<CardEnumeration> allCard = this.getAllCard();
         List<CardEnumeration> shuffledCardList = new LinkedList<>();
