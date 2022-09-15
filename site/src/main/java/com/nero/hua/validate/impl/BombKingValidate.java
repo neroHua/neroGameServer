@@ -21,8 +21,8 @@ public class BombKingValidate implements PlayCardTypeValidate {
             return Boolean.FALSE;
         }
 
-        return cardEnumerationList.get(0).getValue() == CardEnumeration.CARD_516.getValue()
-            && cardEnumerationList.get(1).getValue() == CardEnumeration.CARD_517.getValue();
+        return cardEnumerationList.get(0).getValue() == CardEnumeration.CARD_517.getValue()
+            && cardEnumerationList.get(1).getValue() == CardEnumeration.CARD_516.getValue();
     }
 
 }
