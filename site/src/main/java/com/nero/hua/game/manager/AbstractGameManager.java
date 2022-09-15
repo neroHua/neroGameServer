@@ -100,7 +100,7 @@ public abstract class AbstractGameManager implements GameManager {
 
         for (int i = 0; i < this.getMaxUserCount(); i++) {
             List<CardEnumeration> userCardList = new LinkedList<>();
-            for (int j = 0; j < this.getMaxUserCount(); j++) {
+            for (int j = 0; j < this.getNormalUserCardCount(); j++) {
                 userCardList.add(shuffledCardList.remove(0));
             }
             dealCardList.add(userCardList);
