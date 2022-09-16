@@ -18,4 +18,9 @@ public class GameUserMO {
 
     private Long score;
 
+    public void clean() {
+        this.prepared = Boolean.FALSE;
+        this.cardMap = null;
+        this.score = 0L;
+    }
 }
