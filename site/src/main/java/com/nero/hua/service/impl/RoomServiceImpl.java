@@ -193,6 +193,7 @@ public class RoomServiceImpl implements RoomService {
         if (roomMO.thisGuyWin(userId)) {
             UserWinMessage userWinMessage = new UserWinMessage(userId);
             webSocketServer.sendMessage(allUserList, userWinMessage);
+            roomMO.clean();
         }
         else {
             String nextUserId = roomMO.makeNextUserToStartPlayCard();
