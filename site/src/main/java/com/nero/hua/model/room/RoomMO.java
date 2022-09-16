@@ -143,4 +143,11 @@ public class RoomMO {
     public String makeLastPlayCardUserToStartPlayCard() {
         return this.gameManager.makeLastPlayCardUserToStartPlayCard();
     }
+
+    public void clean() {
+        for (GameUserMO gameUserMO : this.gameUserMOList) {
+            gameUserMO.clean();
+        }
+    }
+
 }
