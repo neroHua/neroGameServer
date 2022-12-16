@@ -73,7 +73,7 @@ public class PlayCardTip {
             while (cardCurrent.getValue() == cardEnumerationNext.getValue()) {
                 i++;
                 cardCurrent = cardEnumerationNext;
-                cardEnumerationNext = formatHandCardEnumerationList.get(i);
+                cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
             }
             tempList.add(i);
 
@@ -105,7 +105,7 @@ public class PlayCardTip {
         for (List<Integer> list : bigTempList) {
             for (int i = 0; i <= list.size() - PLAY_CARD_SIZE; i++) {
                 List<Integer> tempBigList = new ArrayList<>();
-                for (int j = i; j < list.size(); j++) {
+                for (int j = i; j < PLAY_CARD_SIZE + i; j++) {
                     tempBigList.add(list.get(j));
                 }
                 bigList.add(tempBigList);
