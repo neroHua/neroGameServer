@@ -78,12 +78,19 @@ public class PlayCardTip {
             }
 
             CardEnumeration cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
-            while (cardCurrent.getValue() == cardEnumerationNext.getValue()) {
+            while (null != cardEnumerationNext && cardCurrent.getValue() == cardEnumerationNext.getValue()) {
                 i++;
                 cardCurrent = cardEnumerationNext;
-                cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
+                cardEnumerationNext = i + 1 > formatHandCardEnumerationList.size() - 1 ? null : formatHandCardEnumerationList.get(i + 1);
             }
             tempList.add(i);
+
+            if (null == cardEnumerationNext) {
+                if (tempList.size() >= PLAY_CARD_SIZE) {
+                    bigTempList.add(tempList);
+                }
+                break;
+            }
 
             if (cardCurrent.getValue() - 1 != cardEnumerationNext.getValue()) {
                 if (tempList.size() >= PLAY_CARD_SIZE) {
