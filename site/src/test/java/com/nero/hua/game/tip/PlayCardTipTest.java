@@ -347,4 +347,41 @@ public class PlayCardTipTest {
         Integer[] expectTip2 = { 6, 7, 8, 9, 11};
         Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip2, tip2.toArray());
     }
+
+    @Test
+    public void testFindBigBombInFormatHandCardListForThreeCase01() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_212);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertNull("没有可以选择得牌型", tipList);
+    }
+
+    @Test
+    public void testFindBigBombInFormatHandCardListForThreeCase02() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_105);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_205);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_305);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_405);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertEquals("没有可以选择得牌型", 0, tipList.size());
+    }
+
 }
