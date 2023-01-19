@@ -84,7 +84,6 @@ public class PlayCardTip {
                         bigTempList.add(tempList);
                     }
                 }
-                i++;
             }
             else {
                 if (tempList.size() >= PLAY_CARD_SIZE) {
@@ -93,8 +92,8 @@ public class PlayCardTip {
                 else {
                     tempList = new ArrayList<>();
                 }
-                i++;
             }
+            i++;
         }
 
         if (CollectionUtils.isEmpty(bigTempList)) {
