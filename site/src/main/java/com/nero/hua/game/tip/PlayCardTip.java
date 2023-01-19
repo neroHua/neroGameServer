@@ -58,7 +58,7 @@ public class PlayCardTip {
 
         List<List<Integer>> bigTempList = new ArrayList<>();
         List<Integer> tempList= new ArrayList<>();
-        for (int i = 0; i < formatHandCardEnumerationList.size() - 1; ) {
+        for (int i = 0; i < formatHandCardEnumerationList.size(); ) {
             CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
             if (cardCurrent.getValue() > CardEnumeration.CARD_114.getValue()) {
                 i++;
@@ -66,6 +66,14 @@ public class PlayCardTip {
             }
 
             if (cardCurrent.getValue() <= formatPlayCardEnumerationList.get(PLAY_CARD_SIZE - 1).getValue()) {
+                break;
+            }
+
+            if (i == formatHandCardEnumerationList.size() - 1) {
+                tempList.add(i);
+                if (tempList.size() >= PLAY_CARD_SIZE) {
+                    bigTempList.add(tempList);
+                }
                 break;
             }
 
@@ -77,21 +85,11 @@ public class PlayCardTip {
             }
             tempList.add(i);
 
-            if (cardCurrent.getValue() - 1 == cardEnumerationNext.getValue()) {
-                if (i == formatHandCardEnumerationList.size() - 2) {
-                    tempList.add(i + 1);
-                    if (tempList.size() >= PLAY_CARD_SIZE) {
-                        bigTempList.add(tempList);
-                    }
-                }
-            }
-            else {
+            if (cardCurrent.getValue() - 1 != cardEnumerationNext.getValue()) {
                 if (tempList.size() >= PLAY_CARD_SIZE) {
                     bigTempList.add(tempList);
                 }
-                else {
-                    tempList = new ArrayList<>();
-                }
+                tempList = new ArrayList<>();
             }
             i++;
         }
