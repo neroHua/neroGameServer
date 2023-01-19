@@ -120,8 +120,12 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        List<List<Integer>> bigList = new ArrayList<>();
         final int COUNT = 4;
+        if (formatHandCardEnumerationList.size() < COUNT) {
+            return null;
+        }
+
+        List<List<Integer>> bigList = new ArrayList<>();
         int count = 1;
         for (int i = 0; i < formatHandCardEnumerationList.size() - 1; i++) {
             CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
@@ -144,6 +148,6 @@ public class PlayCardTip {
         }
 
         return bigList;
-    }
+}
 
 }
