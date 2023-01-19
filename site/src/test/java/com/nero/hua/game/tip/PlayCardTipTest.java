@@ -12,7 +12,7 @@ import java.util.List;
 public class PlayCardTipTest {
 
     @Test
-    public void findBigSingleInFormatHandCardListForThreeCase01() {
+    public void testFindBigSingleInFormatHandCardListForThreeCase01() {
         List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
         formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
         formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
