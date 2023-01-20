@@ -113,7 +113,7 @@ public class PlayCardTipTest {
 
         List<Integer> tip0 = tipList.get(0);
         Integer[] expectTip0 = {2, 3, 4, 5, 6};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip0, tip0.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
     }
 
     @Test
@@ -163,7 +163,7 @@ public class PlayCardTipTest {
 
         List<Integer> tip0 = tipList.get(0);
         Integer[] expectTip0 = {2, 3, 4, 5, 9};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip0, tip0.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
     }
 
     @Test
@@ -217,7 +217,7 @@ public class PlayCardTipTest {
 
         List<Integer> tip0 = tipList.get(0);
         Integer[] expectTip0 = {2, 3, 4, 8, 9};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip0, tip0.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
     }
 
     @Test
@@ -302,11 +302,11 @@ public class PlayCardTipTest {
 
         List<Integer> tip0 = tipList.get(0);
         Integer[] expectTip0 = {1, 2, 6, 7, 8};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip0, tip0.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
 
         List<Integer> tip1 = tipList.get(1);
         Integer[] expectTip1 = {10, 11, 12, 14, 15};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip1, tip1.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip1, tip1.toArray());
     }
 
     @Test
@@ -337,15 +337,15 @@ public class PlayCardTipTest {
 
         List<Integer> tip0 = tipList.get(0);
         Integer[] expectTip0 = {1, 2, 6, 7, 8};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip0, tip0.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
 
         List<Integer> tip1 = tipList.get(1);
         Integer[] expectTip1 = {2, 6, 7, 8, 9};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip1, tip1.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip1, tip1.toArray());
 
         List<Integer> tip2 = tipList.get(2);
         Integer[] expectTip2 = { 6, 7, 8, 9, 11};
-        Assert.assertArrayEquals("只有一中可以选择得牌型", expectTip2, tip2.toArray());
+        Assert.assertArrayEquals("提示不正确", expectTip2, tip2.toArray());
     }
 
     @Test
@@ -382,6 +382,91 @@ public class PlayCardTipTest {
 
         List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("没有可以选择得牌型", 0, tipList.size());
+    }
+
+    @Test
+    public void testFindBigBombInFormatHandCardListForThreeCase03() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_409);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_208);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_308);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_205);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_305);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_405);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
+
+        List<Integer> tip0 = tipList.get(0);
+        Integer[] expectTip0 = {1, 2, 3, 4};
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
+    }
+
+    @Test
+    public void testFindBigBombInFormatHandCardListForThreeCase04() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_409);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
+
+        List<Integer> tip0 = tipList.get(0);
+        Integer[] expectTip0 = {1, 2, 3, 4};
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
+    }
+
+    @Test
+    public void testFindBigBombInFormatHandCardListForThreeCase05() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_111);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_211);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_311);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_411);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_110);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_210);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_409);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
+
+        List<Integer> tip0 = tipList.get(0);
+        Integer[] expectTip0 = {1, 2, 3, 4};
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
+
+        List<Integer> tip1 = tipList.get(1);
+        Integer[] expectTip1 = {7, 8, 9, 10};
+        Assert.assertArrayEquals("提示不正确", expectTip1, tip1.toArray());
     }
 
 }
