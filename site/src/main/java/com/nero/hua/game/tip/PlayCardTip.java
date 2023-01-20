@@ -129,10 +129,10 @@ public class PlayCardTip {
         int count = 1;
         for (int i = 0; i < formatHandCardEnumerationList.size() - 1; i++) {
             CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
-            if (cardCurrent.getValue() < formatPlayCardEnumerationList.get(0).getValue()) {
+            if (cardCurrent.getValue() <= formatPlayCardEnumerationList.get(0).getValue()) {
                 break;
             }
-            CardEnumeration cardEnumerationNext = formatHandCardEnumerationList.get(i);
+            CardEnumeration cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
             if (cardCurrent.getValue() == cardEnumerationNext.getValue()) {
                 count++;
             } else {
@@ -140,14 +140,13 @@ public class PlayCardTip {
             }
 
             if (COUNT == count) {
-                if (cardCurrent.getValue() > formatPlayCardEnumerationList.get(0).getValue()) {
-                    List<Integer> big = Arrays.asList(i - 2, i - 1, i, i + 1);
-                    bigList.add(big);
-                }
+                List<Integer> big = Arrays.asList(i - 2, i - 1, i, i + 1);
+                bigList.add(big);
+                count = 1;
             }
         }
 
         return bigList;
-}
+    }
 
 }
