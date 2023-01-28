@@ -74,7 +74,10 @@ public class PlayCardTip {
             }
 
             if (duplicateCount == count) {
-                List<Integer> big = Arrays.asList(i - 2, i - 1, i, i + 1);
+                List<Integer> big = new ArrayList<>();
+                for (int j = i - count + 2; j <= i + 1; j++) {
+                    big.add(j);
+                }
                 bigList.add(big);
                 count = 1;
             }
