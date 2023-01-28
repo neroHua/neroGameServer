@@ -185,13 +185,14 @@ public class PlayCardTip {
         return bigList;
     }
 
+    private static List<List<Integer>> findBigTripleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int TRIPLE_DUPLICATE_COUNT = 3;
+        return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
+    }
+    
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int BOMB_DUPLICATE_COUNT = 4;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
     }
-
-    private static List<List<Integer>> findBigTripleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        final int TRIPLE_DUPLICATE_COUNT = 3;
-        return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
-    }
+    
 }
