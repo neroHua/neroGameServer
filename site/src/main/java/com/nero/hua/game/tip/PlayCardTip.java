@@ -22,6 +22,9 @@ public class PlayCardTip {
         if (PlayCardTypeEnumeration.SINGLE == playCardTypeEnumeration) {
             return findBigSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
+        else if (PlayCardTypeEnumeration.PAIR == playCardTypeEnumeration) {
+            return findBigPairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
         else if (PlayCardTypeEnumeration.STRAIGHT.getValue() == playCardTypeEnumeration.getValue()) {
             return findBigStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
@@ -43,6 +46,40 @@ public class PlayCardTip {
                 bigList.add(Arrays.asList(i));
             }
         }
+        return bigList;
+    }
+
+    private static List<List<Integer>> findBigPairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int PAIR_DUPLICATE_COUNT = 2;
+        return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, PAIR_DUPLICATE_COUNT);
+    }
+
+    private static List<List<Integer>> findBigSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
+        if (formatHandCardEnumerationList.size() < duplicateCount) {
+            return null;
+        }
+
+        List<List<Integer>> bigList = new ArrayList<>();
+        int count = 1;
+        for (int i = 0; i < formatHandCardEnumerationList.size() - 1; i++) {
+            CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
+            if (cardCurrent.getValue() <= formatPlayCardEnumerationList.get(0).getValue()) {
+                break;
+            }
+            CardEnumeration cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
+            if (cardCurrent.getValue() == cardEnumerationNext.getValue()) {
+                count++;
+            } else {
+                count = 1;
+            }
+
+            if (duplicateCount == count) {
+                List<Integer> big = Arrays.asList(i - 2, i - 1, i, i + 1);
+                bigList.add(big);
+                count = 1;
+            }
+        }
+
         return bigList;
     }
 
@@ -120,33 +157,8 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        final int COUNT = 4;
-        if (formatHandCardEnumerationList.size() < COUNT) {
-            return null;
-        }
-
-        List<List<Integer>> bigList = new ArrayList<>();
-        int count = 1;
-        for (int i = 0; i < formatHandCardEnumerationList.size() - 1; i++) {
-            CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
-            if (cardCurrent.getValue() <= formatPlayCardEnumerationList.get(0).getValue()) {
-                break;
-            }
-            CardEnumeration cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
-            if (cardCurrent.getValue() == cardEnumerationNext.getValue()) {
-                count++;
-            } else {
-                count = 1;
-            }
-
-            if (COUNT == count) {
-                List<Integer> big = Arrays.asList(i - 2, i - 1, i, i + 1);
-                bigList.add(big);
-                count = 1;
-            }
-        }
-
-        return bigList;
+        final int BOMB_DUPLICATE_COUNT = 4;
+        return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
     }
 
 }
