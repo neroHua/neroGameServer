@@ -182,7 +182,6 @@ public class PlayCardTip {
         return bigList;
     }
 
-
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int BOMB_DUPLICATE_COUNT = 4;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
