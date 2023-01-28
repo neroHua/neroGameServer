@@ -134,7 +134,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
         List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
-        Assert.assertNull("提示的结果应该是没有牌了", tipList);
+        Assert.assertEquals("提示的结果应该是没有牌了", 0, tipList.size());
     }
 
     @Test
