@@ -126,7 +126,7 @@ public class PlayCardTip {
             if (i == formatHandCardEnumerationList.size() - 1) {
                 if (tempCount >= duplicateCount) {
                     tempList.add(i);
-                    if (tempList.size() >= PLAY_CARD_SIZE / 2) {
+                    if (tempList.size() >= PLAY_CARD_SIZE / duplicateCount) {
                         bigTempList.add(tempList);
                     }
                     break;
