@@ -22,7 +22,7 @@ public class PlayCardTip {
         if (PlayCardTypeEnumeration.SINGLE == playCardTypeEnumeration) {
             return findBigSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
-        else if (PlayCardTypeEnumeration.STRAIGHT.getValue() == playCardTypeEnumeration.getValue()) {
+        else if (PlayCardTypeEnumeration.STRAIGHT == playCardTypeEnumeration) {
             return findBigStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
         else if (PlayCardTypeEnumeration.PAIR == playCardTypeEnumeration) {
@@ -31,7 +31,7 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.PAIR_STRAIGHT == playCardTypeEnumeration) {
             return findBigPairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
-        else if (PlayCardTypeEnumeration.BOMB.getValue() == playCardTypeEnumeration.getValue()) {
+        else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
         else if (PlayCardTypeEnumeration.BOMB_KING == playCardTypeEnumeration) {
@@ -53,76 +53,8 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        if (CardEnumeration.CARD_114.getValue() == formatPlayCardEnumerationList.get(0).getValue()) {
-            return null;
-        }
-
-        final int PLAY_CARD_SIZE = formatPlayCardEnumerationList.size();
-        if (formatHandCardEnumerationList.size() < PLAY_CARD_SIZE) {
-            return null;
-        }
-
-        List<List<Integer>> bigTempList = new ArrayList<>();
-        List<Integer> tempList= new ArrayList<>();
-        for (int i = 0; i < formatHandCardEnumerationList.size(); ) {
-            CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
-            if (cardCurrent.getValue() > CardEnumeration.CARD_114.getValue()) {
-                i++;
-                continue;
-            }
-
-            if (cardCurrent.getValue() <= formatPlayCardEnumerationList.get(PLAY_CARD_SIZE - 1).getValue()) {
-                break;
-            }
-
-            if (i == formatHandCardEnumerationList.size() - 1) {
-                tempList.add(i);
-                if (tempList.size() >= PLAY_CARD_SIZE) {
-                    bigTempList.add(tempList);
-                }
-                break;
-            }
-
-            CardEnumeration cardEnumerationNext = formatHandCardEnumerationList.get(i + 1);
-            while (null != cardEnumerationNext && cardCurrent.getValue() == cardEnumerationNext.getValue()) {
-                i++;
-                cardCurrent = cardEnumerationNext;
-                cardEnumerationNext = i + 1 > formatHandCardEnumerationList.size() - 1 ? null : formatHandCardEnumerationList.get(i + 1);
-            }
-            tempList.add(i);
-
-            if (null == cardEnumerationNext) {
-                if (tempList.size() >= PLAY_CARD_SIZE) {
-                    bigTempList.add(tempList);
-                }
-                break;
-            }
-
-            if (cardCurrent.getValue() - 1 != cardEnumerationNext.getValue()) {
-                if (tempList.size() >= PLAY_CARD_SIZE) {
-                    bigTempList.add(tempList);
-                }
-                tempList = new ArrayList<>();
-            }
-            i++;
-        }
-
-        if (CollectionUtils.isEmpty(bigTempList)) {
-            return null;
-        }
-
-        List<List<Integer>> bigList = new ArrayList<>();
-        for (List<Integer> list : bigTempList) {
-            for (int i = 0; i <= list.size() - PLAY_CARD_SIZE; i++) {
-                List<Integer> tempBigList = new ArrayList<>();
-                for (int j = i; j < PLAY_CARD_SIZE + i; j++) {
-                    tempBigList.add(list.get(j));
-                }
-                bigList.add(tempBigList);
-            }
-        }
-
-        return bigList;
+        final int SINGLE_DUPLICATE_COUNT = 1;
+        return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, SINGLE_DUPLICATE_COUNT);
     }
 
     private static List<List<Integer>> findBigPairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
@@ -163,6 +95,11 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int PAIR_DUPLICATE_COUNT = 2;
+        return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, PAIR_DUPLICATE_COUNT);
+    }
+
+    private static List<List<Integer>> findBigSameValueStraightByCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
         if (CardEnumeration.CARD_114.getValue() == formatPlayCardEnumerationList.get(0).getValue()) {
             return null;
         }
@@ -172,7 +109,6 @@ public class PlayCardTip {
             return null;
         }
 
-        final int COUNT = 2;
         List<List<Integer>> bigTempList = new ArrayList<>();
         List<Integer> tempList= new ArrayList<>();
         for (int i = 0; i < formatHandCardEnumerationList.size(); ) {
@@ -188,9 +124,9 @@ public class PlayCardTip {
 
             int tempCount = 1;
             if (i == formatHandCardEnumerationList.size() - 1) {
-                if (tempCount >= COUNT) {
+                if (tempCount >= duplicateCount) {
                     tempList.add(i);
-                    if (tempList.size() >= PLAY_CARD_SIZE) {
+                    if (tempList.size() >= PLAY_CARD_SIZE / 2) {
                         bigTempList.add(tempList);
                     }
                     break;
@@ -204,19 +140,19 @@ public class PlayCardTip {
                 cardCurrent = cardEnumerationNext;
                 cardEnumerationNext = i + 1 > formatHandCardEnumerationList.size() - 1 ? null : formatHandCardEnumerationList.get(i + 1);
             }
-            if (tempCount >= COUNT) {
+            if (tempCount >= duplicateCount) {
                 tempList.add(i);
             }
 
             if (null == cardEnumerationNext) {
-                if (tempList.size() >= PLAY_CARD_SIZE / COUNT) {
+                if (tempList.size() >= PLAY_CARD_SIZE / duplicateCount) {
                     bigTempList.add(tempList);
                 }
                 break;
             }
 
             if (cardCurrent.getValue() - 1 != cardEnumerationNext.getValue()) {
-                if (tempList.size() >= PLAY_CARD_SIZE / COUNT) {
+                if (tempList.size() >= PLAY_CARD_SIZE / duplicateCount) {
                     bigTempList.add(tempList);
                 }
                 tempList = new ArrayList<>();
@@ -230,11 +166,11 @@ public class PlayCardTip {
 
         List<List<Integer>> bigList = new ArrayList<>();
         for (List<Integer> list : bigTempList) {
-            for (int i = 0; i <= list.size() - PLAY_CARD_SIZE / COUNT; i++) {
+            for (int i = 0; i <= list.size() - PLAY_CARD_SIZE / duplicateCount; i++) {
                 List<Integer> tempBigList = new ArrayList<>();
-                for (int j = i; j < PLAY_CARD_SIZE / COUNT + i; j++) {
+                for (int j = i; j < PLAY_CARD_SIZE / duplicateCount + i; j++) {
                     List<Integer> duplicateList = new ArrayList<>();
-                    for (int k = COUNT; k >= 1; k--) {
+                    for (int k = duplicateCount; k >= 1; k--) {
                         duplicateList.add(list.get(j) - k + 1);
                     }
                     tempBigList.addAll(duplicateList);
