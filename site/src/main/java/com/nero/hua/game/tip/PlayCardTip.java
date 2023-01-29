@@ -32,7 +32,7 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.TRIPLE == playCardTypeEnumeration) {
             return findBigTripleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
-        else if (PlayCardTypeEnumeration.TRIPLE.SINGLE == playCardTypeEnumeration) {
+        else if (PlayCardTypeEnumeration.TRIPLE_SINGLE == playCardTypeEnumeration) {
             return findBigTripleSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
@@ -204,7 +204,7 @@ public class PlayCardTip {
         }
 
         List<List<Integer>> bigTripleSingleList = new ArrayList<>();
-        for (int i = 0; i < bigTripleList.size(); i++) {
+        for (int i = bigTripleList.size() - 1; i >= 0; i--) {
             List<Integer> bigTriple = bigTripleList.get(i);
             Set<Integer> bigTripleSet = new HashSet<>();
             Set<Integer> bigTripleValueSet = new HashSet<>();
@@ -223,7 +223,7 @@ public class PlayCardTip {
             if (CollectionUtils.isEmpty(singleList)) {
                 continue;
             }
-            for (int j = 0; j < singleList.size(); j++) {
+            for (int j = singleList.size() - 1; j >= 0 ; j--) {
                 List<Integer> bigTripleSingle = new ArrayList<>();
                 bigTripleSingle.addAll(bigTriple);
                 bigTripleSingle.add(singleList.get(j));
