@@ -38,6 +38,9 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.TRIPLE_PAIR == playCardTypeEnumeration) {
             return findBigTriplePairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
+        else if (PlayCardTypeEnumeration.AIRPLANE == playCardTypeEnumeration) {
+            return findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
@@ -261,6 +264,11 @@ public class PlayCardTip {
 
     private static List<List<Integer>> findSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int duplicateCount) {
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, null, duplicateCount);
+    }
+
+    private static List<List<Integer>> findBigAirplaneInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int TRIPLE_DUPLICATE_COUNT = 3;
+        return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
