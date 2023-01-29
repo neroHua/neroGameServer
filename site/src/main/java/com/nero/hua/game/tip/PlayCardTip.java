@@ -41,6 +41,9 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.AIRPLANE == playCardTypeEnumeration) {
             return findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
+        else if (PlayCardTypeEnumeration.AIRPLANE_SINGLE == playCardTypeEnumeration) {
+            return findBigAirplaneSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
@@ -202,7 +205,7 @@ public class PlayCardTip {
 
         List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
 
-        return mergeBigTripleWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, singleList);
+        return mergeBigFirstPartWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, singleList);
     }
 
     private static List<List<Integer>> findSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList) {
@@ -215,38 +218,38 @@ public class PlayCardTip {
         return singleList;
     }
 
-    private static List<List<Integer>> mergeBigTripleWithRestPartInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigTripleList, List<List<Integer>> restPartList) {
-        if (CollectionUtils.isEmpty(bigTripleList) || CollectionUtils.isEmpty(restPartList)) {
+    private static List<List<Integer>> mergeBigFirstPartWithRestPartInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList) {
+        if (CollectionUtils.isEmpty(bigFirstPartList) || CollectionUtils.isEmpty(restPartList)) {
             return null;
         }
 
-        List<List<Integer>> bigTripleRestPartList = new ArrayList<>();
-        for (int i = bigTripleList.size() - 1; i >= 0; i--) {
-            List<Integer> bigTriple = bigTripleList.get(i);
-            Set<Integer> bigTripleSet = new HashSet<>();
-            Set<Integer> bigTripleValueSet = new HashSet<>();
-            for (int j = 0; j < bigTriple.size(); j++) {
-                bigTripleSet.add(bigTriple.get(j));
-                bigTripleValueSet.add(formatHandCardEnumerationList.get(bigTriple.get(j)).getValue());
+        List<List<Integer>> bigAllPartList = new ArrayList<>();
+        for (int i = bigFirstPartList.size() - 1; i >= 0; i--) {
+            List<Integer> bigFirstPart = bigFirstPartList.get(i);
+            Set<Integer> bigFirstPartSet = new HashSet<>();
+            Set<Integer> bigFirstPartValueSet = new HashSet<>();
+            for (int j = 0; j < bigFirstPart.size(); j++) {
+                bigFirstPartSet.add(bigFirstPart.get(j));
+                bigFirstPartValueSet.add(formatHandCardEnumerationList.get(bigFirstPart.get(j)).getValue());
             }
 
             for (int j = restPartList.size() - 1; j >= 0 ; j--) {
-                if(tripleHasThisPart(formatHandCardEnumerationList, bigTripleSet, bigTripleValueSet, restPartList.get(j))) {
+                if(firstPartHasRestPart(formatHandCardEnumerationList, bigFirstPartSet, bigFirstPartValueSet, restPartList.get(j))) {
                     continue;
                 }
                 List<Integer> bigTripleRestPart = new ArrayList<>();
-                bigTripleRestPart.addAll(bigTriple);
+                bigTripleRestPart.addAll(bigFirstPart);
                 bigTripleRestPart.addAll(restPartList.get(j));
-                bigTripleRestPartList.add(bigTripleRestPart);
+                bigAllPartList.add(bigTripleRestPart);
             }
         }
 
-        return bigTripleRestPartList;
+        return bigAllPartList;
     }
 
-    private static boolean tripleHasThisPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigTripleSet, Set<Integer> bigTripleValueSet, List<Integer> single) {
-        for (Integer singleIndex : single) {
-            if (bigTripleSet.contains(singleIndex) || bigTripleValueSet.contains(formatHandCardEnumerationList.get(singleIndex).getValue())) {
+    private static boolean firstPartHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<Integer> restPart) {
+        for (Integer restIndex : restPart) {
+            if (bigFirstPartSet.contains(restIndex) || bigFirstPartValueSet.contains(formatHandCardEnumerationList.get(restIndex).getValue())) {
                 return Boolean.TRUE;
             }
         }
@@ -259,7 +262,7 @@ public class PlayCardTip {
         final int PAIR_DUPLICATE_COUNT = 2;
         List<List<Integer>> pairList = findSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_DUPLICATE_COUNT);
 
-        return mergeBigTripleWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, pairList);
+        return mergeBigFirstPartWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, pairList);
     }
 
     private static List<List<Integer>> findSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int duplicateCount) {
@@ -269,6 +272,14 @@ public class PlayCardTip {
     private static List<List<Integer>> findBigAirplaneInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int TRIPLE_DUPLICATE_COUNT = 3;
         return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
+    }
+
+    private static List<List<Integer>> findBigAirplaneSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        List<List<Integer>> bigAirplaneList = findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+
+        List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
+
+        return mergeBigFirstPartWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList);
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
