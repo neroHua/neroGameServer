@@ -251,16 +251,11 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigTriplePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        final int TRIPLE_DUPLICATE_COUNT = 3;
-        List<List<Integer>> bigTripleList = findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
+        List<List<Integer>> bigTripleList = findBigTripleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
 
-        final int PAIR_DUPLICATE_COUNT = 2;
-        List<List<Integer>> pairList = findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, PAIR_DUPLICATE_COUNT);
-        return findBigTriplePairInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, pairList);
-    }
+        List<List<Integer>> pairList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
 
-    private static List<List<Integer>> findBigTriplePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigTripleList, List<List<Integer>> bigPairList) {
-        return null;
+        return mergeBigTripleWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, pairList);
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
