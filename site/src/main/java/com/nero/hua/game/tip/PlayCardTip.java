@@ -228,7 +228,7 @@ public class PlayCardTip {
             }
 
             for (int j = singleList.size() - 1; j >= 0 ; j--) {
-                if(bigTripleSet.contains(singleList.get(j).get(0)) || bigTripleValueSet.contains(formatHandCardEnumerationList.get(singleList.get(j).get(0)).getValue())) {
+                if(tripleHasThisPart(formatHandCardEnumerationList, bigTripleSet, bigTripleValueSet, singleList.get(j))) {
                     continue;
                 }
                 List<Integer> bigTripleSingle = new ArrayList<>();
@@ -239,6 +239,15 @@ public class PlayCardTip {
         }
 
         return bigTripleSingleList;
+    }
+
+    private static boolean tripleHasThisPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigTripleSet, Set<Integer> bigTripleValueSet, List<Integer> single) {
+        for (Integer singleIndex : single) {
+            if (bigTripleSet.contains(singleIndex) || bigTripleValueSet.contains(formatHandCardEnumerationList.get(singleIndex).getValue())) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
     }
 
     private static List<List<Integer>> findBigTriplePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
