@@ -5,9 +5,7 @@ import com.nero.hua.enumeration.GameTypeEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class PlayCardTip {
 
@@ -33,6 +31,9 @@ public class PlayCardTip {
         }
         else if (PlayCardTypeEnumeration.TRIPLE == playCardTypeEnumeration) {
             return findBigTripleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
+        else if (PlayCardTypeEnumeration.TRIPLE.SINGLE == playCardTypeEnumeration) {
+            return findBigTripleSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
@@ -188,6 +189,49 @@ public class PlayCardTip {
     private static List<List<Integer>> findBigTripleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int TRIPLE_DUPLICATE_COUNT = 3;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
+    }
+
+    private static List<List<Integer>> findBigTripleSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int TRIPLE_DUPLICATE_COUNT = 3;
+        List<List<Integer>> bigTripleList = findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
+
+        return findBigTripleSingleByBigTripleListInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList);
+    }
+
+    private static List<List<Integer>> findBigTripleSingleByBigTripleListInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigTripleList) {
+        if (CollectionUtils.isEmpty(bigTripleList)) {
+            return null;
+        }
+
+        List<List<Integer>> bigTripleSingleList = new ArrayList<>();
+        for (int i = 0; i < bigTripleList.size(); i++) {
+            List<Integer> bigTriple = bigTripleList.get(i);
+            Set<Integer> bigTripleSet = new HashSet<>();
+            Set<Integer> bigTripleValueSet = new HashSet<>();
+            for (int j = 0; j < bigTriple.size(); j++) {
+                bigTripleSet.add(bigTriple.get(j));
+                bigTripleValueSet.add(formatHandCardEnumerationList.get(bigTriple.get(j)).getValue());
+            }
+
+            List<Integer> singleList = new ArrayList<>();
+            for (int j = 0; j < formatHandCardEnumerationList.size(); j++) {
+                if(!bigTripleSet.contains(j) && !bigTripleValueSet.contains(formatHandCardEnumerationList.get(j).getValue())) {
+                    singleList.add(j);
+                }
+            }
+
+            if (CollectionUtils.isEmpty(singleList)) {
+                continue;
+            }
+            for (int j = 0; j < singleList.size(); j++) {
+                List<Integer> bigTripleSingle = new ArrayList<>();
+                bigTripleSingle.addAll(bigTriple);
+                bigTripleSingle.add(singleList.get(j));
+                bigTripleSingleList.add(bigTripleSingle);
+            }
+        }
+
+        return bigTripleSingleList;
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
