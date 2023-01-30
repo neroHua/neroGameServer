@@ -2232,162 +2232,189 @@ public class PlayCardTipTest {
         Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
     }
 
-//    @Test
-//    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase09() {
-//        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_108);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_208);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_308);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_408);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_106);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_206);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_306);
-//
-//        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_108);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_107);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
-//
-//        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
-//        Assert.assertNull("提示的结果应该是没有牌了", tipList);
-//    }
-//
-//    @Test
-//    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase10() {
-//        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_108);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_208);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_308);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_408);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_106);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_206);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_306);
-//
-//        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_108);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_107);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
-//
-//        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
-//        Assert.assertNull("提示的结果应该是没有牌了", tipList);
-//    }
-//
-//    @Test
-//    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase11() {
-//        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_113);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_213);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_313);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_112);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_212);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_312);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_412);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_111);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_211);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_311);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_108);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_208);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_308);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_107);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_207);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_307);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_106);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_206);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_306);
-//
-//        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_107);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_305);
-//
-//        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
-//        Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
-//
-//        List<Integer> tip0 = tipList.get(0);
-//        Integer[] expectTip0 = {2, 3, 4, 6, 7, 8, 9, 10, 11};
-//        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
-//
-//        List<Integer> tip1 = tipList.get(1);
-//        Integer[] expectTip1 = {12, 13, 14, 15, 16, 17, 18, 19, 20};
-//        Assert.assertArrayEquals("提示不正确", expectTip1, tip1.toArray());
-//    }
-//
-//    @Test
-//    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase12() {
-//        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_113);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_213);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_313);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_112);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_212);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_312);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_412);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_111);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_211);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_311);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_110);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_210);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_310);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
-//        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
-//
-//        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_305);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_204);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_304);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
-//        formatPlayCardEnumerationList.add(CardEnumeration.CARD_303);
-//
-//        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
-//        Assert.assertEquals("只有3种可以选择得牌型", 3, tipList.size());
-//
-//        List<Integer> tip0 = tipList.get(0);
-//        Integer[] expectTip0 = {1, 2, 3, 5, 6, 7, 8, 9, 10};
-//        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
-//
-//        List<Integer> tip1 = tipList.get(1);
-//        Integer[] expectTip1 = {5, 6, 7, 8, 9, 10, 11, 12, 13};
-//        Assert.assertArrayEquals("提示不正确", expectTip1, tip1.toArray());
-//
-//        List<Integer> tip2 = tipList.get(2);
-//        Integer[] expectTip2 = {8, 9, 10, 11, 12, 13, 14, 15, 16};
-//        Assert.assertArrayEquals("提示不正确", expectTip2, tip2.toArray());
-//    }
+    @Test
+    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase09() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_208);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_308);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_408);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_306);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_107);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertNull("提示的结果应该是没有牌了", tipList);
+    }
+
+    @Test
+    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase10() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_109);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_209);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_309);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_208);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_308);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_408);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_306);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_107);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertNull("提示的结果应该是没有牌了", tipList);
+    }
+
+    @Test
+    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase11() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_114);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_113);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_213);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_313);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_112);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_212);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_312);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_412);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_111);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_211);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_311);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_105);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_107);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_305);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
+
+        List<Integer> tip0 = tipList.get(0);
+        Integer[] expectTip0 = {2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 1, 0};
+        Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
+    }
+
+    @Test
+    public void testFindBigAirplaneSingleInFormatHandCardListForThreeCase12() {
+        List<CardEnumeration> formatHandCardEnumerationList = new LinkedList<>();
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_115);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_113);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_213);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_313);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_112);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_212);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_312);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_412);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_111);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_211);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_311);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_110);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_210);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_310);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_104);
+        formatHandCardEnumerationList.add(CardEnumeration.CARD_103);
+
+        List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_305);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_204);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_304);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_303);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_108);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
+        formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
+
+        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        Assert.assertEquals("只有3种可以选择得牌型", 40, tipList.size());
+
+        List<Integer> tip20 = tipList.get(20);
+        Integer[] expectTip20 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 14, 13};
+        Assert.assertArrayEquals("提示不正确", expectTip20, tip20.toArray());
+
+        List<Integer> tip21 = tipList.get(21);
+        Integer[] expectTip21 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 14, 12};
+        Assert.assertArrayEquals("提示不正确", expectTip21, tip21.toArray());
+
+        List<Integer> tip22 = tipList.get(22);
+        Integer[] expectTip22 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 14, 11};
+        Assert.assertArrayEquals("提示不正确", expectTip22, tip22.toArray());
+
+        List<Integer> tip23 = tipList.get(23);
+        Integer[] expectTip23 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 14, 0};
+        Assert.assertArrayEquals("提示不正确", expectTip23, tip23.toArray());
+
+        List<Integer> tip24 = tipList.get(24);
+        Integer[] expectTip24 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 13, 12};
+        Assert.assertArrayEquals("提示不正确", expectTip24, tip24.toArray());
+
+        List<Integer> tip25 = tipList.get(25);
+        Integer[] expectTip25 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 13, 11};
+        Assert.assertArrayEquals("提示不正确", expectTip25, tip25.toArray());
+
+        List<Integer> tip26 = tipList.get(26);
+        Integer[] expectTip26 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 13, 0};
+        Assert.assertArrayEquals("提示不正确", expectTip26, tip26.toArray());
+
+        List<Integer> tip27 = tipList.get(27);
+        Integer[] expectTip27 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 12, 11};
+        Assert.assertArrayEquals("提示不正确", expectTip27, tip27.toArray());
+
+        List<Integer> tip28 = tipList.get(28);
+        Integer[] expectTip28 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 12, 0};
+        Assert.assertArrayEquals("提示不正确", expectTip28, tip28.toArray());
+
+        List<Integer> tip29 = tipList.get(29);
+        Integer[] expectTip29 = {1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 11, 0};
+        Assert.assertArrayEquals("提示不正确", expectTip29, tip29.toArray());
+    }
 
 }
