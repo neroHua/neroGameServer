@@ -316,7 +316,7 @@ public class PlayCardTip {
 
             List<Integer> helpChoseRestPartList = new ArrayList<>(groupCount);
             for (int j = 0; j < groupCount; j++) {
-                helpChoseRestPartList.set(j, j);
+                helpChoseRestPartList.add(j);
             }
 
             do {
@@ -349,7 +349,7 @@ public class PlayCardTip {
     }
 
     private static void iteratorForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int groupCount) {
-        boolean carry = false;
+        boolean carry = Boolean.FALSE;
         int i = helpChoseRestPartList.size() - 1;
         for (; i >= 0; i--) {
             Integer iPosition = helpChoseRestPartList.get(i);
@@ -359,7 +359,7 @@ public class PlayCardTip {
             }
             else {
                 helpChoseRestPartList.set(i, iPosition + 1);
-                carry = true;
+                carry = Boolean.TRUE;
             }
         }
 
@@ -371,7 +371,7 @@ public class PlayCardTip {
     }
 
     private static boolean endForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
-        return helpChoseRestPartList.get(0) == restPartList.size() - count + 1 ? true : false;
+        return helpChoseRestPartList.get(0) == restPartList.size() - count + 1 ? Boolean.FALSE : Boolean.TRUE;
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
