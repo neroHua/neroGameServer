@@ -282,7 +282,7 @@ public class PlayCardTip {
         final int AIRPLANE_COUNT = 3;
         final int SINGLE_COUNT = 1;
         final int AIRPLANE_SINGLE_COUNT = 4;
-        final int AIRPLANE_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / 4;
+        final int AIRPLANE_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / AIRPLANE_SINGLE_COUNT;
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList, AIRPLANE_COUNT, SINGLE_COUNT, AIRPLANE_SINGLE_COUNT, AIRPLANE_SINGLE_GROUP_COUNT);
     }
 
