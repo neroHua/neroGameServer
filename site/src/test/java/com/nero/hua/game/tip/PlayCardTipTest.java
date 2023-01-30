@@ -2228,7 +2228,7 @@ public class PlayCardTipTest {
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
-        Integer[] expectTip0 = {3, 4, 5, 6, 7, 8, 10, 11, 12};
+        Integer[] expectTip0 = {3, 4, 5, 7, 8, 9, 10, 11, 12, 2, 1, 0};
         Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
     }
 
