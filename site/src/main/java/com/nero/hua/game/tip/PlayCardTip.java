@@ -322,8 +322,8 @@ public class PlayCardTip {
                     }
                     bigAllPartList.add(bigAllPart);
                 }
-                iterator(restPartList, helpChoseRestPartList, groupCount);
-            } while (end(restPartList, helpChoseRestPartList, groupCount));
+                iteratorForChoseRestPart(restPartList, helpChoseRestPartList, groupCount);
+            } while (endForChoseRestPart(restPartList, helpChoseRestPartList, groupCount));
         }
 
         return bigAllPartList;
@@ -342,7 +342,7 @@ public class PlayCardTip {
         return Boolean.TRUE;
     }
 
-    private static void iterator(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int groupCount) {
+    private static void iteratorForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int groupCount) {
         boolean carry = false;
         int i = helpChoseRestPartList.size() - 1;
         for (; i >= 0; i--) {
@@ -364,7 +364,7 @@ public class PlayCardTip {
         }
     }
 
-    private static boolean end(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
+    private static boolean endForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
         return helpChoseRestPartList.get(0) == restPartList.size() - count + 1 ? true : false;
     }
 
