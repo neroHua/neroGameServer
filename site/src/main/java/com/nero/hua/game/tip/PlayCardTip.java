@@ -275,14 +275,19 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigAirplaneSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        List<List<Integer>> bigAirplaneList = findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-
-        List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
-
         final int AIRPLANE_COUNT = 3;
         final int SINGLE_COUNT = 1;
         final int AIRPLANE_SINGLE_COUNT = 4;
         final int AIRPLANE_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / AIRPLANE_SINGLE_COUNT;
+
+        List<CardEnumeration> formatPlayCardEnumerationListTemp = new ArrayList<>();
+        for (int i = 0; i < AIRPLANE_COUNT * AIRPLANE_SINGLE_GROUP_COUNT; i++) {
+            formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
+        }
+        List<List<Integer>> bigAirplaneList = findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp);
+
+        List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
+
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList, AIRPLANE_COUNT, SINGLE_COUNT, AIRPLANE_SINGLE_COUNT, AIRPLANE_SINGLE_GROUP_COUNT);
     }
 
