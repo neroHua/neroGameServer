@@ -237,10 +237,10 @@ public class PlayCardTip {
                 if(firstPartHasRestPart(formatHandCardEnumerationList, bigFirstPartSet, bigFirstPartValueSet, restPartList.get(j))) {
                     continue;
                 }
-                List<Integer> bigTripleRestPart = new ArrayList<>();
-                bigTripleRestPart.addAll(bigFirstPart);
-                bigTripleRestPart.addAll(restPartList.get(j));
-                bigAllPartList.add(bigTripleRestPart);
+                List<Integer> bigAllPartPart = new ArrayList<>();
+                bigAllPartPart.addAll(bigFirstPart);
+                bigAllPartPart.addAll(restPartList.get(j));
+                bigAllPartList.add(bigAllPartPart);
             }
         }
 
@@ -279,7 +279,93 @@ public class PlayCardTip {
 
         List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
 
-        return mergeBigFirstPartWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList);
+        final int AIRPLANE_COUNT = 3;
+        final int SINGLE_COUNT = 1;
+        final int AIRPLANE_SINGLE_COUNT = 4;
+        final int AIRPLANE_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / 4;
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList, AIRPLANE_COUNT, SINGLE_COUNT, AIRPLANE_SINGLE_COUNT, AIRPLANE_SINGLE_GROUP_COUNT);
+    }
+
+    private static List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int firstPartCount, int restPartCount, int allPartCount, int groupCount) {
+        if (CollectionUtils.isEmpty(bigFirstPartList) || CollectionUtils.isEmpty(restPartList)) {
+            return null;
+        }
+        if (restPartList.size() < restPartCount * groupCount) {
+            return null;
+        }
+
+        List<List<Integer>> bigAllPartList = new ArrayList<>();
+        for (int i = bigFirstPartList.size() - 1; i >= 0; i--) {
+            List<Integer> bigFirstPart = bigFirstPartList.get(i);
+            if (bigFirstPart.size() < firstPartCount * groupCount) {
+                continue;
+            }
+
+            Set<Integer> bigFirstPartSet = new HashSet<>();
+            Set<Integer> bigFirstPartValueSet = new HashSet<>();
+            for (int j = 0; j < bigFirstPart.size(); j++) {
+                bigFirstPartSet.add(bigFirstPart.get(j));
+                bigFirstPartValueSet.add(formatHandCardEnumerationList.get(bigFirstPart.get(j)).getValue());
+            }
+
+            List<Integer> helpChoseRestPartList = new ArrayList<>(groupCount);
+            for (int j = 0; j < groupCount; j++) {
+                helpChoseRestPartList.set(j, j);
+            }
+
+            do {
+                if (firstPartDoNotHasRestPart(formatHandCardEnumerationList, bigFirstPartSet, bigFirstPartValueSet, restPartList, helpChoseRestPartList)) {
+                    List<Integer> bigAllPart = new ArrayList<>();
+                    bigAllPart.addAll(bigFirstPart);
+                    for (int j = 0; j < helpChoseRestPartList.size(); j++) {
+                        bigAllPart.addAll(restPartList.get(helpChoseRestPartList.get(j)));
+                    }
+                    bigAllPartList.add(bigAllPart);
+                }
+                iterator(restPartList, helpChoseRestPartList, groupCount);
+            } while (end(restPartList, helpChoseRestPartList, groupCount));
+        }
+
+        return bigAllPartList;
+    }
+
+    private static boolean firstPartDoNotHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList) {
+        for (int i = 0; i < helpChoseRestPartList.size(); i++) {
+            List<Integer> rest = restPartList.get(i);
+            for (int j = 0; j < rest.size(); j++) {
+                Integer restIndex = rest.get(j);
+                if (bigFirstPartSet.contains(restIndex) || bigFirstPartValueSet.contains(formatHandCardEnumerationList.get(restIndex).getValue())) {
+                    return Boolean.FALSE;
+                }
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+    private static void iterator(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int groupCount) {
+        boolean carry = false;
+        int i = helpChoseRestPartList.size() - 1;
+        for (; i >= 0; i--) {
+            Integer iPosition = helpChoseRestPartList.get(i);
+            if (iPosition  + (!carry ? 0 : 1) < restPartList.size() - groupCount) {
+                helpChoseRestPartList.set(i, iPosition + 1);
+                break;
+            }
+            else {
+                helpChoseRestPartList.set(i, iPosition + 1);
+                carry = true;
+            }
+        }
+
+        if (carry) {
+            for (; i < helpChoseRestPartList.size() - 1; i++) {
+                helpChoseRestPartList.set(i + 1, helpChoseRestPartList.get(i) + 1);
+            }
+        }
+    }
+
+    private static boolean end(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
+        return helpChoseRestPartList.get(0) == restPartList.size() - count + 1 ? true : false;
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
