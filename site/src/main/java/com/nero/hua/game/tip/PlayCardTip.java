@@ -294,6 +294,12 @@ public class PlayCardTip {
             return null;
         }
 
+        List<List<Integer>> restPartListRevert = new ArrayList<>();
+        for (int i = restPartList.size() - 1; i >= 0; i--) {
+            restPartListRevert.add(restPartList.get(i));
+        }
+        restPartList = restPartListRevert;
+
         List<List<Integer>> bigAllPartList = new ArrayList<>();
         for (int i = bigFirstPartList.size() - 1; i >= 0; i--) {
             List<Integer> bigFirstPart = bigFirstPartList.get(i);
