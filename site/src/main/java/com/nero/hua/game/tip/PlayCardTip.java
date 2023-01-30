@@ -337,7 +337,7 @@ public class PlayCardTip {
 
     private static boolean firstPartDoNotHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList) {
         for (int i = 0; i < helpChoseRestPartList.size(); i++) {
-            List<Integer> rest = restPartList.get(i);
+            List<Integer> rest = restPartList.get(helpChoseRestPartList.get(i));
             for (int j = 0; j < rest.size(); j++) {
                 Integer restIndex = rest.get(j);
                 if (bigFirstPartSet.contains(restIndex) || bigFirstPartValueSet.contains(formatHandCardEnumerationList.get(restIndex).getValue())) {
@@ -353,7 +353,7 @@ public class PlayCardTip {
         int i = helpChoseRestPartList.size() - 1;
         for (; i >= 0; i--) {
             Integer iPosition = helpChoseRestPartList.get(i);
-            if (iPosition  + (!carry ? 0 : 1) < restPartList.size() - groupCount) {
+            if (iPosition  + (!carry ? 0 : 1) < restPartList.size() - groupCount + i) {
                 helpChoseRestPartList.set(i, iPosition + 1);
                 break;
             }
@@ -364,6 +364,7 @@ public class PlayCardTip {
         }
 
         if (carry) {
+            i = i == -1 ? 0 : i;
             for (; i < helpChoseRestPartList.size() - 1; i++) {
                 helpChoseRestPartList.set(i + 1, helpChoseRestPartList.get(i) + 1);
             }
@@ -371,7 +372,7 @@ public class PlayCardTip {
     }
 
     private static boolean endForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
-        return helpChoseRestPartList.get(0) == restPartList.size() - count + 1 ? Boolean.FALSE : Boolean.TRUE;
+        return helpChoseRestPartList.get(0) > restPartList.size() - count ? Boolean.FALSE : Boolean.TRUE;
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
