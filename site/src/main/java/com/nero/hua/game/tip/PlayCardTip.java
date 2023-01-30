@@ -358,7 +358,7 @@ public class PlayCardTip {
         int i = helpChoseRestPartList.size() - 1;
         for (; i >= 0; i--) {
             Integer iPosition = helpChoseRestPartList.get(i);
-            if (iPosition  + (!carry ? 0 : 1) < restPartList.size() - groupCount + i) {
+            if (iPosition < restPartList.size() - groupCount + i) {
                 helpChoseRestPartList.set(i, iPosition + 1);
                 break;
             }
