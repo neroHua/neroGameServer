@@ -417,7 +417,9 @@ public class PlayCardTip {
 
         List<List<Integer>> pairStraightList = findPairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
 
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, AIRPLANE_COUNT, PAIR_COUNT, AIRPLANE_PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
+        final int REST_PART_COUNT = 1;
+        final int FIRST_PART_COUNT = 1;
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, AIRPLANE_COUNT, REST_PART_COUNT, AIRPLANE_PAIR_COUNT, FIRST_PART_COUNT);
     }
 
     private static List<List<Integer>> findPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int count, int groupCount) {
