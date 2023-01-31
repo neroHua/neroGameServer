@@ -2898,15 +2898,6 @@ public class PlayCardTipTest {
         List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有20种可以选择得牌型", 20, tipList.size());
 
-        for (int i = 0; i < tipList.size(); i++) {
-            List<Integer> integers = tipList.get(i);
-            System.out.print("{" + integers.get(0) + ",");
-            for (int j = 1; j < integers.size() - 1; j++) {
-                System.out.print(" " + integers.get(j) + ",");
-            }
-            System.out.println(" " + integers.get(integers.size() - 1) + "};");
-        }
-
         List<Integer> tip0 = tipList.get(0);
         Integer[] expectTip0 = {6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 15, 16, 3, 4};
         Assert.assertArrayEquals("提示不正确", expectTip0, tip0.toArray());
