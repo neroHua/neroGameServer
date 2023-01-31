@@ -469,4 +469,5 @@ public class PlayCardTip {
         final int BOMB_DUPLICATE_COUNT = 4;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
     }
+
 }
