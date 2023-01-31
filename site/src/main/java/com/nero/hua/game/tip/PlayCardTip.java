@@ -285,7 +285,6 @@ public class PlayCardTip {
 
     private static List<List<Integer>> findBigAirplaneSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int AIRPLANE_COUNT = 3;
-        final int SINGLE_COUNT = 1;
         final int AIRPLANE_SINGLE_COUNT = 4;
         final int AIRPLANE_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / AIRPLANE_SINGLE_COUNT;
 
@@ -297,14 +296,11 @@ public class PlayCardTip {
 
         List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
 
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList, AIRPLANE_COUNT, SINGLE_COUNT, AIRPLANE_SINGLE_COUNT, AIRPLANE_SINGLE_GROUP_COUNT);
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList, AIRPLANE_SINGLE_GROUP_COUNT);
     }
 
-    private static List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int firstPartCount, int restPartCount, int allPartCount, int groupCount) {
+    private static List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int groupCount) {
         if (CollectionUtils.isEmpty(bigFirstPartList) || CollectionUtils.isEmpty(restPartList)) {
-            return null;
-        }
-        if (restPartList.size() < restPartCount * groupCount) {
             return null;
         }
 
@@ -317,9 +313,6 @@ public class PlayCardTip {
         List<List<Integer>> bigAllPartList = new ArrayList<>();
         for (int i = bigFirstPartList.size() - 1; i >= 0; i--) {
             List<Integer> bigFirstPart = bigFirstPartList.get(i);
-            if (bigFirstPart.size() < firstPartCount * groupCount) {
-                continue;
-            }
 
             Set<Integer> bigFirstPartSet = new HashSet<>();
             Set<Integer> bigFirstPartValueSet = new HashSet<>();
@@ -403,7 +396,7 @@ public class PlayCardTip {
 
         List<List<Integer>> pairList = findSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_COUNT);
 
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_COUNT, PAIR_COUNT, AIRPLANE_PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_PAIR_GROUP_COUNT);
     }
 
     private static List<List<Integer>> findBigAirplanePairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
@@ -420,9 +413,8 @@ public class PlayCardTip {
 
         List<List<Integer>> pairStraightList = findPairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
 
-        final int REST_PART_COUNT = 1;
-        final int FIRST_PART_COUNT = 1;
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, AIRPLANE_COUNT, REST_PART_COUNT, AIRPLANE_PAIR_COUNT, FIRST_PART_COUNT);
+        final int GROUP_COUNT = 1;
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, GROUP_COUNT);
     }
 
     private static List<List<Integer>> findPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int count, int groupCount) {
@@ -447,9 +439,8 @@ public class PlayCardTip {
 
         List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
 
-        final int REST_PART_COUNT = 2;
-        final int FIRST_PART_COUNT = 1;
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigFourList, singleList, FOUR_COUNT, REST_PART_COUNT, FOUR_SINGLE_COUNT, FIRST_PART_COUNT);
+        final int GROUP_COUNT = 2;
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigFourList, singleList, GROUP_COUNT);
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
