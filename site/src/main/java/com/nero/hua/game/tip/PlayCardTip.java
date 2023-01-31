@@ -50,6 +50,9 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT == playCardTypeEnumeration) {
             return findBigAirplanePairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
+        else if (PlayCardTypeEnumeration.FOUR_SINGLE == playCardTypeEnumeration) {
+            return findBigFourSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
@@ -430,9 +433,27 @@ public class PlayCardTip {
         return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, fakeFormatPlayCardEnumerationList, count);
     }
 
+    private static List<List<Integer>> findBigFourSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int FOUR_COUNT = 4;
+        final int FOUR_SINGLE_COUNT = 6;
+        final int FOUR_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / FOUR_SINGLE_COUNT;
+
+        List<CardEnumeration> formatPlayCardEnumerationListTemp = new ArrayList<>();
+        for (int i = 0; i < FOUR_COUNT * FOUR_SINGLE_GROUP_COUNT; i++) {
+            formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
+        }
+        final int FOUR_DUPLICATE_COUNT = 4;
+        List<List<Integer>> bigFourList = findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, FOUR_DUPLICATE_COUNT);
+
+        List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
+
+        final int REST_PART_COUNT = 2;
+        final int FIRST_PART_COUNT = 1;
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigFourList, singleList, FOUR_COUNT, REST_PART_COUNT, FOUR_SINGLE_COUNT, FIRST_PART_COUNT);
+    }
+
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int BOMB_DUPLICATE_COUNT = 4;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
     }
-
 }
