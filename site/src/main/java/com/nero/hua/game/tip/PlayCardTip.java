@@ -47,6 +47,9 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.AIRPLANE_PAIR == playCardTypeEnumeration) {
             return findBigAirplanePairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
+        else if (PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT == playCardTypeEnumeration) {
+            return findBigAirplanePairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
@@ -116,7 +119,7 @@ public class PlayCardTip {
     }
 
     private static List<List<Integer>> findBigSameValueStraightByCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
-        if (CardEnumeration.CARD_114.getValue() == formatPlayCardEnumerationList.get(0).getValue()) {
+        if (null != formatPlayCardEnumerationList.get(0) && CardEnumeration.CARD_114.getValue() == formatPlayCardEnumerationList.get(0).getValue()) {
             return null;
         }
 
@@ -134,7 +137,7 @@ public class PlayCardTip {
                 continue;
             }
 
-            if (cardCurrent.getValue() <= formatPlayCardEnumerationList.get(PLAY_CARD_SIZE - 1).getValue()) {
+            if (null != formatPlayCardEnumerationList.get(PLAY_CARD_SIZE - 1) && cardCurrent.getValue() <= formatPlayCardEnumerationList.get(PLAY_CARD_SIZE - 1).getValue()) {
                 break;
             }
 
@@ -398,6 +401,31 @@ public class PlayCardTip {
         List<List<Integer>> pairList = findSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_COUNT);
 
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_COUNT, PAIR_COUNT, AIRPLANE_PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
+    }
+
+    private static List<List<Integer>> findBigAirplanePairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int AIRPLANE_COUNT = 3;
+        final int PAIR_COUNT = 2;
+        final int AIRPLANE_PAIR_COUNT = 5;
+        final int AIRPLANE_PAIR_GROUP_COUNT = formatPlayCardEnumerationList.size() / AIRPLANE_PAIR_COUNT;
+
+        List<CardEnumeration> formatPlayCardEnumerationListTemp = new ArrayList<>();
+        for (int i = 0; i < AIRPLANE_COUNT * AIRPLANE_PAIR_GROUP_COUNT; i++) {
+            formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
+        }
+        List<List<Integer>> bigAirplaneList = findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp);
+
+        List<List<Integer>> pairStraightList = findPairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
+
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, AIRPLANE_COUNT, PAIR_COUNT, AIRPLANE_PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
+    }
+
+    private static List<List<Integer>> findPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int count, int groupCount) {
+        List<CardEnumeration> fakeFormatPlayCardEnumerationList = new ArrayList<>();
+        for (int i = 0; i < count * groupCount; i++) {
+            fakeFormatPlayCardEnumerationList.add(null);
+        }
+        return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, fakeFormatPlayCardEnumerationList, count);
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
