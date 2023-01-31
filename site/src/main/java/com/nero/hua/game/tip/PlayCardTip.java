@@ -44,6 +44,9 @@ public class PlayCardTip {
         else if (PlayCardTypeEnumeration.AIRPLANE_SINGLE == playCardTypeEnumeration) {
             return findBigAirplaneSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
+        else if (PlayCardTypeEnumeration.AIRPLANE_PAIR == playCardTypeEnumeration) {
+            return findBigAirplanePairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        }
         else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
             return findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
         }
@@ -378,6 +381,23 @@ public class PlayCardTip {
 
     private static boolean endForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
         return helpChoseRestPartList.get(0) > restPartList.size() - count ? Boolean.FALSE : Boolean.TRUE;
+    }
+
+    private static List<List<Integer>> findBigAirplanePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int AIRPLANE_COUNT = 3;
+        final int PAIR_COUNT = 2;
+        final int AIRPLANE_PAIR_COUNT = 5;
+        final int AIRPLANE_PAIR_GROUP_COUNT = formatPlayCardEnumerationList.size() / AIRPLANE_PAIR_COUNT;
+
+        List<CardEnumeration> formatPlayCardEnumerationListTemp = new ArrayList<>();
+        for (int i = 0; i < AIRPLANE_COUNT * AIRPLANE_PAIR_GROUP_COUNT; i++) {
+            formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
+        }
+        List<List<Integer>> bigAirplaneList = findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp);
+
+        List<List<Integer>> pairList = findSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, PAIR_COUNT);
+
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_COUNT, PAIR_COUNT, AIRPLANE_PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
     }
 
     private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
