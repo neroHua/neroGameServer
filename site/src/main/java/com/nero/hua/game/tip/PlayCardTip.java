@@ -470,4 +470,20 @@ public class PlayCardTip {
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
     }
 
+    private static List<List<Integer>> findBombKingInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+        final int BOMB_KING_SIZE = 2;
+        if (formatHandCardEnumerationList.size() < BOMB_KING_SIZE) {
+            return null;
+        }
+
+        List<List<Integer>> bombKingList = new ArrayList<>();
+        if (CardEnumeration.CARD_517 == formatHandCardEnumerationList.get(0) && CardEnumeration.CARD_516 == formatHandCardEnumerationList.get(0)) {
+            List<Integer> bombKing = new ArrayList<>();
+            bombKing.add(0);
+            bombKing.add(0);
+            bombKingList.add(bombKing);
+        }
+
+        return bombKingList;
+    }
 }
