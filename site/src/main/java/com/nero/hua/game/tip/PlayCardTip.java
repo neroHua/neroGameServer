@@ -480,7 +480,7 @@ public class PlayCardTip {
         if (CardEnumeration.CARD_517 == formatHandCardEnumerationList.get(0) && CardEnumeration.CARD_516 == formatHandCardEnumerationList.get(0)) {
             List<Integer> bombKing = new ArrayList<>();
             bombKing.add(0);
-            bombKing.add(0);
+            bombKing.add(1);
             bombKingList.add(bombKing);
         }
 
