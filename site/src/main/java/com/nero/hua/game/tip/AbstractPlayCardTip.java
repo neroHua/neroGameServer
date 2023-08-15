@@ -15,8 +15,8 @@ public class AbstractPlayCardTip implements PlayCardTip {
     }
 
     @Override
-    public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration, GameTypeEnumeration gameTypeEnumeration) {
-        return PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, playCardTypeEnumeration, gameTypeEnumeration);
+    public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        return PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, playCardTypeEnumeration, this.gameTypeEnumeration);
     }
 
 }
