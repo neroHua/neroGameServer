@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PlayCardTipTest {
+public class PlayCardTipUtilTest {
 
     @Test
     public void testFindBigSingleInFormatHandCardListForThreeCase01() {
@@ -22,7 +22,7 @@ public class PlayCardTipTest {
         List<CardEnumeration> formatPlayCardEnumerationList = new LinkedList<>();
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("提示不正确", 3, tip.size());
         Assert.assertEquals("提示不正确", (int) tip.get(0).get(0), 0);
         Assert.assertEquals("提示不正确", (int) tip.get(1).get(0), 1);
@@ -46,7 +46,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_111);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_110);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -65,7 +65,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_110);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_109);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -86,7 +86,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -108,7 +108,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -133,7 +133,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -158,7 +158,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -190,7 +190,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -220,7 +220,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -253,7 +253,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -282,7 +282,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -317,7 +317,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有3种可以选择得牌型", 3, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -356,7 +356,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有4种可以选择得牌型", 4, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -402,7 +402,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_110);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_210);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -430,7 +430,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_109);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_209);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -460,7 +460,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -492,7 +492,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -526,7 +526,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -560,7 +560,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -600,7 +600,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -640,7 +640,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -682,7 +682,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -720,7 +720,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_105);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -767,7 +767,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有3种可以选择得牌型", 3, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -816,7 +816,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有4种可以选择得牌型", 4, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -845,7 +845,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -860,7 +860,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("没有可以选择得牌型", null, tipList);
     }
 
@@ -877,7 +877,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -896,7 +896,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -918,7 +918,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -946,7 +946,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_106);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有5种可以选择得牌型", 5, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -983,7 +983,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -1002,7 +1002,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("没有可以选择得牌型", null, tipList);
     }
 
@@ -1027,7 +1027,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1050,7 +1050,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1079,7 +1079,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_406);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.BOMB, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1101,7 +1101,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -1118,7 +1118,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", null);
     }
 
@@ -1137,7 +1137,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1158,7 +1158,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1183,7 +1183,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1213,7 +1213,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有3种可以选择得牌型", 3, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1240,7 +1240,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -1258,7 +1258,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -1277,7 +1277,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1303,7 +1303,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1329,7 +1329,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有10种可以选择得牌型", 10, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1392,7 +1392,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有12种可以选择得牌型", 12, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1456,7 +1456,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -1475,7 +1475,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("没有可以选择得牌型", tipList);
     }
 
@@ -1497,7 +1497,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1525,7 +1525,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1554,7 +1554,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有8种可以选择得牌型", 8, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1612,7 +1612,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.TRIPLE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有10种可以选择得牌型", 10, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1676,7 +1676,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_213);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_313);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -1701,7 +1701,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_113);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_113);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -1725,7 +1725,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -1749,7 +1749,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1780,7 +1780,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -1804,7 +1804,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_208);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_308);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1836,7 +1836,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_207);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_307);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1871,7 +1871,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1910,7 +1910,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1945,7 +1945,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_206);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_306);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -1989,7 +1989,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_205);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_305);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有3种可以选择得牌型", 3, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2037,7 +2037,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_303);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有4种可以选择得牌型", 4, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2081,7 +2081,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -2110,7 +2110,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -2138,7 +2138,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -2166,7 +2166,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有6种可以选择得牌型", 6, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2223,7 +2223,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -2249,7 +2249,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2285,7 +2285,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2324,7 +2324,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2366,7 +2366,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2404,7 +2404,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2443,7 +2443,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2489,7 +2489,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有41种可以选择得牌型", 41, tipList.size());
 
         List<Integer> tip20 = tipList.get(20);
@@ -2561,7 +2561,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -2594,7 +2594,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -2626,7 +2626,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -2660,7 +2660,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有6种可以选择得牌型", 6, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2723,7 +2723,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -2753,7 +2753,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2795,7 +2795,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2840,7 +2840,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2889,7 +2889,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2934,7 +2934,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -2979,7 +2979,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3031,7 +3031,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有21种可以选择得牌型", 21, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3103,7 +3103,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -3136,7 +3136,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -3168,7 +3168,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tip = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tip = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tip);
     }
 
@@ -3202,7 +3202,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1种可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3245,7 +3245,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -3277,7 +3277,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3319,7 +3319,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3366,7 +3366,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3417,7 +3417,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3464,7 +3464,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3513,7 +3513,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3563,7 +3563,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有3种可以选择得牌型", 3, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3597,7 +3597,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3623,7 +3623,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3651,7 +3651,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有1中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3677,7 +3677,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3708,7 +3708,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -3730,7 +3730,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3760,7 +3760,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3791,7 +3791,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_104);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_SINGLE, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有4种可以选择得牌型", 4, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3833,7 +3833,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3863,7 +3863,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3897,7 +3897,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有一中可以选择得牌型", 1, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3927,7 +3927,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2种可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -3962,7 +3962,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertNull("提示的结果应该是没有牌了", tipList);
     }
 
@@ -3988,7 +3988,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -4019,7 +4019,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有2中可以选择得牌型", 2, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
@@ -4055,7 +4055,7 @@ public class PlayCardTipTest {
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_103);
         formatPlayCardEnumerationList.add(CardEnumeration.CARD_203);
 
-        List<List<Integer>> tipList = PlayCardTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        List<List<Integer>> tipList = PlayCardTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, PlayCardTypeEnumeration.FOUR_PAIR, GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
         Assert.assertEquals("只有4种可以选择得牌型", 4, tipList.size());
 
         List<Integer> tip0 = tipList.get(0);
