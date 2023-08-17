@@ -7,121 +7,20 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
-public class PlayCardTipUtil {
+public class AbstractGameTip implements GameTip {
 
-    public static List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration, GameTypeEnumeration gameTypeEnumeration) {
-        if (GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE == gameTypeEnumeration) {
-            return tipForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, playCardTypeEnumeration);
-        }
-        return null;
+    GameTypeEnumeration gameTypeEnumeration;
+
+    public AbstractGameTip(GameTypeEnumeration gameTypeEnumeration) {
+        this.gameTypeEnumeration = gameTypeEnumeration;
     }
 
-    private static List<List<Integer>> tipForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
-        if (PlayCardTypeEnumeration.SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigSingleTips = findBigSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.STRAIGHT == playCardTypeEnumeration) {
-            List<List<Integer>> bigStraightTips = findBigStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigStraightTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigPairTips = findBigPairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigPairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.PAIR_STRAIGHT == playCardTypeEnumeration) {
-            List<List<Integer>> bigPairStraightTips = findBigPairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigPairStraightTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.TRIPLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigTripleTips = findBigTripleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigTripleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.TRIPLE_SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigTripleSingleTips = findBigTripleSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigTripleSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.TRIPLE_PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigTriplePairTips = findBigTriplePairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigTriplePairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE == playCardTypeEnumeration) {
-            List<List<Integer>> bigAirplaneTips = findBigAirplaneInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigAirplaneTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE_SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigBigAirplaneSingleTips = findBigAirplaneSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigBigAirplaneSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE_PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigAirplanePairTips = findBigAirplanePairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigAirplanePairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT == playCardTypeEnumeration) {
-            List<List<Integer>> bigAirplanePairStraightTips = findBigAirplanePairStraightInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigAirplanePairStraightTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.FOUR_SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigFourSingleTips = findBigFourSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigFourSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.FOUR_PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigFourPairTips = findBigFourPairInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigFourPairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
-            List<List<Integer>> bigBombTips = findBigBombInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombKingTip = findBombKingInFormatHandCardListForThree(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigBombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.BOMB_KING == playCardTypeEnumeration) {
-            return null;
-        }
-
-        return null;
+    @Override
+    public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        return GameTipUtil.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList, playCardTypeEnumeration, this.gameTypeEnumeration);
     }
 
-    private static List<List<Integer>> findBigSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         List<List<Integer>> bigList = new ArrayList<>();
         for (int i = 0; i < formatHandCardEnumerationList.size(); i++) {
             CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);
@@ -132,17 +31,17 @@ public class PlayCardTipUtil {
         return bigList;
     }
 
-    private static List<List<Integer>> findBigStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int SINGLE_DUPLICATE_COUNT = 1;
         return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, SINGLE_DUPLICATE_COUNT);
     }
 
-    private static List<List<Integer>> findBigPairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigPairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int PAIR_DUPLICATE_COUNT = 2;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, PAIR_DUPLICATE_COUNT);
     }
 
-    private static List<List<Integer>> findBigSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
+    protected List<List<Integer>> findBigSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
         if (formatHandCardEnumerationList.size() < duplicateCount) {
             return null;
         }
@@ -174,12 +73,12 @@ public class PlayCardTipUtil {
         return bigList;
     }
 
-    private static List<List<Integer>> findBigPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int PAIR_DUPLICATE_COUNT = 2;
         return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, PAIR_DUPLICATE_COUNT);
     }
 
-    private static List<List<Integer>> findBigSameValueStraightByCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
+    protected List<List<Integer>> findBigSameValueStraightByCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
         if (null != formatPlayCardEnumerationList.get(0) && CardEnumeration.CARD_114.getValue() == formatPlayCardEnumerationList.get(0).getValue()) {
             return null;
         }
@@ -262,12 +161,12 @@ public class PlayCardTipUtil {
         return bigList;
     }
 
-    private static List<List<Integer>> findBigTripleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigTripleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int TRIPLE_DUPLICATE_COUNT = 3;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
     }
 
-    private static List<List<Integer>> findBigTripleSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigTripleSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         List<List<Integer>> bigTripleList = findBigTripleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
 
         List<List<Integer>> singleList = findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
@@ -275,7 +174,7 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, singleList);
     }
 
-    private static List<List<Integer>> findSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList) {
+    protected List<List<Integer>> findSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList) {
         List<List<Integer>> singleList = new ArrayList<>();
         for (int i = 0; i < formatHandCardEnumerationList.size(); i++) {
             List<Integer> single = Arrays.asList(i);
@@ -285,7 +184,7 @@ public class PlayCardTipUtil {
         return singleList;
     }
 
-    private static List<List<Integer>> mergeBigFirstPartWithRestPartInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList) {
+    protected List<List<Integer>> mergeBigFirstPartWithRestPartInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList) {
         if (CollectionUtils.isEmpty(bigFirstPartList) || CollectionUtils.isEmpty(restPartList)) {
             return null;
         }
@@ -314,7 +213,7 @@ public class PlayCardTipUtil {
         return bigAllPartList;
     }
 
-    private static boolean firstPartHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<Integer> restPart) {
+    protected boolean firstPartHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<Integer> restPart) {
         for (Integer restIndex : restPart) {
             if (bigFirstPartSet.contains(restIndex) || bigFirstPartValueSet.contains(formatHandCardEnumerationList.get(restIndex).getValue())) {
                 return Boolean.TRUE;
@@ -323,7 +222,7 @@ public class PlayCardTipUtil {
         return Boolean.FALSE;
     }
 
-    private static List<List<Integer>> findBigTriplePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigTriplePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         List<List<Integer>> bigTripleList = findBigTripleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
 
         final int PAIR_DUPLICATE_COUNT = 2;
@@ -332,16 +231,16 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartInFormatHandCardListForThree(formatHandCardEnumerationList, bigTripleList, pairList);
     }
 
-    private static List<List<Integer>> findSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int duplicateCount) {
+    protected List<List<Integer>> findSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int duplicateCount) {
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, null, duplicateCount);
     }
 
-    private static List<List<Integer>> findBigAirplaneInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigAirplaneInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int TRIPLE_DUPLICATE_COUNT = 3;
         return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, TRIPLE_DUPLICATE_COUNT);
     }
 
-    private static List<List<Integer>> findBigAirplaneSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigAirplaneSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int AIRPLANE_COUNT = 3;
         final int AIRPLANE_SINGLE_COUNT = 4;
         final int AIRPLANE_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / AIRPLANE_SINGLE_COUNT;
@@ -357,7 +256,7 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, singleList, AIRPLANE_SINGLE_GROUP_COUNT);
     }
 
-    private static List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int groupCount) {
+    protected List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int groupCount) {
         if (CollectionUtils.isEmpty(bigFirstPartList) || CollectionUtils.isEmpty(restPartList)) {
             return null;
         }
@@ -400,7 +299,7 @@ public class PlayCardTipUtil {
         return bigAllPartList;
     }
 
-    private static boolean firstPartDoNotHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList) {
+    protected boolean firstPartDoNotHasRestPart(List<CardEnumeration> formatHandCardEnumerationList, Set<Integer> bigFirstPartSet, Set<Integer> bigFirstPartValueSet, List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList) {
         for (int i = 0; i < helpChoseRestPartList.size(); i++) {
             List<Integer> rest = restPartList.get(helpChoseRestPartList.get(i));
             for (int j = 0; j < rest.size(); j++) {
@@ -413,7 +312,7 @@ public class PlayCardTipUtil {
         return Boolean.TRUE;
     }
 
-    private static void iteratorForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int groupCount) {
+    protected void iteratorForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int groupCount) {
         boolean carry = Boolean.FALSE;
         int i = helpChoseRestPartList.size() - 1;
         for (; i >= 0; i--) {
@@ -436,11 +335,11 @@ public class PlayCardTipUtil {
         }
     }
 
-    private static boolean endForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
+    protected boolean endForChoseRestPart(List<List<Integer>> restPartList, List<Integer> helpChoseRestPartList, int count) {
         return helpChoseRestPartList.get(0) > restPartList.size() - count ? Boolean.FALSE : Boolean.TRUE;
     }
 
-    private static List<List<Integer>> findBigAirplanePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigAirplanePairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int AIRPLANE_COUNT = 3;
         final int PAIR_COUNT = 2;
         final int AIRPLANE_PAIR_COUNT = 5;
@@ -457,7 +356,7 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_PAIR_GROUP_COUNT);
     }
 
-    private static List<List<Integer>> findBigAirplanePairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigAirplanePairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int AIRPLANE_COUNT = 3;
         final int PAIR_COUNT = 2;
         final int AIRPLANE_PAIR_COUNT = 5;
@@ -475,7 +374,7 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, GROUP_COUNT);
     }
 
-    private static List<List<Integer>> findPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int count, int groupCount) {
+    protected List<List<Integer>> findPairStraightInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, int count, int groupCount) {
         List<CardEnumeration> fakeFormatPlayCardEnumerationList = new ArrayList<>();
         for (int i = 0; i < count * groupCount; i++) {
             fakeFormatPlayCardEnumerationList.add(null);
@@ -483,7 +382,7 @@ public class PlayCardTipUtil {
         return findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, fakeFormatPlayCardEnumerationList, count);
     }
 
-    private static List<List<Integer>> findBigFourSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigFourSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int FOUR_COUNT = 4;
         final int FOUR_SINGLE_COUNT = 6;
         final int FOUR_SINGLE_GROUP_COUNT = formatPlayCardEnumerationList.size() / FOUR_SINGLE_COUNT;
@@ -501,7 +400,7 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigFourList, singleList, GROUP_COUNT);
     }
 
-    private static List<List<Integer>> findBigFourPairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigFourPairInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int FOUR_COUNT = 4;
         final int PAIR_COUNT = 2;
         final int FOUR_SINGLE_COUNT = 6;
@@ -520,12 +419,12 @@ public class PlayCardTipUtil {
         return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigFourList, pairList, GROUP_COUNT);
     }
 
-    private static List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBigBombInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int BOMB_DUPLICATE_COUNT = 4;
         return findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BOMB_DUPLICATE_COUNT);
     }
 
-    private static List<List<Integer>> findBombKingInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    protected List<List<Integer>> findBombKingInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         final int BOMB_KING_SIZE = 2;
         if (formatHandCardEnumerationList.size() < BOMB_KING_SIZE) {
             return null;
@@ -542,7 +441,7 @@ public class PlayCardTipUtil {
         return bombKingList;
     }
 
-    private static List<List<Integer>> mergeTipLists(List<List<Integer>>... tipLists) {
+    protected List<List<Integer>> mergeTipLists(List<List<Integer>>... tipLists) {
         List<List<Integer>> tipList = null;
         for (int i = 0; i < tipLists.length; i++) {
             if (!CollectionUtils.isEmpty(tipLists[i])) {

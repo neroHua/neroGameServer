@@ -6,9 +6,9 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class PlayCardTipForThree extends AbstractPlayCardTip {
+public class GameTipForThree extends AbstractGameTip {
 
-    public PlayCardTipForThree() {
+    public GameTipForThree() {
         super(GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
     }
 
