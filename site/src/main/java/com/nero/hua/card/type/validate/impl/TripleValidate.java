@@ -1,18 +1,18 @@
 package com.nero.hua.card.type.validate.impl;
 
+import com.nero.hua.card.type.PlayCardTypeImpl;
 import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class TripleValidate implements PlayCardTypeValidate {
+public class TripleValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
 
     private static final int COUNT = 3;
 
-    @Override
-    public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.TRIPLE;
+    public TripleValidate() {
+        super(PlayCardTypeEnumeration.TRIPLE);
     }
 
     @Override

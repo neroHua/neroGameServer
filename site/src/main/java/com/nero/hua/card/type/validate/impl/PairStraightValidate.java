@@ -1,19 +1,19 @@
 package com.nero.hua.card.type.validate.impl;
 
+import com.nero.hua.card.type.PlayCardTypeImpl;
 import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class PairStraightValidate implements PlayCardTypeValidate {
+public class PairStraightValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
 
     private static final int MIN_COUNT = 6;
     private static final int GROUP_COUNT = 2;
 
-    @Override
-    public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.PAIR_STRAIGHT;
+    public PairStraightValidate() {
+        super(PlayCardTypeEnumeration.PAIR_STRAIGHT);
     }
 
     @Override

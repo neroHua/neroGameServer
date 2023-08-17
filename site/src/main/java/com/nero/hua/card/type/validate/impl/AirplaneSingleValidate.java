@@ -1,20 +1,20 @@
 package com.nero.hua.card.type.validate.impl;
 
+import com.nero.hua.card.type.PlayCardTypeImpl;
 import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class AirplaneSingleValidate implements PlayCardTypeValidate {
+public class AirplaneSingleValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
 
     private static final int MIN_COUNT = 8;
-    private static final int GROUP_COUNT = 4;
-    private static final int TRIPLE_COUNT = 3;
 
-    @Override
-    public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.AIRPLANE_SINGLE;
+    private static final int GROUP_COUNT = 4;
+
+    public AirplaneSingleValidate() {
+        super(PlayCardTypeEnumeration.AIRPLANE_SINGLE);
     }
 
     @Override
