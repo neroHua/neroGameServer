@@ -1,18 +1,18 @@
-package com.nero.hua.validate.impl;
+package com.nero.hua.card.type.validate.impl;
 
+import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
-import com.nero.hua.validate.PlayCardTypeValidate;
 
 import java.util.List;
 
-public class BombValidate implements PlayCardTypeValidate {
+public class TripleSingleValidate implements PlayCardTypeValidate {
 
     private static final int COUNT = 4;
 
     @Override
     public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.BOMB;
+        return PlayCardTypeEnumeration.TRIPLE_SINGLE;
     }
 
     @Override
@@ -22,8 +22,7 @@ public class BombValidate implements PlayCardTypeValidate {
         }
 
         return cardEnumerationList.get(0).getValue() == cardEnumerationList.get(1).getValue()
-            && cardEnumerationList.get(1).getValue() == cardEnumerationList.get(2).getValue()
-            && cardEnumerationList.get(2).getValue() == cardEnumerationList.get(3).getValue();
+            && cardEnumerationList.get(1).getValue() == cardEnumerationList.get(2).getValue();
     }
 
 }

@@ -1,20 +1,20 @@
-package com.nero.hua.validate.impl;
+package com.nero.hua.card.type.validate.impl;
 
+import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
-import com.nero.hua.validate.PlayCardTypeValidate;
 
 import java.util.List;
 
-public class AirplanePairValidate implements PlayCardTypeValidate {
+public class AirplaneSingleValidate implements PlayCardTypeValidate {
 
-    private static final int MIN_COUNT = 10;
-    private static final int GROUP_COUNT = 5;
+    private static final int MIN_COUNT = 8;
+    private static final int GROUP_COUNT = 4;
     private static final int TRIPLE_COUNT = 3;
 
     @Override
     public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.AIRPLANE_PAIR;
+        return PlayCardTypeEnumeration.AIRPLANE_SINGLE;
     }
 
     @Override
@@ -44,18 +44,7 @@ public class AirplanePairValidate implements PlayCardTypeValidate {
             return Boolean.FALSE;
         }
 
-        int lastTripleStartIndex = this.calculateLastTripleStartIndex(cardEnumerationList.size());
-        for (int i = lastTripleStartIndex + 3; i < cardEnumerationList.size(); i += 2) {
-            if (cardEnumerationList.get(i).getValue() != cardEnumerationList.get(i + 1).getValue()) {
-                return Boolean.FALSE;
-            }
-        }
-
         return Boolean.TRUE;
-    }
-
-    private int calculateLastTripleStartIndex(int size) {
-        return (size / GROUP_COUNT - 1) * TRIPLE_COUNT;
     }
 
 }

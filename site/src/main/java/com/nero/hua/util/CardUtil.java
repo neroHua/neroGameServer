@@ -1,10 +1,10 @@
 package com.nero.hua.util;
 
+import com.nero.hua.card.type.validate.impl.*;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import com.nero.hua.model.user.UserPlayCardTurnMO;
-import com.nero.hua.validate.PlayCardTypeValidate;
-import com.nero.hua.validate.impl.*;
+import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 
 import java.util.*;
 

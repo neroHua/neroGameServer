@@ -1,4 +1,4 @@
-package com.nero.hua.validate;
+package com.nero.hua.card.type.validate;
 
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
