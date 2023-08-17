@@ -1,5 +1,6 @@
 package com.nero.hua.card.type.tip.impl;
 
+import com.nero.hua.card.type.PlayCardTypeImpl;
 import com.nero.hua.card.type.tip.PlayCardTypeTip;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
@@ -8,11 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SingleTip implements PlayCardTypeTip {
+public class SingleTip extends PlayCardTypeImpl implements PlayCardTypeTip {
 
-    @Override
-    public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.SINGLE;
+    public SingleTip() {
+        super(PlayCardTypeEnumeration.SINGLE);
     }
 
     @Override

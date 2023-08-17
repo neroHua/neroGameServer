@@ -1,5 +1,6 @@
 package com.nero.hua.card.type.tip.impl;
 
+import com.nero.hua.card.type.PlayCardTypeImpl;
 import com.nero.hua.card.type.tip.PlayCardTypeTip;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
@@ -8,11 +9,10 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StraightTip implements PlayCardTypeTip {
+public class StraightTip extends PlayCardTypeImpl implements PlayCardTypeTip {
 
-    @Override
-    public PlayCardTypeEnumeration getPlayCardTypeEnumeration() {
-        return PlayCardTypeEnumeration.STRAIGHT;
+    public StraightTip() {
+        super(PlayCardTypeEnumeration.STRAIGHT);
     }
 
     @Override
