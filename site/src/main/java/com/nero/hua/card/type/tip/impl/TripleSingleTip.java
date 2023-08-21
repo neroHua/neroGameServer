@@ -14,7 +14,7 @@ public class TripleSingleTip extends AbstractTwoPartTip implements PlayCardTypeT
 
     @Override
     List<List<Integer>> findSecondPartList(List<CardEnumeration> formatHandCardEnumerationList) {
-        return PlayCardTypeTipUtil.findSingleInFormatHandCardListForThree(formatHandCardEnumerationList);
+        return PlayCardTypeTipUtil.findSingleInFormatHandCardList(formatHandCardEnumerationList);
     }
 
 }

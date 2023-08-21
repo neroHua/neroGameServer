@@ -24,12 +24,12 @@ public class AirplanePairStraightTip extends AbstractTwoPartGroupTip implements 
         for (int i = 0; i < AIRPLANE_COUNT * AIRPLANE_PAIR_GROUP_COUNT; i++) {
             formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
         }
-        List<List<Integer>> bigAirplaneList = PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp, AIRPLANE_COUNT);
+        List<List<Integer>> bigAirplaneList = PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp, AIRPLANE_COUNT);
 
         List<List<Integer>> pairStraightList = findPairStraightInFormatHandCardList(formatHandCardEnumerationList, PAIR_COUNT, AIRPLANE_PAIR_GROUP_COUNT);
 
         final int GROUP_COUNT = 1;
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, GROUP_COUNT);
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardList(formatHandCardEnumerationList, bigAirplaneList, pairStraightList, GROUP_COUNT);
     }
 
     private List<List<Integer>> findPairStraightInFormatHandCardList(List<CardEnumeration> formatHandCardEnumerationList, int count, int groupCount) {
@@ -37,7 +37,7 @@ public class AirplanePairStraightTip extends AbstractTwoPartGroupTip implements 
         for (int i = 0; i < count * groupCount; i++) {
             fakeFormatPlayCardEnumerationList.add(null);
         }
-        return PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, fakeFormatPlayCardEnumerationList, count);
+        return PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardList(formatHandCardEnumerationList, fakeFormatPlayCardEnumerationList, count);
     }
 
 }

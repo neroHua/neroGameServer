@@ -18,7 +18,7 @@ public class BaseDuplicatedTip extends PlayCardTypeImpl implements PlayCardTypeT
 
     @Override
     public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        return PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, DUPLICATE_COUNT);
+        return PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationList, DUPLICATE_COUNT);
     }
 
 }

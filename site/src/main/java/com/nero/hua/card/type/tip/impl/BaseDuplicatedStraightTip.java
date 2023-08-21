@@ -18,7 +18,7 @@ public class BaseDuplicatedStraightTip extends PlayCardTypeImpl implements PlayC
 
     @Override
     public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        return PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, DUPLICATE_COUNT);
+        return PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationList, DUPLICATE_COUNT);
     }
 
 }

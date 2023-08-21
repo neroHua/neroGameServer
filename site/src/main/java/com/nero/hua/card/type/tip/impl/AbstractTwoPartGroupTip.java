@@ -17,7 +17,7 @@ public abstract class AbstractTwoPartGroupTip extends PlayCardTypeImpl implement
         super(playCardTypeEnumeration);
     }
 
-    protected List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int groupCount) {
+    protected List<List<Integer>> mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardList(List<CardEnumeration> formatHandCardEnumerationList, List<List<Integer>> bigFirstPartList, List<List<Integer>> restPartList, int groupCount) {
         if (CollectionUtils.isEmpty(bigFirstPartList) || CollectionUtils.isEmpty(restPartList)) {
             return null;
         }

@@ -30,7 +30,7 @@ public abstract class AbstractTwoPartTip extends PlayCardTypeImpl implements Pla
     }
 
     private List<List<Integer>> findBigFirstPartList(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        return PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, BIG_FIRST_PART_DUPLICATE_COUNT);
+        return PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationList, BIG_FIRST_PART_DUPLICATE_COUNT);
     }
 
     abstract List<List<Integer>> findSecondPartList(List<CardEnumeration> formatHandCardEnumerationList);

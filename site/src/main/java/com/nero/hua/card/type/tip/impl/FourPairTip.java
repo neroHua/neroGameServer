@@ -24,12 +24,12 @@ public class FourPairTip extends AbstractTwoPartGroupTip implements PlayCardType
         for (int i = 0; i < FOUR_COUNT * FOUR_SINGLE_GROUP_COUNT; i++) {
             formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
         }
-        List<List<Integer>> bigFourList = PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList, FOUR_COUNT);
+        List<List<Integer>> bigFourList = PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationList, FOUR_COUNT);
 
-        List<List<Integer>> pairList = PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, null, PAIR_COUNT);
+        List<List<Integer>> pairList = PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardList(formatHandCardEnumerationList, null, PAIR_COUNT);
 
         final int GROUP_COUNT = 2;
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigFourList, pairList, GROUP_COUNT);
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardList(formatHandCardEnumerationList, bigFourList, pairList, GROUP_COUNT);
     }
 
 }

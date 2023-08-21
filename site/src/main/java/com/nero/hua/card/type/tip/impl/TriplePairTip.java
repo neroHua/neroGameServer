@@ -14,7 +14,7 @@ public class TriplePairTip extends AbstractTwoPartTip implements PlayCardTypeTip
 
     @Override
     List<List<Integer>> findSecondPartList(List<CardEnumeration> formatHandCardEnumerationList) {
-        return PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, null, 2);
+        return PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardList(formatHandCardEnumerationList, null, 2);
     }
 
 }

@@ -24,11 +24,11 @@ public class AirplanePairTip extends AbstractTwoPartGroupTip implements PlayCard
         for (int i = 0; i < AIRPLANE_COUNT * AIRPLANE_PAIR_GROUP_COUNT; i++) {
             formatPlayCardEnumerationListTemp.add(formatPlayCardEnumerationList.get(i));
         }
-        List<List<Integer>> bigAirplaneList = PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp, AIRPLANE_COUNT);
+        List<List<Integer>> bigAirplaneList = PlayCardTypeTipUtil.findBigSameValueStraightByCountInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationListTemp, AIRPLANE_COUNT);
 
-        List<List<Integer>> pairList = PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardListForThree(formatHandCardEnumerationList, null, PAIR_COUNT);
+        List<List<Integer>> pairList = PlayCardTypeTipUtil.findBigSameValueWithCountInFormatHandCardList(formatHandCardEnumerationList, null, PAIR_COUNT);
 
-        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardListForThree(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_PAIR_GROUP_COUNT);
+        return mergeBigFirstPartWithRestPartByGroupCountInFormatHandCardList(formatHandCardEnumerationList, bigAirplaneList, pairList, AIRPLANE_PAIR_GROUP_COUNT);
     }
 
 }

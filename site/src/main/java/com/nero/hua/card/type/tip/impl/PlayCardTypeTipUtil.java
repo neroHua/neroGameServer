@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PlayCardTypeTipUtil {
 
-    static List<List<Integer>> findBigSameValueWithCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
+    static List<List<Integer>> findBigSameValueWithCountInFormatHandCardList(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
         if (formatHandCardEnumerationList.size() < duplicateCount) {
             return null;
         }
@@ -41,7 +41,7 @@ public class PlayCardTypeTipUtil {
         return bigList;
     }
 
-    static List<List<Integer>> findBigSameValueStraightByCountInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
+    static List<List<Integer>> findBigSameValueStraightByCountInFormatHandCardList(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, final int duplicateCount) {
         if (null != formatPlayCardEnumerationList.get(0) && CardEnumeration.CARD_114.getValue() == formatPlayCardEnumerationList.get(0).getValue()) {
             return null;
         }
@@ -124,7 +124,7 @@ public class PlayCardTypeTipUtil {
         return bigList;
     }
 
-    static List<List<Integer>> findSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList) {
+    static List<List<Integer>> findSingleInFormatHandCardList(List<CardEnumeration> formatHandCardEnumerationList) {
         List<List<Integer>> singleList = new ArrayList<>();
         for (int i = 0; i < formatHandCardEnumerationList.size(); i++) {
             List<Integer> single = Arrays.asList(i);
