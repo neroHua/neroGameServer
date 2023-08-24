@@ -1,122 +1,50 @@
 package com.nero.hua.game.tip;
 
+import com.nero.hua.card.type.tip.PlayCardTypeTip;
 import com.nero.hua.card.type.tip.impl.*;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.GameTypeEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
+import com.nero.hua.game.card.type.GamePlayCardTypeForThree;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class GameTipForThree extends AbstractGameTip {
 
     public GameTipForThree() {
         super(GameTypeEnumeration.FIGHT_LANDLORD_FOR_THREE);
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.SINGLE, new SingleTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.STRAIGHT, new StraightTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.PAIR, new PairTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.PAIR_STRAIGHT, new PairStraightTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.TRIPLE, new TripleTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, new TripleSingleTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.TRIPLE_PAIR, new TriplePairTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.AIRPLANE, new AirplaneTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.AIRPLANE_SINGLE, new AirplaneSingleTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR, new AirplanePairTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, new AirplanePairStraightTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.FOUR_SINGLE, new FourSingleTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.FOUR_PAIR, new FourPairTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.BOMB, new BombTip());
+        playCardTypEnumeratioPlayCardTypeTipMap.put(PlayCardTypeEnumeration.BOMB_KING, new BombKingTip());
     }
 
     @Override
     public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
-        if (PlayCardTypeEnumeration.SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigSingleTips = new SingleTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
+        PlayCardTypeTip playCardTypeTip = playCardTypEnumeratioPlayCardTypeTipMap.get(playCardTypeEnumeration);
+        List<List<Integer>> samePlayCardTypeTipList = playCardTypeTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
 
-            return mergeTipLists(bigSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.STRAIGHT == playCardTypeEnumeration) {
-            List<List<Integer>> bigStraightTips = new StraightTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigStraightTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigPairTips = new PairTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigPairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.PAIR_STRAIGHT == playCardTypeEnumeration) {
-            List<List<Integer>> bigPairStraightTips = new PairStraightTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigPairStraightTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.TRIPLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigTripleTips = new TripleTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigTripleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.TRIPLE_SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigTripleSingleTips = new TripleSingleTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigTripleSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.TRIPLE_PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigTriplePairTips = new TriplePairTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigTriplePairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE == playCardTypeEnumeration) {
-            List<List<Integer>> bigAirplaneTips = new AirplaneTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigAirplaneTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE_SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigBigAirplaneSingleTips = new AirplaneSingleTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigBigAirplaneSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE_PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigAirplanePairTips = new AirplanePairTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigAirplanePairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT == playCardTypeEnumeration) {
-            List<List<Integer>> bigAirplanePairStraightTips = new AirplanePairStraightTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigAirplanePairStraightTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.FOUR_SINGLE == playCardTypeEnumeration) {
-            List<List<Integer>> bigFourSingleTips = new FourSingleTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigFourSingleTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.FOUR_PAIR == playCardTypeEnumeration) {
-            List<List<Integer>> bigFourPairTips = new FourPairTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombTips = new BombTip().tip(formatHandCardEnumerationList, null);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigFourPairTips, bombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.BOMB == playCardTypeEnumeration) {
-            List<List<Integer>> bigBombTips = new BombTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-            List<List<Integer>> bombKingTip = new BombKingTip().tip(formatHandCardEnumerationList, null);
-
-            return mergeTipLists(bigBombTips, bombKingTip);
-        }
-        else if (PlayCardTypeEnumeration.BOMB_KING == playCardTypeEnumeration) {
-            return new BombKingTip().tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        List<List<List<Integer>>> bigPlayCardTypeTipLists = new ArrayList<>();
+        Set<PlayCardTypeEnumeration> bigAvaiablePlayCardTypeSet = new GamePlayCardTypeForThree().getBigAvaiablePlayCardTypeSet(playCardTypeEnumeration);
+        for (PlayCardTypeEnumeration bigPlayCardTypeEnumeration : bigAvaiablePlayCardTypeSet) {
+            PlayCardTypeTip bigPlayCardTypeTip = playCardTypEnumeratioPlayCardTypeTipMap.get(bigPlayCardTypeEnumeration);
+            bigPlayCardTypeTipLists.add(bigPlayCardTypeTip.tip(formatHandCardEnumerationList, null));
         }
 
-        return null;
+        return mergeTipLists(samePlayCardTypeTipList, bigPlayCardTypeTipLists);
     }
 
 }
