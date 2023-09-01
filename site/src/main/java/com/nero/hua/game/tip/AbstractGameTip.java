@@ -20,21 +20,6 @@ public abstract class AbstractGameTip implements GameTip {
         this.playCardTypEnumeratioPlayCardTypeTipMap = new HashMap<>();
     }
 
-    protected List<List<Integer>> mergeTipLists(List<List<Integer>>... tipLists) {
-        List<List<Integer>> tipList = null;
-        for (int i = 0; i < tipLists.length; i++) {
-            if (!CollectionUtils.isEmpty(tipLists[i])) {
-                if (null == tipList) {
-                    tipList = tipLists[i];
-                }
-                else {
-                    tipList.addAll(tipLists[i]);
-                }
-            }
-        }
-        return tipList;
-    }
-
     protected List<List<Integer>> mergeTipLists(List<List<Integer>> samePlayCardTypeTipList, List<List<List<Integer>>> bigPlayCardTypeTipLists) {
         List<List<Integer>> tipList = null;
         if (!CollectionUtils.isEmpty(samePlayCardTypeTipList)) {
