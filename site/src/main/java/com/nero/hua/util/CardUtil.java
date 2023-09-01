@@ -1,10 +1,10 @@
 package com.nero.hua.util;
 
+import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.card.type.validate.impl.*;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import com.nero.hua.model.user.UserPlayCardTurnMO;
-import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 
 import java.util.*;
 
@@ -13,39 +13,21 @@ public class CardUtil {
     public static Map<PlayCardTypeEnumeration, PlayCardTypeValidate> playCardTypeValidateMap = new HashMap<>();
 
     static {
-        PlayCardTypeValidate playCardTypeValidate = new SingleValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new StraightValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-
-        playCardTypeValidate = new PairValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new PairStraightValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-
-        playCardTypeValidate = new TripleValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new TripleSingleValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new TriplePairValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-
-        playCardTypeValidate = new AirplaneValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new AirplaneSingleValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new AirplanePairValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-
-        playCardTypeValidate = new FourSingleValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new FourPairValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-
-        playCardTypeValidate = new BombValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
-        playCardTypeValidate = new BombKingValidate();
-        playCardTypeValidateMap.put(playCardTypeValidate.getPlayCardTypeEnumeration(), playCardTypeValidate);
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.SINGLE, new SingleValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.STRAIGHT, new StraightValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.PAIR, new PairValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.PAIR_STRAIGHT, new PairStraightValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.TRIPLE, new TripleValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.TRIPLE_SINGLE, new TripleSingleValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.TRIPLE_PAIR, new TriplePairValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.AIRPLANE, new AirplaneValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.AIRPLANE_SINGLE, new AirplaneSingleValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR, new AirplanePairValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, new AirplanePairStraightValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.FOUR_SINGLE, new FourSingleValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.FOUR_PAIR, new FourPairValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.BOMB, new BombValidate());
+        playCardTypeValidateMap.put(PlayCardTypeEnumeration.BOMB_KING, new BombKingValidate());
     }
 
     public static Map<CardEnumeration, Integer> convertCardListToCardMap(List<CardEnumeration> cardList) {
