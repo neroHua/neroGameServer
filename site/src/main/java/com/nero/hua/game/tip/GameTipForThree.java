@@ -38,7 +38,7 @@ public class GameTipForThree extends AbstractGameTip {
         List<List<Integer>> samePlayCardTypeTipList = playCardTypeTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
 
         List<List<List<Integer>>> bigPlayCardTypeTipLists = new ArrayList<>();
-        Set<PlayCardTypeEnumeration> bigAvaiablePlayCardTypeSet = new GamePlayCardTypeForThree().getBigAvaiablePlayCardTypeSet(playCardTypeEnumeration);
+        Set<PlayCardTypeEnumeration> bigAvaiablePlayCardTypeSet = new GamePlayCardTypeForThree().getBigAvailablePlayCardTypeSet(playCardTypeEnumeration);
         for (PlayCardTypeEnumeration bigPlayCardTypeEnumeration : bigAvaiablePlayCardTypeSet) {
             PlayCardTypeTip bigPlayCardTypeTip = playCardTypEnumeratioPlayCardTypeTipMap.get(bigPlayCardTypeEnumeration);
             bigPlayCardTypeTipLists.add(bigPlayCardTypeTip.tip(formatHandCardEnumerationList, null));

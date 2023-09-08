@@ -5,21 +5,21 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 public class GamePlayCardTypeForThree extends BaseGamePlayCardType {
 
     public GamePlayCardTypeForThree() {
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.SINGLE);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.STRAIGHT);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR_STRAIGHT);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE_SINGLE);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE_PAIR);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_SINGLE);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_PAIR);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.FOUR_SINGLE);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.FOUR_PAIR);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB);
-        avaiablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.SINGLE);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.STRAIGHT);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR_STRAIGHT);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE_SINGLE);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE_PAIR);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_SINGLE);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_PAIR);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.FOUR_SINGLE);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.FOUR_PAIR);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB);
+        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING);
     }
 
 }
