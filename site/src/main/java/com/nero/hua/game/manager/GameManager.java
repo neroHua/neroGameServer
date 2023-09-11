@@ -7,7 +7,6 @@ import com.nero.hua.model.user.UserPlayCardTurnMO;
 import com.nero.hua.model.user.UserRobLandlordTurnMO;
 
 import java.util.List;
-import java.util.Set;
 
 public interface GameManager {
 
@@ -20,8 +19,6 @@ public interface GameManager {
     int getLandlordCardCount();
 
     int getDeckCardCount();
-
-    Set<PlayCardTypeEnumeration> getAllAvailableCardType();
 
     boolean shouldStartGame(List<GameUserMO> gameUserMOList);
 

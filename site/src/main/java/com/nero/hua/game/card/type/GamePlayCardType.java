@@ -14,6 +14,8 @@ public interface GamePlayCardType {
 
     Boolean thisPlayCardTypeAvailable(PlayCardTypeEnumeration playCardTypeEnumeration);
 
+    Boolean thisPlayCardTypeNotAvailable(PlayCardTypeEnumeration playCardTypeEnumeration);
+
     Boolean firstPlayCardBigThanSecondPlayCard(List<CardEnumeration> firstFormatPlayCardEnumerationList,
                                                            PlayCardTypeEnumeration firstPlayCardTypeEnumeration,
                                                            List<CardEnumeration> secondFormatPlayCardEnumerationList,

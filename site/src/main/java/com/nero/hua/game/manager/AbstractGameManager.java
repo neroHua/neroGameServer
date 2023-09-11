@@ -6,6 +6,7 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import com.nero.hua.enumeration.RobLandlordEnumeration;
 import com.nero.hua.exception.PlayCardException;
 import com.nero.hua.exception.RobLandlordException;
+import com.nero.hua.game.card.type.GamePlayCardType;
 import com.nero.hua.model.user.*;
 import com.nero.hua.util.CardUtil;
 import lombok.Getter;
@@ -25,6 +26,12 @@ public abstract class AbstractGameManager implements GameManager {
     private RobLandlordRoundMO robLandlordRoundMO;
 
     private PlayCardRoundMO playCardRoundMO;
+
+    private final GamePlayCardType gamePlayCardType;
+
+    public AbstractGameManager(GamePlayCardType gamePlayCardType) {
+        this.gamePlayCardType = gamePlayCardType;
+    }
 
     @Override
     public boolean shouldStartGame(List<GameUserMO> gameUserMOList) {
@@ -222,7 +229,7 @@ public abstract class AbstractGameManager implements GameManager {
 
     @Override
     public void doPlayCard(String userId, List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration, List<GameUserMO> gameUserMOList) {
-        if (!this.getAllAvailableCardType().contains(playCardTypeEnumeration)) {
+        if (this.gamePlayCardType.thisPlayCardTypeNotAvailable(playCardTypeEnumeration)) {
             throw new PlayCardException(PlayCardEnumeration.PLAY_CARD_TYPE_NOT_AVAILABLE);
         }
 

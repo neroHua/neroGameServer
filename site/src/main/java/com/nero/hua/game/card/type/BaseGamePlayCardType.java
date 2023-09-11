@@ -41,6 +41,11 @@ public abstract class BaseGamePlayCardType implements GamePlayCardType {
     }
 
     @Override
+    public Boolean thisPlayCardTypeNotAvailable(PlayCardTypeEnumeration playCardTypeEnumeration) {
+        return !this.thisPlayCardTypeAvailable(playCardTypeEnumeration);
+    }
+
+    @Override
     public Boolean firstPlayCardBigThanSecondPlayCard(List<CardEnumeration> firstFormatPlayCardEnumerationList,
                                                       PlayCardTypeEnumeration firstPlayCardTypeEnumeration,
                                                       List<CardEnumeration> secondFormatPlayCardEnumerationList,
