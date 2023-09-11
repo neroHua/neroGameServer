@@ -56,7 +56,8 @@ public abstract class BaseGamePlayCardType implements GamePlayCardType {
             return Boolean.TRUE;
         }
         else {
-            if (firstPlayCardTypeEnumeration == secondPlayCardTypeEnumeration) {
+            if (firstPlayCardTypeEnumeration == secondPlayCardTypeEnumeration
+                    && firstFormatPlayCardEnumerationList.size() == secondFormatPlayCardEnumerationList.size()) {
                 return firstFormatPlayCardEnumerationList.get(0).getValue() > secondFormatPlayCardEnumerationList.get(0).getValue();
             }
             else {
