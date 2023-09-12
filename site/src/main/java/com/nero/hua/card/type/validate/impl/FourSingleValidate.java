@@ -16,14 +16,14 @@ public class FourSingleValidate extends PlayCardTypeImpl implements PlayCardType
     }
 
     @Override
-    public boolean match(List<CardEnumeration> cardEnumerationList) {
-        if (COUNT != cardEnumerationList.size()) {
+    public Boolean match(List<CardEnumeration> formatPlayCardEnumerationList) {
+        if (COUNT != formatPlayCardEnumerationList.size()) {
             return Boolean.FALSE;
         }
 
-        return cardEnumerationList.get(0).getValue() == cardEnumerationList.get(1).getValue()
-            && cardEnumerationList.get(1).getValue() == cardEnumerationList.get(2).getValue()
-            && cardEnumerationList.get(2).getValue() == cardEnumerationList.get(3).getValue();
+        return formatPlayCardEnumerationList.get(0).getValue() == formatPlayCardEnumerationList.get(1).getValue()
+            && formatPlayCardEnumerationList.get(1).getValue() == formatPlayCardEnumerationList.get(2).getValue()
+            && formatPlayCardEnumerationList.get(2).getValue() == formatPlayCardEnumerationList.get(3).getValue();
     }
 
 }

@@ -4,7 +4,6 @@ import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.card.type.validate.impl.*;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
-import com.nero.hua.model.user.UserPlayCardTurnMO;
 
 import java.util.*;
 
@@ -57,14 +56,6 @@ public class CardUtil {
         return cardList;
     }
 
-    public static boolean playCardMatchPlayCardType(List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
-        return playCardTypeValidateMap.get(playCardTypeEnumeration).match(cardEnumerationList);
-    }
-
-    public static boolean playCardNotMatchPlayCardType(List<CardEnumeration> cardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
-        return ! playCardMatchPlayCardType(cardEnumerationList, playCardTypeEnumeration);
-    }
-
     public static boolean handCardMapContainsPlayCardMap(Map<CardEnumeration, Integer> handCardMap, Map<CardEnumeration, Integer> playCardMap) {
         for (CardEnumeration cardEnumeration : playCardMap.keySet()) {
             Integer handCardCount = handCardMap.get(cardEnumeration);
@@ -82,32 +73,6 @@ public class CardUtil {
 
     public static boolean handCardMapNotContainsPlayCardMap(Map<CardEnumeration, Integer> handCardMap, Map<CardEnumeration, Integer> playCardMap) {
         return !handCardMapContainsPlayCardMap(handCardMap, playCardMap);
-    }
-
-    public static boolean currentPlayCardListBetterThanLastPlayCardList(UserPlayCardTurnMO lastUserPlayCardTurnMO, List<CardEnumeration> playCardList, PlayCardTypeEnumeration playCardTypeEnumeration) {
-        if (null == lastUserPlayCardTurnMO) {
-            return Boolean.TRUE;
-        }
-
-        PlayCardTypeEnumeration lastPlayCardTypeEnumeration = lastUserPlayCardTurnMO.getPlayCardTypeEnumeration();
-        if (playCardTypeEnumeration.getValue() < lastPlayCardTypeEnumeration.getValue()) {
-            return Boolean.FALSE;
-        }
-        else if (playCardTypeEnumeration.getValue() > lastPlayCardTypeEnumeration.getValue()) {
-            return Boolean.TRUE;
-        }
-
-        if (lastPlayCardTypeEnumeration != playCardTypeEnumeration) {
-            return Boolean.FALSE;
-        }
-
-        List<CardEnumeration> lastPlayCardList = lastUserPlayCardTurnMO.getCardList();
-        return lastPlayCardList.size() == playCardList.size()
-                && lastPlayCardList.get(0).getValue() < playCardList.get(0).getValue();
-    }
-
-    public static boolean currentPlayCardListNotBetterThanLastPlayCardList(UserPlayCardTurnMO lastUserPlayCardTurnMO, List<CardEnumeration> playCardList, PlayCardTypeEnumeration playCardTypeEnumeration) {
-        return !currentPlayCardListBetterThanLastPlayCardList(lastUserPlayCardTurnMO, playCardList, playCardTypeEnumeration);
     }
 
     public static Map<PlayCardTypeEnumeration, List<CardEnumeration>> generalCalculatePlayCardType(List<CardEnumeration> playCardList) {
@@ -206,19 +171,6 @@ public class CardUtil {
         anotherTypeCardList.set(3, anotherTypeCardList.get(4));
         anotherTypeCardList.set(6, anotherTypeCardList.get(0));
         return anotherTypeCardList;
-    }
-
-    public boolean compareTwoFormattedCardListWithItsType(List<CardEnumeration> playCardList1, PlayCardTypeEnumeration playCardTypeEnumeration1, List<CardEnumeration> playCardList2, PlayCardTypeEnumeration playCardTypeEnumeration2) {
-        if (playCardTypeEnumeration1.getValue() > playCardTypeEnumeration2.getValue()) {
-            return Boolean.TRUE;
-        }
-        else if (playCardTypeEnumeration1.getValue() < playCardTypeEnumeration2.getValue()) {
-            return Boolean.FALSE;
-        }
-        else if (playCardTypeEnumeration1.equals(playCardTypeEnumeration2)) {
-            return playCardList1.get(0).getValue() > playCardList2.get(0).getValue();
-        }
-        return Boolean.FALSE;
     }
 
     public static void quickSortEachCardList(List<List<CardEnumeration>> dealCardList) {

@@ -1,24 +1,23 @@
 package com.nero.hua.game.card.type;
 
+import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class BaseGamePlayCardType implements GamePlayCardType {
 
-    protected final Set<PlayCardTypeEnumeration> availablePlayCardTypeEnumerationSet;
+    protected final Map<PlayCardTypeEnumeration, PlayCardTypeValidate> availablePlayCardTypeEnumerationMap;
 
     public BaseGamePlayCardType() {
-        this.availablePlayCardTypeEnumerationSet = new HashSet<>();
+        this.availablePlayCardTypeEnumerationMap = new HashMap<>();
     }
 
     @Override
     public Set<PlayCardTypeEnumeration> getAvailablePlayCardTypeSet() {
         Set<PlayCardTypeEnumeration> copyedAvaiablePlayCardTypeEnumerationSet = new HashSet<>();
-        for (PlayCardTypeEnumeration avaiablePlayCardTypeEnumeration : availablePlayCardTypeEnumerationSet) {
+        for (PlayCardTypeEnumeration avaiablePlayCardTypeEnumeration : availablePlayCardTypeEnumerationMap.keySet()) {
             copyedAvaiablePlayCardTypeEnumerationSet.add(avaiablePlayCardTypeEnumeration);
         }
         return copyedAvaiablePlayCardTypeEnumerationSet;
@@ -27,7 +26,7 @@ public abstract class BaseGamePlayCardType implements GamePlayCardType {
     @Override
     public Set<PlayCardTypeEnumeration> getBigAvailablePlayCardTypeSet(PlayCardTypeEnumeration playCardTypeEnumeration) {
         Set<PlayCardTypeEnumeration> bigAvaiablePlayCardTypeEnumerationSet = new HashSet<>();
-        for (PlayCardTypeEnumeration avaiablePlayCardTypeEnumeration : availablePlayCardTypeEnumerationSet) {
+        for (PlayCardTypeEnumeration avaiablePlayCardTypeEnumeration : availablePlayCardTypeEnumerationMap.keySet()) {
             if (avaiablePlayCardTypeEnumeration.getValue() > playCardTypeEnumeration.getValue()) {
                 bigAvaiablePlayCardTypeEnumerationSet.add(avaiablePlayCardTypeEnumeration);
             }
@@ -37,7 +36,7 @@ public abstract class BaseGamePlayCardType implements GamePlayCardType {
 
     @Override
     public Boolean thisPlayCardTypeAvailable(PlayCardTypeEnumeration playCardTypeEnumeration) {
-        return availablePlayCardTypeEnumerationSet.contains(playCardTypeEnumeration);
+        return availablePlayCardTypeEnumerationMap.keySet().contains(playCardTypeEnumeration);
     }
 
     @Override
@@ -46,11 +45,25 @@ public abstract class BaseGamePlayCardType implements GamePlayCardType {
     }
 
     @Override
-    public Boolean firstPlayCardBigThanSecondPlayCard(List<CardEnumeration> firstFormatPlayCardEnumerationList,
-                                                      PlayCardTypeEnumeration firstPlayCardTypeEnumeration,
-                                                      List<CardEnumeration> secondFormatPlayCardEnumerationList,
-                                                      PlayCardTypeEnumeration secondPlayCardTypeEnumeration) {
-        if (!thisPlayCardTypeAvailable(firstPlayCardTypeEnumeration) || !thisPlayCardTypeAvailable(secondPlayCardTypeEnumeration)) {
+    public Boolean thisFormatPlayCardListMatchPlayCardType(List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        if (this.thisPlayCardTypeNotAvailable(playCardTypeEnumeration)) {
+            return Boolean.FALSE;
+        }
+
+        return this.availablePlayCardTypeEnumerationMap.get(playCardTypeEnumeration).match(formatPlayCardEnumerationList);
+    }
+
+    @Override
+    public Boolean thisFormatPlayCardListNotMatchPlayCardType(List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        return !this.thisFormatPlayCardListMatchPlayCardType(formatPlayCardEnumerationList, playCardTypeEnumeration);
+    }
+
+    @Override
+    public Boolean firstFormatPlayCardListBigThanSecondFormatPlayCardList(List<CardEnumeration> firstFormatPlayCardEnumerationList,
+                                                                          PlayCardTypeEnumeration firstPlayCardTypeEnumeration,
+                                                                          List<CardEnumeration> secondFormatPlayCardEnumerationList,
+                                                                          PlayCardTypeEnumeration secondPlayCardTypeEnumeration) {
+        if (thisPlayCardTypeNotAvailable(firstPlayCardTypeEnumeration) || thisPlayCardTypeNotAvailable(secondPlayCardTypeEnumeration)) {
             return Boolean.FALSE;
         }
 

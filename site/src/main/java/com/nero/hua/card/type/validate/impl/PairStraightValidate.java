@@ -17,27 +17,27 @@ public class PairStraightValidate extends PlayCardTypeImpl implements PlayCardTy
     }
 
     @Override
-    public boolean match(List<CardEnumeration> cardEnumerationList) {
-        if (cardEnumerationList.size() < MIN_COUNT) {
+    public Boolean match(List<CardEnumeration> formatPlayCardEnumerationList) {
+        if (formatPlayCardEnumerationList.size() < MIN_COUNT) {
             return Boolean.FALSE;
         }
 
-        if (0 != cardEnumerationList.size() % GROUP_COUNT) {
+        if (0 != formatPlayCardEnumerationList.size() % GROUP_COUNT) {
             return Boolean.FALSE;
         }
 
-        for (int i = 0; i < cardEnumerationList.size(); i += 2) {
-           if (cardEnumerationList.get(i).getValue() != cardEnumerationList.get(i + 1).getValue()) {
+        for (int i = 0; i < formatPlayCardEnumerationList.size(); i += 2) {
+           if (formatPlayCardEnumerationList.get(i).getValue() != formatPlayCardEnumerationList.get(i + 1).getValue()) {
                return Boolean.FALSE;
            }
         }
-        for (int i = 0; i < cardEnumerationList.size() / GROUP_COUNT; i += 2) {
-            if (cardEnumerationList.get(i).getValue() - 1 != cardEnumerationList.get(i + 2).getValue()) {
+        for (int i = 0; i < formatPlayCardEnumerationList.size() / GROUP_COUNT; i += 2) {
+            if (formatPlayCardEnumerationList.get(i).getValue() - 1 != formatPlayCardEnumerationList.get(i + 2).getValue()) {
                 return Boolean.FALSE;
             }
         }
 
-        if (cardEnumerationList.get(0).getValue() >= CardEnumeration.CARD_415.getValue()) {
+        if (formatPlayCardEnumerationList.get(0).getValue() >= CardEnumeration.CARD_415.getValue()) {
             return Boolean.FALSE;
         }
 

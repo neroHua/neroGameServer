@@ -1,28 +1,29 @@
 package com.nero.hua.game.card.type;
 
+import com.nero.hua.card.type.validate.impl.*;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 public class GamePlayCardTypeForFour extends BaseGamePlayCardType {
 
     public GamePlayCardTypeForFour() {
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.SINGLE, new SingleValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.SINGLE);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.PAIR, new PairValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.PAIR_STRAIGHT, new PairStraightValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR_STRAIGHT);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.TRIPLE, new TripleValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.TRIPLE_PAIR, new TriplePairValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE_PAIR);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.AIRPLANE, new AirplaneValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, new AirplanePairStraightValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB, new BombValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_FIVE, new BombFiveValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_SIX, new BombSixValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_SEVEN, new BombSevenValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_EIGHT, new BombEightValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_FIVE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_SIX);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_SEVEN);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_EIGHT);
-
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING_FOUR_MAX);    }
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_KING_FOUR_MAX, new BombKingFourMaxValidate());
+    }
 
 }

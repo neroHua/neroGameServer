@@ -7,16 +7,20 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class SingleValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
+public class InvincibleValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
 
     private static final int COUNT = 1;
 
-    public SingleValidate() {
-        super(PlayCardTypeEnumeration.SINGLE);
+    public InvincibleValidate() {
+        super(PlayCardTypeEnumeration.INVINCIBLE);
     }
 
     @Override
     public Boolean match(List<CardEnumeration> formatPlayCardEnumerationList) {
-        return COUNT == formatPlayCardEnumerationList.size();
+        if (COUNT != formatPlayCardEnumerationList.size()) {
+            return Boolean.FALSE;
+        }
+
+        return formatPlayCardEnumerationList.get(0).getValue() == CardEnumeration.CARD_108.getValue();
     }
 }

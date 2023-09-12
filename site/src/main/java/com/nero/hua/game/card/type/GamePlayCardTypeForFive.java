@@ -1,36 +1,41 @@
 package com.nero.hua.game.card.type;
 
+import com.nero.hua.card.type.validate.impl.*;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 public class GamePlayCardTypeForFive extends BaseGamePlayCardType {
 
     public GamePlayCardTypeForFive() {
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.SINGLE);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.SINGLE, new SingleValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.PAIR_STRAIGHT);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.PAIR, new PairValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.PAIR_STRAIGHT, new PairStraightValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.TRIPLE_PAIR);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.TRIPLE, new TripleValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.TRIPLE_PAIR, new TriplePairValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.AIRPLANE, new AirplaneValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR, new AirplanePairValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, new AirplanePairStraightValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_FIVE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_SIX);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_SEVEN);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_EIGHT);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_NINE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_TEN);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_ELEVEN);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_TWELVE);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB, new BombValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_FIVE, new BombFiveValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_SIX, new BombSixValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_SEVEN, new BombSevenValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_EIGHT, new BombEightValidate());
 
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING_THREE_SMALL);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING_THREE_BIG);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING_FOUR);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING_FIVE);
-        availablePlayCardTypeEnumerationSet.add(PlayCardTypeEnumeration.BOMB_KING_SIX);
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_NINE, new BombNineValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_TEN, new BombTenValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_ELEVEN, new BombElevenValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_TWELVE, new BombTwelveValidate());
+
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_KING_THREE_SMALL, new BombKingThreeSmallValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_KING_THREE_BIG, new BombKingThreeBigValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_KING_FOUR, new BombKingFourValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_KING_FIVE, new BombKingFiveValidate());
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.BOMB_KING_SIX, new BombKingSixValidate());
+
+        availablePlayCardTypeEnumerationMap.put(PlayCardTypeEnumeration.INVINCIBLE, new InvincibleValidate());
     }
 
 }

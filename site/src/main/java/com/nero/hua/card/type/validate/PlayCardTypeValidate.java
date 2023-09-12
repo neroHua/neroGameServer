@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PlayCardTypeValidate {
 
-    boolean match(List<CardEnumeration> cardEnumerationList);
+    Boolean match(List<CardEnumeration> formatPlayCardEnumerationList);
 
 }

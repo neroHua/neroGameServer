@@ -233,7 +233,7 @@ public abstract class AbstractGameManager implements GameManager {
             throw new PlayCardException(PlayCardEnumeration.PLAY_CARD_TYPE_NOT_AVAILABLE);
         }
 
-        if (CardUtil.playCardNotMatchPlayCardType(cardEnumerationList, playCardTypeEnumeration)) {
+        if (this.gamePlayCardType.thisFormatPlayCardListNotMatchPlayCardType(cardEnumerationList, playCardTypeEnumeration)) {
             throw new PlayCardException(PlayCardEnumeration.PLAY_CARD_DO_NOT_MATCH_ITS_TYPE);
         }
 
@@ -246,7 +246,11 @@ public abstract class AbstractGameManager implements GameManager {
         }
 
         UserPlayCardTurnMO lastUserPlayCardTurnMO = this.playCardRoundMO.getLastUserPlayCardTurnMO();
-        if (CardUtil.currentPlayCardListNotBetterThanLastPlayCardList(lastUserPlayCardTurnMO, cardEnumerationList, playCardTypeEnumeration)) {
+        if (this.gamePlayCardType.firstFormatPlayCardListBigThanSecondFormatPlayCardList(
+                cardEnumerationList,
+                playCardTypeEnumeration,
+                lastUserPlayCardTurnMO.getCardList(),
+                lastUserPlayCardTurnMO.getPlayCardTypeEnumeration())) {
            throw new PlayCardException(PlayCardEnumeration.PLAY_CARD_DO_NOT_BETTER_THAN_LAST_PLAY_CARD);
         }
 

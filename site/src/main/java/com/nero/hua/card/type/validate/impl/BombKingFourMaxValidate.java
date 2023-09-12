@@ -7,12 +7,12 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class BombKingValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
+public class BombKingFourMaxValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
 
-    private static final int COUNT = 2;
+    private static final int COUNT = 4;
 
-    public BombKingValidate() {
-        super(PlayCardTypeEnumeration.BOMB_KING);
+    public BombKingFourMaxValidate() {
+        super(PlayCardTypeEnumeration.BOMB_KING_FOUR_MAX);
     }
 
     @Override
@@ -22,7 +22,9 @@ public class BombKingValidate extends PlayCardTypeImpl implements PlayCardTypeVa
         }
 
         return formatPlayCardEnumerationList.get(0).getValue() == CardEnumeration.CARD_517.getValue()
-            && formatPlayCardEnumerationList.get(1).getValue() == CardEnumeration.CARD_516.getValue();
+            && formatPlayCardEnumerationList.get(1).getValue() == CardEnumeration.CARD_517.getValue()
+            && formatPlayCardEnumerationList.get(2).getValue() == CardEnumeration.CARD_516.getValue()
+            && formatPlayCardEnumerationList.get(3).getValue() == CardEnumeration.CARD_516.getValue();
     }
 
 }

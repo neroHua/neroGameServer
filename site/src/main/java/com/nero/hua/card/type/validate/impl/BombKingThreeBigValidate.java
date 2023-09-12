@@ -7,12 +7,12 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 
 import java.util.List;
 
-public class TripleValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
+public class BombKingThreeBigValidate extends PlayCardTypeImpl implements PlayCardTypeValidate {
 
     private static final int COUNT = 3;
 
-    public TripleValidate() {
-        super(PlayCardTypeEnumeration.TRIPLE);
+    public BombKingThreeBigValidate() {
+        super(PlayCardTypeEnumeration.BOMB_KING_THREE_BIG);
     }
 
     @Override
@@ -21,8 +21,9 @@ public class TripleValidate extends PlayCardTypeImpl implements PlayCardTypeVali
             return Boolean.FALSE;
         }
 
-        return formatPlayCardEnumerationList.get(0).getValue() == formatPlayCardEnumerationList.get(1).getValue()
-            && formatPlayCardEnumerationList.get(1).getValue() == formatPlayCardEnumerationList.get(2).getValue();
+        return formatPlayCardEnumerationList.get(0).getValue() == CardEnumeration.CARD_517.getValue()
+            && formatPlayCardEnumerationList.get(1).getValue() == CardEnumeration.CARD_517.getValue()
+            && formatPlayCardEnumerationList.get(2).getValue() == CardEnumeration.CARD_517.getValue();
     }
 
 }
