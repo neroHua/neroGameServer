@@ -27,4 +27,5 @@ public interface GamePlayCardType {
                                                                    List<CardEnumeration> secondFormatPlayCardEnumerationList,
                                                                    PlayCardTypeEnumeration secondPlayCardTypeEnumeration);
 
+    PlayCardTypeEnumeration generalCalculatePlayCardType(List<CardEnumeration> formatPlayCardEnumerationList);
 }

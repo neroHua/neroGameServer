@@ -84,4 +84,27 @@ public abstract class BaseGamePlayCardType implements GamePlayCardType {
         }
     }
 
+    @Override
+    public PlayCardTypeEnumeration generalCalculatePlayCardType(List<CardEnumeration> formatPlayCardEnumerationList) {
+        Set<PlayCardTypeEnumeration> playCardTypeEnumerationSet = this.availablePlayCardTypeEnumerationMap.keySet();
+
+        List<PlayCardTypeEnumeration> playCardTypeEnumerationList = new ArrayList<>(playCardTypeEnumerationSet);
+        for (int i = 0 ; i < playCardTypeEnumerationList.size() - 1; i++) {
+            for (int j = i + 1; j < playCardTypeEnumerationList.size(); j++) {
+                if (playCardTypeEnumerationList.get(j).getValue() > playCardTypeEnumerationList.get(i).getValue()) {
+                    PlayCardTypeEnumeration tempPlayCardTypeEnumeration = playCardTypeEnumerationList.get(j);
+                    playCardTypeEnumerationList.set(j, playCardTypeEnumerationList.get(i));
+                    playCardTypeEnumerationList.set(i, tempPlayCardTypeEnumeration);
+                }
+            }
+        }
+
+        for (int i = 0; i < playCardTypeEnumerationList.size(); i++ ) {
+            if (this.availablePlayCardTypeEnumerationMap.get(playCardTypeEnumerationList.get(i)).match(formatPlayCardEnumerationList)) {
+                return playCardTypeEnumerationList.get(i);
+            }
+        }
+        return null;
+    }
+
 }

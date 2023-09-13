@@ -24,7 +24,7 @@ public class BaseDuplicatedValidate extends PlayCardTypeImpl implements PlayCard
 
         for (int i = 0; i < formatPlayCardEnumerationList.size() - 1; i++ ) {
             if (formatPlayCardEnumerationList.get(i).getValue() != formatPlayCardEnumerationList.get(i + 1).getValue()) {
-                return Boolean.TRUE;
+                return Boolean.FALSE;
             }
         }
 
