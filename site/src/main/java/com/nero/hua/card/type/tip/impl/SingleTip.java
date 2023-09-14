@@ -17,11 +17,11 @@ public class SingleTip extends PlayCardTypeImpl implements PlayCardTypeTip {
 
     @Override
     public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
-        List<List<Integer>> bigSingleTips = findBigSingleInFormatHandCardListForThree(formatHandCardEnumerationList, formatPlayCardEnumerationList);
-        return bigSingleTips;
+        List<List<Integer>> bigSingleTipList = findBigSingleInFormatHandCardList(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+        return bigSingleTipList;
     }
 
-    private List<List<Integer>> findBigSingleInFormatHandCardListForThree(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
+    private List<List<Integer>> findBigSingleInFormatHandCardList(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList) {
         List<List<Integer>> bigList = new ArrayList<>();
         for (int i = 0; i < formatHandCardEnumerationList.size(); i++) {
             CardEnumeration cardCurrent = formatHandCardEnumerationList.get(i);

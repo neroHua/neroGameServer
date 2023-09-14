@@ -8,10 +8,10 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BombKingTip extends PlayCardTypeImpl implements PlayCardTypeTip {
+public class BombKingFourMaxTip extends PlayCardTypeImpl implements PlayCardTypeTip {
 
-    public BombKingTip() {
-        super(PlayCardTypeEnumeration.BOMB_KING);
+    public BombKingFourMaxTip() {
+        super(PlayCardTypeEnumeration.BOMB_KING_FOUR_MAX);
     }
 
     @Override
@@ -20,8 +20,8 @@ public class BombKingTip extends PlayCardTypeImpl implements PlayCardTypeTip {
             return null;
         }
 
-        final int BOMB_KING_SIZE = 2;
-        if (formatHandCardEnumerationList.size() < BOMB_KING_SIZE) {
+        final int BOMB_KING_FOUR_MAX_SIZE = 4;
+        if (formatHandCardEnumerationList.size() < BOMB_KING_FOUR_MAX_SIZE) {
             return null;
         }
 
@@ -30,10 +30,15 @@ public class BombKingTip extends PlayCardTypeImpl implements PlayCardTypeTip {
         }
 
         List<List<Integer>> bombKingList = new ArrayList<>();
-        if (CardEnumeration.CARD_517 == formatHandCardEnumerationList.get(0) && CardEnumeration.CARD_516 == formatHandCardEnumerationList.get(1)) {
+        if (CardEnumeration.CARD_517 == formatHandCardEnumerationList.get(0)
+                && CardEnumeration.CARD_517 == formatHandCardEnumerationList.get(1)
+                && CardEnumeration.CARD_516 == formatHandCardEnumerationList.get(2)
+                && CardEnumeration.CARD_516 == formatHandCardEnumerationList.get(3)) {
             List<Integer> bombKing = new ArrayList<>();
             bombKing.add(0);
             bombKing.add(1);
+            bombKing.add(2);
+            bombKing.add(3);
             bombKingList.add(bombKing);
         }
 

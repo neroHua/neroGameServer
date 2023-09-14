@@ -8,10 +8,10 @@ import com.nero.hua.enumeration.PlayCardTypeEnumeration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BombKingTip extends PlayCardTypeImpl implements PlayCardTypeTip {
+public class InvincibleTip extends PlayCardTypeImpl implements PlayCardTypeTip {
 
-    public BombKingTip() {
-        super(PlayCardTypeEnumeration.BOMB_KING);
+    public InvincibleTip() {
+        super(PlayCardTypeEnumeration.INVINCIBLE);
     }
 
     @Override
@@ -20,8 +20,8 @@ public class BombKingTip extends PlayCardTypeImpl implements PlayCardTypeTip {
             return null;
         }
 
-        final int BOMB_KING_SIZE = 2;
-        if (formatHandCardEnumerationList.size() < BOMB_KING_SIZE) {
+        final int INVINCIBLE_SIZE = 2;
+        if (formatHandCardEnumerationList.size() < INVINCIBLE_SIZE) {
             return null;
         }
 
@@ -29,15 +29,15 @@ public class BombKingTip extends PlayCardTypeImpl implements PlayCardTypeTip {
             return null;
         }
 
-        List<List<Integer>> bombKingList = new ArrayList<>();
-        if (CardEnumeration.CARD_517 == formatHandCardEnumerationList.get(0) && CardEnumeration.CARD_516 == formatHandCardEnumerationList.get(1)) {
+        // todo left to be finish
+        List<List<Integer>> invincibleList = new ArrayList<>();
+        if (CardEnumeration.CARD_508 == formatHandCardEnumerationList.get(0)) {
             List<Integer> bombKing = new ArrayList<>();
             bombKing.add(0);
-            bombKing.add(1);
-            bombKingList.add(bombKing);
+            invincibleList.add(bombKing);
         }
 
-        return bombKingList;
+        return invincibleList;
     }
 
 }

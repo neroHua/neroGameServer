@@ -1,13 +1,13 @@
 package com.nero.hua.game.tip;
 
 import com.nero.hua.card.type.tip.PlayCardTypeTip;
+import com.nero.hua.enumeration.CardEnumeration;
 import com.nero.hua.enumeration.GameTypeEnumeration;
 import com.nero.hua.enumeration.PlayCardTypeEnumeration;
+import com.nero.hua.game.card.type.GamePlayCardTypeForThree;
 import org.springframework.util.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractGameTip implements GameTip {
 
@@ -36,5 +36,20 @@ public abstract class AbstractGameTip implements GameTip {
             }
         }
         return tipList;
+    }
+
+    @Override
+    public List<List<Integer>> tip(List<CardEnumeration> formatHandCardEnumerationList, List<CardEnumeration> formatPlayCardEnumerationList, PlayCardTypeEnumeration playCardTypeEnumeration) {
+        PlayCardTypeTip playCardTypeTip = playCardTypEnumeratioPlayCardTypeTipMap.get(playCardTypeEnumeration);
+        List<List<Integer>> samePlayCardTypeTipList = playCardTypeTip.tip(formatHandCardEnumerationList, formatPlayCardEnumerationList);
+
+        List<List<List<Integer>>> bigPlayCardTypeTipLists = new ArrayList<>();
+        Set<PlayCardTypeEnumeration> bigAvaiablePlayCardTypeSet = new GamePlayCardTypeForThree().getBigAvailablePlayCardTypeSet(playCardTypeEnumeration);
+        for (PlayCardTypeEnumeration bigPlayCardTypeEnumeration : bigAvaiablePlayCardTypeSet) {
+            PlayCardTypeTip bigPlayCardTypeTip = playCardTypEnumeratioPlayCardTypeTipMap.get(bigPlayCardTypeEnumeration);
+            bigPlayCardTypeTipLists.add(bigPlayCardTypeTip.tip(formatHandCardEnumerationList, null));
+        }
+
+        return mergeTipLists(samePlayCardTypeTipList, bigPlayCardTypeTipLists);
     }
 }
