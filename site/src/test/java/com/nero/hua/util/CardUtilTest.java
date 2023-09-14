@@ -40,7 +40,7 @@ public class CardUtilTest {
 
     @Test
     public void testSortCase01() {
-        List<Integer> countList = new ArrayList();
+        List<Integer> countList = new ArrayList<>();
         countList.add(1);
 
         CardUtil.selectionSort(countList);
@@ -50,7 +50,7 @@ public class CardUtilTest {
 
     @Test
     public void testSortCase02() {
-        List<Integer> countList = new ArrayList();
+        List<Integer> countList = new ArrayList<>();
         countList.add(1);
         countList.add(2);
 
@@ -62,7 +62,7 @@ public class CardUtilTest {
 
     @Test
     public void testSortCase03() {
-        List<Integer> countList = new ArrayList();
+        List<Integer> countList = new ArrayList<>();
         countList.add(1);
         countList.add(2);
         countList.add(3);

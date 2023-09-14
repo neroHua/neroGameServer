@@ -19,26 +19,22 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class WebSocketServer {
 
-    private static AtomicLong onLineUserCount = new AtomicLong();
+    private static final AtomicLong onLineUserCount = new AtomicLong();
 
-    private static Map<String, Session> userSessionMap = new ConcurrentHashMap();
+    private static final Map<String, Session> userSessionMap = new ConcurrentHashMap<>();
 
-    private static long addSession(String userId, Session session) {
+    private static void addSession(String userId, Session session) {
         userSessionMap.put(userId, session);
         if (!userSessionMap.containsKey(userId)) {
             onLineUserCount.incrementAndGet();
         }
-
-        return onLineUserCount.get();
     }
 
-    private static long removeSession(String userId, Session session) {
+    private static void removeSession(String userId, Session session) {
         if (!userSessionMap.containsKey(userId)) {
             onLineUserCount.decrementAndGet();
         }
         userSessionMap.remove(userId, session);
-
-        return onLineUserCount.get();
     }
 
     @OnOpen
@@ -55,13 +51,13 @@ public class WebSocketServer {
 
     @OnError
     public void onError(Session session, @PathParam("userId") String userId, Throwable error) {
-        log.info("user: {} error", userId);
+        log.info("user: {} error session: {}", userId, session);
         error.printStackTrace();
     }
 
     @OnMessage
     public void onMessage(Session session, @PathParam("userId") String userId, String message) {
-        log.info("user: {} message: {}", userId, message);
+        log.info("user: {} message: {} session: {}", userId, message, session);
     }
 
     public void sendMessage(String userId, BaseMessage baseMessage) {
