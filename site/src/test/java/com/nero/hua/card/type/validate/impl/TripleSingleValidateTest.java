@@ -2,11 +2,13 @@ package com.nero.hua.card.type.validate.impl;
 
 import com.nero.hua.card.type.validate.PlayCardTypeValidate;
 import com.nero.hua.enumeration.CardEnumeration;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TripleSingleValidateTest {
 
@@ -20,7 +22,7 @@ public class TripleSingleValidateTest {
         cardEnumerationList.add(CardEnumeration.CARD_306);
         cardEnumerationList.add(CardEnumeration.CARD_406);
         cardEnumerationList.add(CardEnumeration.CARD_103);
-        Assert.assertFalse(playCardTypeValidate.match(cardEnumerationList));
+        assertFalse(playCardTypeValidate.match(cardEnumerationList));
     }
 
     @Test
@@ -32,7 +34,7 @@ public class TripleSingleValidateTest {
         cardEnumerationList.add(CardEnumeration.CARD_206);
         cardEnumerationList.add(CardEnumeration.CARD_306);
         cardEnumerationList.add(CardEnumeration.CARD_103);
-        Assert.assertTrue(playCardTypeValidate.match(cardEnumerationList));
+        assertTrue(playCardTypeValidate.match(cardEnumerationList));
     }
 
     @Test
@@ -43,6 +45,6 @@ public class TripleSingleValidateTest {
         cardEnumerationList.add(CardEnumeration.CARD_106);
         cardEnumerationList.add(CardEnumeration.CARD_206);
         cardEnumerationList.add(CardEnumeration.CARD_306);
-        Assert.assertFalse(playCardTypeValidate.match(cardEnumerationList));
+        assertFalse(playCardTypeValidate.match(cardEnumerationList));
     }
 }

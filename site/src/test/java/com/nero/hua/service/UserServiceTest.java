@@ -2,17 +2,18 @@ package com.nero.hua.service;
 
 import com.nero.hua.SiteApplication;
 import com.nero.hua.model.user.RegisterRequest;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @ActiveProfiles("dev")
 @SpringBootTest(classes = { SiteApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class UserServiceTest {
 
     @Autowired
@@ -25,7 +26,7 @@ public class UserServiceTest {
         registerRequest.setPassword("abc123");
         registerRequest.setNickName("nickName");
         Boolean result = userService.register(registerRequest);
-        Assert.assertTrue("注册失败", result);
+        assertTrue("注册失败", result);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class UserServiceTest {
 //        loginRequest.setUserId("testUser001");
 //        loginRequest.setPassword("abc123");
 //        Boolean login = userService.login(loginRequest);
-//        Assert.isTrue(login, "用户1应该登录成功");
+//        isTrue(login, "用户1应该登录成功");
     }
 
 }
