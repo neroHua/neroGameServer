@@ -1,5 +1,6 @@
 package com.nero.hua.service;
 
+import com.nero.hua.SiteApplication;
 import com.nero.hua.model.user.RegisterRequest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @ActiveProfiles("dev")
-@SpringBootTest
+@SpringBootTest(classes = { SiteApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
 

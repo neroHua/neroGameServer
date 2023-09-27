@@ -1,5 +1,6 @@
 package com.nero.hua.dao;
 
+import com.nero.hua.SiteApplication;
 import com.nero.hua.bean.UserDO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +13,7 @@ import org.springframework.util.Assert;
 import java.util.Date;
 
 @ActiveProfiles("dev")
-@SpringBootTest
+@SpringBootTest(classes = { SiteApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @RunWith(SpringRunner.class)
 public class UserDAOTest {
 
@@ -28,17 +29,13 @@ public class UserDAOTest {
         userDO.setCreateUserId(0L);
         userDO.setUpdateUserId(0L);
 
-
         userDO.setUserId("testCase001");
         userDO.setPassword("abc123");
         userDO.setNickName("nickName");
         userDAO.insertUser(userDO);
-    }
 
-    @Test
-    public void testSelectByUserId() {
-        UserDO userDO = userDAO.selectByUserId("testUser001");
-        Assert.notNull(userDO, "用户1不应该为null");
+        UserDO userDOQuery = userDAO.selectByUserId("testCase001");
+        Assert.notNull(userDOQuery, "用户1不应该为null");
     }
 
 }
