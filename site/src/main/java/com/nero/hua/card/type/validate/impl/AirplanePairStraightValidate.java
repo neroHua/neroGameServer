@@ -50,7 +50,7 @@ public class AirplanePairStraightValidate extends PlayCardTypeImpl implements Pl
                 return Boolean.FALSE;
             }
         }
-        for (int i = lastTripleStartIndex + 3; i < formatPlayCardEnumerationList.size(); i += 2) {
+        for (int i = lastTripleStartIndex + 3; i < formatPlayCardEnumerationList.size() - 2; i += 2) {
             if (formatPlayCardEnumerationList.get(i).getValue() != formatPlayCardEnumerationList.get(i + 2).getValue() + 1) {
                 return Boolean.FALSE;
             }

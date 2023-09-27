@@ -29,7 +29,6 @@
 		<lombok.verison>1.18.20</lombok.verison>
 		<fastJSON.version>1.2.47</fastJSON.version>
 		<h2.version>1.4.200</h2.version>
-		<junit.version>4.13.2</junit.version>
 		<java-jwt.version>3.8.3</java-jwt.version>
 	</properties>
 
@@ -66,12 +65,6 @@
 				<artifactId>h2</artifactId>
 				<version>${h2.version}</version>
 				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
