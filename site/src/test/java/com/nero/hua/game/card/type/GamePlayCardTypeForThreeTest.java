@@ -129,7 +129,7 @@ public class GamePlayCardTypeForThreeTest {
         cardList.add(CardEnumeration.CARD_203);
 
         PlayCardTypeEnumeration playCardTypeEnumeration = new GamePlayCardTypeForThree().generalCalculatePlayCardType(cardList);
-        assertEquals(PlayCardTypeEnumeration.AIRPLANE_PAIR, playCardTypeEnumeration);
+        assertEquals(PlayCardTypeEnumeration.AIRPLANE_PAIR_STRAIGHT, playCardTypeEnumeration);
 
         cardList.add(0, CardEnumeration.CARD_115);
         cardList.add(0, CardEnumeration.CARD_215);

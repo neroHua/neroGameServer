@@ -22,7 +22,7 @@ public class UserServiceTest {
     @Test
     public void testRegister() {
         RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setUserId("testCase001");
+        registerRequest.setUserId("testCase002");
         registerRequest.setPassword("abc123");
         registerRequest.setNickName("nickName");
         Boolean result = userService.register(registerRequest);
